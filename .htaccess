@@ -1,4 +1,2 @@
 RewriteEngine on
-
-
-RewriteRule ^.*$ router.php
+RewriteRule ^.*$ System/Router.php
