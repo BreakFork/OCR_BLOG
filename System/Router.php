@@ -10,9 +10,7 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
-echo 'Re, c\'est mon router' . '<br>';
 
-$uri = $_SERVER['REQUEST_URI'];
-$displayUri = explode('?' , $uri );
+$path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
 
-if (isset($_SERVER['REQUEST_URI'])) { echo $displayUri[0]; }
+echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
