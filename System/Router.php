@@ -11,6 +11,14 @@
  * @link     http://blog.local/
  */
 
-$path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
+$path = $_SERVER['REQUEST_URI'];
 
-echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
+if ($path === "/")
+    {
+        require_once('../Controllers/PageController.php');
+    }
+else
+     {
+        $path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
+        echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
+    }
