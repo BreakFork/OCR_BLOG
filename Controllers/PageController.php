@@ -20,18 +20,11 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
+
 class PageController
 {
-    /**
-     * Controller method for the home page
-     *
-     * @return void
-     */
     public function homePage(): void
     {
         require_once('../Views/index.html');
     }
 }
-
-$home = new PageController();
-$home->homePage();

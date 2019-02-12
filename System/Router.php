@@ -10,15 +10,16 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
+require_once('../Controllers/PageController.php');
 
-$path = $_SERVER['REQUEST_URI'];
+$path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
 
 if ($path === "/")
     {
-        require_once('../Controllers/PageController.php');
+        $home = new PageController;
+        $home->homePage();
     }
 else
-     {
-        $path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
+    {
         echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
     }
