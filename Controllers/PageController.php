@@ -23,6 +23,11 @@
 
 class PageController
 {
+    /**
+     * Controller method for the home page
+     *
+     * @return void
+     */
     public function homePage(): void
     {
         require_once('../Views/index.html');
