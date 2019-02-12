@@ -1,5 +1,11 @@
 <?php
-function autoload($class) {
-    require $class . '.php';
-}
-spl_autoload_register('autoload');
+spl_autoload_register(
+    /**
+    * @param $class
+    */
+    function($class)
+    {
+        $class = str_replace('Controllers\\', 'Controllers/', $class);
+        include_once("../" . $class . ".php");
+    }
+);

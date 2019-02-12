@@ -18,7 +18,7 @@ $path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
 
 if ($path === "/")
     {
-        $home = new \Controllers\PageController();
+        $home = new PageController();
         $home->homePage();
     }
 else
