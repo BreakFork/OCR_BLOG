@@ -22,15 +22,23 @@
  */
 namespace Controllers;
 
+require_once 'vendor/autoload.php';
+
+$loader = new Twig_Loader_Filesystem('Views/index.html');
+
+$twig = new Twig_Environment($loader, [
+    'cache' => 'compilation_cache',
+]);
+
 class PageController
 {
     /**
      * Controller method for the home page
      *
-     * @return void
+     * @return index.html.twig
      */
-    public function homePage(): void
+    public function homePage()
     {
-        require_once('../Views/index.html');
+        $twig->load('index.html');
     }
 }
