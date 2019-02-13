@@ -27,12 +27,13 @@ class PageController
     /**
      * Controller method for the home page
      *
-     * @return index.html.twig
+     * @return void
      */
 
-    public function homePage()
+    public function homePage():void
     {
-        $twig->load('index.html');
+        $loader = new Twig_Loader_Filesystem('/Views');
+        $twig = new Twig_Environment($loader, ['cache' => false,]);
+        echo $twig->render->load('index.html');
     }
 }
-$pc = new PageController{}

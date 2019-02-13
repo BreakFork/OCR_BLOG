@@ -16,9 +16,6 @@ require_once ('../vendor/autoload.php');
 use Controllers\PageController;
 
 $path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
-$loader = new Twig_Loader_Filesystem('../Views/index.html');
-$twig = new Twig_Environment($loader, ['cache' => false,]);
-
 
 if ($path === "/")
     {
