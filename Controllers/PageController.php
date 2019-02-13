@@ -20,6 +20,7 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
+namespace Controllers;
 
 class PageController
 {

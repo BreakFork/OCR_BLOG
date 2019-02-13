@@ -10,7 +10,9 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
-require_once('../Controllers/PageController.php');
+require_once('autoload.php');
+
+use Controllers\PageController;
 
 $path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
 
