@@ -22,6 +22,9 @@
  */
 namespace Controllers;
 
+use Twig_Environment;
+use Twig_Loader_Filesystem;
+
 class PageController
 {
     /**
