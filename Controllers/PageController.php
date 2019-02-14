@@ -22,6 +22,9 @@
  */
 namespace Controllers;
 
+use Twig_Environment;
+use Twig_Loader_Filesystem;
+
 class PageController
 {
     /**
@@ -29,8 +32,10 @@ class PageController
      *
      * @return void
      */
-    public function homePage(): void
+    public function homePage():void
     {
-        require_once('../Views/index.html');
+        $loader = new Twig_Loader_Filesystem('../Views');
+        $twig = new Twig_Environment($loader, ['cache' => false]);
+        echo $twig->render('index.html.twig');
     }
 }

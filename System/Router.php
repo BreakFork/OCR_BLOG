@@ -10,7 +10,8 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
-require_once('autoload.php');
+require_once ('autoload.php');
+require_once ('../vendor/autoload.php');
 
 use Controllers\PageController;
 
