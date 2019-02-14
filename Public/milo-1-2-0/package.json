@@ -1,0 +1,56 @@
+{
+  "name": "milo",
+  "version": "1.2.0",
+  "description": "Milo – Magazine/Blog Theme",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.js",
+    "watch": "webpack -p --config webpack.config.js --watch",
+    "start": "webpack-dev-server --config webpack.config.js"
+  },
+  "author": "Paul Laros <support@bootlab.io>",
+  "private": true,
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "IE 10"
+  ],
+  "devDependencies": {
+    "@babel/core": "7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/preset-env": "7.2.3",
+    "@babel/register": "7.0.0",
+    "autoprefixer": "9.4.3",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "8.0.4",
+    "copy-webpack-plugin": "4.6.0",
+    "cross-env": "5.2.0",
+    "css-loader": "2.1.0",
+    "eslint": "5.11.1",
+    "expose-loader": "0.7.5",
+    "file-loader": "3.0.1",
+    "filemanager-webpack-plugin": "2.0.5",
+    "hard-source-webpack-plugin": "0.13.1",
+    "mini-css-extract-plugin": "0.5.0",
+    "node-sass": "4.11.0",
+    "optimize-css-assets-webpack-plugin": "5.0.1",
+    "postcss-loader": "3.0.0",
+    "resolve-url-loader": "3.0.0",
+    "sass-loader": "7.1.0",
+    "script-loader": "0.7.2",
+    "style-loader": "0.23.1",
+    "tempusdominus-core": "5.0.3",
+    "uglifyjs-webpack-plugin": "2.1.1",
+    "url-loader": "1.1.2",
+    "webpack": "4.18.1",
+    "webpack-cli": "3.1.2",
+    "webpack-dev-server": "3.1.14"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.6.3",
+    "bootstrap": "4.2.1",
+    "jquery": "3.3.1",
+    "medium-editor": "5.23.3",
+    "popper.js": "1.14.6",
+    "timeago.js": "3.0.2"
+  }
+}
