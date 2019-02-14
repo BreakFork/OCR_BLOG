@@ -29,11 +29,10 @@ class PageController
      *
      * @return void
      */
-
     public function homePage():void
     {
-        $loader = new Twig_Loader_Filesystem('/Views');
-        $twig = new Twig_Environment($loader, ['cache' => false,]);
-        echo $twig->render->load('index.html');
+        $loader = new Twig_Loader_Filesystem('../Views');
+        $twig = new Twig_Environment($loader, ['cache' => false]);
+        echo $twig->render('index.html.twig');
     }
 }
