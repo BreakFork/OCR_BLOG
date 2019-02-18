@@ -1,2 +1,7 @@
 RewriteEngine on
+RewriteRule  ^.*\.css$   -  [L,NC]
+RewriteRule  ^.*\.jpg$   -  [L,NC]
+RewriteRule  ^.*\.png$   -  [L,NC]
+RewriteRule  ^.*\.js$   -  [L,NC]
+RewriteRule  ^.*\.pdf$   -  [L,NC]
 RewriteRule ^.*$ System/Router.php
