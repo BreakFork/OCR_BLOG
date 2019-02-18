@@ -1,9 +1,0 @@
-.media {
-  background: lighten($gray-200, 3%);
-  padding: 1rem;
-  @include border-radius($card-inner-border-radius);
-}
-
-.media-body .media {
-  padding: 0rem;
-}
