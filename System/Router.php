@@ -10,19 +10,17 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
-require_once ('autoload.php');
-require_once ('../vendor/autoload.php');
+require_once('autoload.php');
+require_once('../vendor/autoload.php');
 
 use Controllers\PageController;
 
-$path = explode('?' , $_SERVER['REQUEST_URI'], 2 )[0];
+$path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
-if ($path === "/")
-    {
+if ($path === "/") {
         $home = new PageController();
         $home->homePage();
     }
-else
-    {
+    else {
         echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
     }
