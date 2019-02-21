@@ -20,7 +20,6 @@ $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 if ($path === "/") {
         $home = new PageController();
         $home->homePage();
-    }
-    else {
-        echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
-    }
+} else {
+    echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
+}
