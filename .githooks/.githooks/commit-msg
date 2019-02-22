@@ -1,5 +1,0 @@
-#!/bin/sh
-
-php vendor/squizlabs/php_codesniffer/bin/phpcs --ignore=*/vendor/*,*/public/* --standard=PSR1,PSR2 ./
-
-echo ' [PHP CodeSniffer OK]' > ""
