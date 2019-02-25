@@ -1,10 +1,10 @@
 #!/bin/sh
 
-result=$(vendor/squizlabs/php_codesniffer/bin/phpcs --ignore=*/vendor/*,*/public/* --standard=PSR1,PSR2 ./)
+#result=$(vendor/squizlabs/php_codesniffer/bin/phpcs --ignore=*/vendor/*,*/public/* --standard=PSR1,PSR2 ./)
 
-if [[ result ]]; then
-    vendor/squizlabs/php_codesniffer/bin/phpcs --ignore=*/vendor/*,*/public/* --standard=PSR1,PSR2 ./
-    exit 1
-else
-    echo $(cat "$1")' [PHP CodeSniffer OK]' > "$1"
-fi
+#if [[ result ]]; then
+    #vendor/squizlabs/php_codesniffer/bin/phpcs --ignore=*/vendor/*,*/public/* --standard=PSR1,PSR2 ./
+    #exit 1
+#else
+    #echo $(cat "$1")' [PHP CodeSniffer OK]' > "$1"
+#fi
