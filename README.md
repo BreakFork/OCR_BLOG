@@ -1,1 +1,1 @@
-# Blog OCR 
+# Blog OCR
