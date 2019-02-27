@@ -26,17 +26,21 @@ namespace Controllers;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-class TwigRender
+class TwigRenderController
 {
-    protected static $page;
+    protected $loader;
+    protected $twig;
+    protected $page;
+    protected $arg;
 
-    /**
-     * Controller method render the page
-     */
-    protected static function renderPage()
+    public function __construct()
     {
-        $loader = new Twig_Loader_Filesystem('../Views');
-        $twig = new Twig_Environment($loader, ['cache' => false]);
-        echo $twig->render(self::$page . '.html.twig');
+        $this->loader = new Twig_Loader_Filesystem('../Views');
+        $this->twig = new Twig_Environment($this->loader, ['cache' => false]);
+    }
+
+    protected function render(string $page, $args=null)
+    {
+        return $this->twig->render($page, $args);
     }
 }
