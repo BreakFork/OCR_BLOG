@@ -26,20 +26,15 @@ namespace Controllers;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-class TwigRenderController
+class Controller
 {
-    protected $loader;
-    protected $twig;
-    protected $page;
-    protected $arg;
-
     public function __construct()
     {
         $this->loader = new Twig_Loader_Filesystem('../Views');
         $this->twig = new Twig_Environment($this->loader, ['cache' => false]);
     }
 
-    protected function render(string $page, $args=null)
+    protected function render(string $page, $args=array())
     {
         return $this->twig->render($page, $args);
     }

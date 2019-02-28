@@ -23,13 +23,13 @@
 
 namespace Controllers;
 
-class PageController extends TwigRenderController
+class PageController extends Controller
 {
     /**
      * Controller method for the home page
      */
     public function homePage()
     {
-        echo $this->render("index.html.twig", null);
+        echo $this->render("index.html.twig");
     }
 }
