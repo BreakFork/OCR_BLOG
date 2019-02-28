@@ -27,11 +27,18 @@ use Twig_Loader_Filesystem;
  */
 class Controller
 {
+    /**
+     * @var Twig_Loader_Filesystem
+     * Load the template files (contain the directory path)
+     */
     protected $loader;
+    /**
+     * @var Twig_Environment
+     */
     protected $twig;
 
     /**
-     * Instantiates new controller.
+     * Instantiates new Controller.
      */
     public function __construct()
     {
@@ -40,12 +47,12 @@ class Controller
     }
 
     /**
-     * This is what my method is doing
+     * Render the Twig template.
      *
      * @param string $page
      * @param array $args
      *
-     * @return string this is what my method returns
+     * @return name of the view
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
