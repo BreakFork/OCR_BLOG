@@ -11,6 +11,8 @@
  * @link     http://blog.local/
  */
 
+namespace Controllers;
+
 /**
  * Controller for the static pages of the site
  *
@@ -21,18 +23,12 @@
  * @link     http://blog.local/
  */
 
-namespace Controllers;
-
 class PageController extends Controller
 {
     /**
      * Controller method for the home page
      *
      * @return void
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function homePage():void
     {
