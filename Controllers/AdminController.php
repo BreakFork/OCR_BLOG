@@ -32,6 +32,6 @@ class AdminController extends Controller
      */
     public function loginPage():void
     {
-        echo $this->render("login.html.twig");
+        echo $this->render("admin/login.html.twig");
     }
 }

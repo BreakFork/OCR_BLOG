@@ -21,7 +21,7 @@ $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 if ($path === "/") {
         $home = new PageController();
         $home->homePage();
-} elseif ($path === "/admin") {
+} elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
 } else {
