@@ -11,6 +11,8 @@
  * @link     http://blog.local/
  */
 
+namespace Controllers;
+
 /**
  * Controller for the static pages of the site
  *
@@ -21,12 +23,7 @@
  * @link     http://blog.local/
  */
 
-namespace Controllers;
-
-use Twig_Environment;
-use Twig_Loader_Filesystem;
-
-class PageController
+class PageController extends Controller
 {
     /**
      * Controller method for the home page
@@ -35,8 +32,6 @@ class PageController
      */
     public function homePage():void
     {
-        $loader = new Twig_Loader_Filesystem('../Views');
-        $twig = new Twig_Environment($loader, ['cache' => false]);
-        echo $twig->render('index.html.twig');
+        echo $this->render("index.html.twig");
     }
 }
