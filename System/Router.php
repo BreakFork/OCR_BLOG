@@ -14,12 +14,16 @@ require_once('autoload.php');
 require_once('../vendor/autoload.php');
 
 use Controllers\PageController;
+use Controllers\AdminController;
 
 $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
 if ($path === "/") {
         $home = new PageController();
         $home->homePage();
+} elseif ($path === "/admin") {
+        $log = new AdminController();
+        $log->loginPage();
 } else {
     echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
 }
