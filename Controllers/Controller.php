@@ -28,11 +28,15 @@ use Twig_Loader_Filesystem;
 class Controller
 {
     /**
+     * Contains the Twig template loader (required for Twig rendering)
+     *
      * @var Twig_Loader_Filesystem contains the Twig template loader (required for Twig rendering)
      */
     protected $loader;
 
     /**
+     * Object called the environment, store configuration and extension
+     *
      * @var Twig_Environment the Twig Environment (required for Twig rendering)
      */
     protected $twig;
