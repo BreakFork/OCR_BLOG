@@ -42,7 +42,7 @@ class User
     /**
      * Instantiates a new user
      *
-     * @param string $username the name of the user to set
+     * @param string $username     the name of the user to set
      * @param string $passwordHash the hash of the password to set
      */
     public function __construct(string $username, string $passwordHash)
@@ -63,17 +63,17 @@ class User
     {
         if ($username == "h.boulangue" && $password == "test") {
             return new User($username, self::hashPassword($password));
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
-     * Return the password of the user
+     * Returns the hash of the given password
      *
-     * @param string $password the password of the user
+     * @param string  $password the password to hash
      *
-     * @return string $password the password of the user
+     * @return string the the hash of the given password
      */
     private static function hashPassword(string $password): string
     {
@@ -81,9 +81,9 @@ class User
     }
 
     /**
-     * Return the name of the user
+     * Returns the name of the user
      *
-     * @return string username
+     * @return string the name of the user
      */
     public function getUsername(): string
     {
@@ -91,7 +91,7 @@ class User
     }
 
     /**
-     * Return the setting of the name of the user
+     * Returns the setting of the name of the user
      *
      * @param string $username
      */
@@ -101,7 +101,7 @@ class User
     }
 
     /**
-     * Return the hash of the password's user
+     * Returns the hash of the password's user
      *
      * @return string passwordHash
      */
@@ -111,9 +111,9 @@ class User
     }
 
     /**
-     * Return the setting of the hash of the password
+     * Sets the hash of the password of the user
      *
-     * @param string $passwordHash
+     * @param string the hash of the password of the user to set
      */
     public function setPasswordHash(string $passwordHash)
     {
