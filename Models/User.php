@@ -4,8 +4,8 @@
  *
  * PHP Version 7.2
  *
- * @category Model
- * @package  Model
+ * @category Models
+ * @package  Models
  * @author   Hervé Boulangué <h.boulangue@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
@@ -14,10 +14,10 @@
 namespace Models;
 
 /**
- * Model for login validation
+ * Model for user
  *
- * @category Model
- * @package  Model
+ * @category Models
+ * @package  Models
  * @author   Hervé Boulangué <h.boulangue@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
@@ -25,67 +25,98 @@ namespace Models;
 
 class User
 {
-    private static $_user;
     /**
-     * First argument of the static method getUser()
+     * The name of the user
      *
-     * @var $_username
+     * @var string $username the name of the user
      */
-    private static $_username = "toto";
+    private $username;
 
     /**
-     * Second argument of the static method getUser()
+     * The hash of the password
      *
-     * @var $_passwordhash
+     * @var string $passwordhash the hash of the password
      */
-    private static $_passwordHash = "pass";
+    private $passwordHash;
 
     /**
-     * This method compares argument's user with class attributes
+     * Instantiates a new user
      *
-     * @param $userName
-     * @param $passwordHash
-     *
-     * @return mixed
+     * @param string $username the name of the user to set
+     * @param string $passwordHash the hash of the password to set
      */
-    public static function getUser($userName, $passwordHash)
+    public function __construct(string $username, string $passwordHash)
     {
-        if ($_POST["pseudo"] = $userName && $_POST["password"] = $passwordHash) {
-            self::$_user = new User();
+        $this->setUsername($username);
+        $this->setPasswordHash($passwordHash);
+    }
+
+    /**
+     * Returns a user with the given username and password or null if it doesn't exist
+     *
+     * @param string $username the name of the user to return
+     * @param string $password the password of the user to return
+     *
+     * @return User|null a user with the given username and password or null if it doesn't exist
+     */
+    public static function getUser(string $username, string $password): ?User
+    {
+        if ($username == "h.boulangue" && $password == "test") {
+            return new User($username, self::hashPassword($password));
         } else {
-            return NULL;
+            return null;
         }
     }
 
     /**
-     * @return mixed
+     * Return the password of the user
+     *
+     * @param string $password the password of the user
+     *
+     * @return string $password the password of the user
      */
-    public static function getUsername()
+    private static function hashPassword(string $password): string
     {
-        return self::$_username;
+        return $password;
     }
 
     /**
-     * @param mixed $username
+     * Return the name of the user
+     *
+     * @return string username
      */
-    public static function setUsername($username)
+    public function getUsername(): string
     {
-        self::$_username = $username;
+        return $this->username;
     }
 
     /**
-     * @return mixed
+     * Return the setting of the name of the user
+     *
+     * @param string $username
      */
-    public static function getPasswordHash()
+    public function setUsername(string $username)
     {
-        return self::$_passwordHash;
+        $this->username = $username;
     }
 
     /**
-     * @param mixed $passwordHash
+     * Return the hash of the password's user
+     *
+     * @return string passwordHash
      */
-    public static function setPasswordHash($passwordHash)
+    public function getPasswordHash(): string
     {
-        self::$_passwordHash = $passwordHash;
+        return $this->passwordHash;
+    }
+
+    /**
+     * Return the setting of the hash of the password
+     *
+     * @param string $passwordHash
+     */
+    public function setPasswordHash(string $passwordHash)
+    {
+        $this->passwordHash = $passwordHash;
     }
 }
