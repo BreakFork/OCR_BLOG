@@ -35,7 +35,7 @@ class User
     /**
      * The hash of the password
      *
-     * @var string $passwordhash the hash of the password
+     * @var string $passwordHash the hash of the password
      */
     private $passwordHash;
 
