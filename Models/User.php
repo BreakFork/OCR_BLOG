@@ -73,7 +73,7 @@ class User
      *
      * @param string  $password the password to hash
      *
-     * @return string the the hash of the given password
+     * @return string the hash of the given password
      */
     private static function hashPassword(string $password): string
     {
@@ -91,7 +91,7 @@ class User
     }
 
     /**
-     * Returns the setting of the name of the user
+     * Sets the name of the user
      *
      * @param string $username
      */
@@ -103,7 +103,7 @@ class User
     /**
      * Returns the hash of the password's user
      *
-     * @return string passwordHash
+     * @return string the hash of the password of the user
      */
     public function getPasswordHash(): string
     {
