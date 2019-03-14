@@ -41,7 +41,7 @@ class AdminController extends Controller
 
             if ($user != null) {
                 $errorMessage = "Merci";
-                $_SESSION['user'] = "HRVB";
+                $_SESSION['user'] = $_POST['username'];
                 if(isset($_SESSION['user'])) {
                     echo $_SESSION['user'];
                 }
@@ -51,6 +51,21 @@ class AdminController extends Controller
             }
         }
 
+        echo $this->render("admin/login.html.twig",
+            array(
+                "error" => $errorMessage
+            )
+        );
+    }
+
+    /**
+     * Controller method for logout
+     *
+     * @return void
+     */
+    public function logoutPage(): void
+    {
+        session_unset();
         echo $this->render("admin/login.html.twig",
             array(
                 "error" => $errorMessage

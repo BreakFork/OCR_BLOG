@@ -26,6 +26,9 @@ if ($path === "/") {
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
+} elseif ($path === "/admin/logout") {
+        $logout = new AdminController();
+        $logout->logoutPage();
 } else {
     echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
 }
