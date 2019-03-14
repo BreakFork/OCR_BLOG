@@ -24,6 +24,7 @@ if ($path === "/") {
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
+        session_start();
 } else {
     echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
 }

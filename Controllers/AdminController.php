@@ -33,6 +33,7 @@ class AdminController extends Controller
     public function loginPage(): void
     {
         $errorMessage = null;
+
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -40,6 +41,8 @@ class AdminController extends Controller
 
             if ($user != null) {
                 $errorMessage = "Merci";
+                session_start();
+                $_SESSION['User'] = "HRVB";
             }
             else {
                 $errorMessage = "Vos identifiants sont incorrects. Veuillez réessayer.";

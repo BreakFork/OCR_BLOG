@@ -20,7 +20,7 @@
                         <h4 class="mt-5 mb-5 text-center">Formulaire de connexion</h4>
 
                         {% if error %}
-                            <p class="text-center text-justify mt-3">{{ error }}</p>
+                            <p class="text-center text-justify my-5">{{ error }}</p>
                         {% endif %}
 
                         <form class="d-flex flex-column" action="" method="post">
@@ -34,7 +34,7 @@
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe">
                             </div>
 
-                            <button type="button" class="btn btn-primary rounded-pill shadow w-25 align-self-end" name="connection" value="Envoyer">Envoyer</button>
+                            <button type="submit" class="btn btn-primary rounded-pill shadow w-25 align-self-end" name="connection" value="Envoyer">Envoyer</button>
 
                         </form>
 
