@@ -41,8 +41,10 @@ class AdminController extends Controller
 
             if ($user != null) {
                 $errorMessage = "Merci";
-                session_start();
-                $_SESSION['User'] = "HRVB";
+                $_SESSION['user'] = "HRVB";
+                if(isset($_SESSION['user'])) {
+                    echo $_SESSION['user'];
+                }
             }
             else {
                 $errorMessage = "Vos identifiants sont incorrects. Veuillez réessayer.";

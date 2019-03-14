@@ -16,6 +16,8 @@ require_once('../vendor/autoload.php');
 use Controllers\PageController;
 use Controllers\AdminController;
 
+session_start();
+
 $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
 if ($path === "/") {
@@ -24,7 +26,6 @@ if ($path === "/") {
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
-        session_start();
 } else {
     echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
 }
