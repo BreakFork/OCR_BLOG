@@ -66,10 +66,6 @@ class AdminController extends Controller
     public function logoutPage(): void
     {
         session_unset();
-        echo $this->render("admin/login.html.twig",
-            array(
-                "error" => $errorMessage
-            )
-        );
+        header("Location:" . $_SERVER['HTTP_REFERER']);
     }
 }
