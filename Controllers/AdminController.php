@@ -68,6 +68,6 @@ class AdminController extends Controller
     public function logoutPage(): void
     {
         session_unset();
-        header("Location:" . $_SERVER["HTTP_REFERER"]);
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
 }
