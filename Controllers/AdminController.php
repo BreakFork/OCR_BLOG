@@ -33,17 +33,18 @@ class AdminController extends Controller
     public function loginPage(): void
     {
         $errorMessage = null;
+        $displayAdminName = null;
 
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
             $user = User::getUser($username, $password);
 
-            if ($user != null) {
+            if ($user !== null) {
                 $errorMessage = "Merci";
                 $_SESSION['user'] = $_POST['username'];
                 if(isset($_SESSION['user'])) {
-                    echo $_SESSION['user'];
+                    $displayAdminName = $_SESSION['user'];
                 }
             }
             else {
@@ -53,7 +54,8 @@ class AdminController extends Controller
 
         echo $this->render("admin/login.html.twig",
             array(
-                "error" => $errorMessage
+                "error" => $errorMessage,
+                "monitoring" => $displayAdminName
             )
         );
     }
@@ -66,6 +68,6 @@ class AdminController extends Controller
     public function logoutPage(): void
     {
         session_unset();
-        header("Location:" . $_SERVER['HTTP_REFERER']);
+        header("Location:" . $_SERVER["HTTP_REFERER"]);
     }
 }
