@@ -41,7 +41,6 @@ class AdminController extends Controller
 
             if ($user !== null) {
                 $_SESSION['user'] = $_POST['username'];
-                $_SESSION['timestamp'] = time();
                 header("Location: /admin");
             }
             else {
@@ -59,12 +58,12 @@ class AdminController extends Controller
      */
     public function adminPage()
     {
-        $displayAdminName = null;
+        $user = null;
 
-        if(isset($_SESSION['user'])) {
-            $displayAdminName = $_SESSION['user'];
+        if (isset($_SESSION['user'])) {
+            $user = $_SESSION['user'];
         }
-        echo $this->render("admin/admin.html.twig", array("monitoring" => $displayAdminName));
+        echo $this->render("admin/admin.html.twig", array("user" => $user));
     }
 
     /**
@@ -77,6 +76,4 @@ class AdminController extends Controller
         session_unset();
         header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
-
-
 }
