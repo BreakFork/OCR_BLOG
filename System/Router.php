@@ -15,6 +15,7 @@ require_once('../vendor/autoload.php');
 
 use Controllers\PageController;
 use Controllers\AdminController;
+use Controllers\AdminConnectedController;
 
 session_start();
 
@@ -29,6 +30,9 @@ if ($path === "/") {
 } elseif ($path === "/admin/logout") {
         $logout = new AdminController();
         $logout->logoutPage();
+} elseif ($path === "/admin/admin") {
+        $adminConnected = new AdminConnectedController();
+        $adminConnected->adminPage();
 } else {
     echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
 }

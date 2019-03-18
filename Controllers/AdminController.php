@@ -41,11 +41,8 @@ class AdminController extends Controller
             $user = User::getUser($username, $password);
 
             if ($user !== null) {
-                $errorMessage = "Merci";
                 $_SESSION['user'] = $_POST['username'];
-                if(isset($_SESSION['user'])) {
-                    $displayAdminName = $_SESSION['user'];
-                }
+                header("Location: /admin/admin");
             }
             else {
                 $errorMessage = "Vos identifiants sont incorrects. Veuillez réessayer.";
@@ -55,7 +52,6 @@ class AdminController extends Controller
         echo $this->render("admin/login.html.twig",
             array(
                 "error" => $errorMessage,
-                "monitoring" => $displayAdminName
             )
         );
     }
