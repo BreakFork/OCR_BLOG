@@ -62,4 +62,26 @@ class Controller
     {
         return $this->twig->render($page, $args);
     }
+
+    /**
+     * Controller method to redirect to login page if connection stops
+     *
+     * @return void
+     */
+    public function redirectToLoginIfNotConnected()
+    {
+        if(isset($_SESSION['user'])) {
+            if(isset($_SESSION['timestamp'])) {
+                if($_SESSION['timestamp'] + 600 > time()) {
+                    $_SESSION['timestamp'] = time();
+                } else {
+                    session_destroy();
+                    header("Location: " . $_SERVER['admin/login.html.twig']);
+                }
+            } else {
+                $_SESSION['timestamp'] = time();
+            }
+        }
+    }
+
 }

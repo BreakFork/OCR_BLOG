@@ -33,7 +33,6 @@ class AdminController extends Controller
     public function loginPage(): void
     {
         $errorMessage = null;
-        $displayAdminName = null;
 
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = $_POST['username'];
@@ -42,18 +41,30 @@ class AdminController extends Controller
 
             if ($user !== null) {
                 $_SESSION['user'] = $_POST['username'];
-                header("Location: /admin/admin");
+                $_SESSION['timestamp'] = time();
+                header("Location: /admin");
             }
             else {
                 $errorMessage = "Vos identifiants sont incorrects. Veuillez réessayer.";
             }
         }
 
-        echo $this->render("admin/login.html.twig",
-            array(
-                "error" => $errorMessage,
-            )
-        );
+        echo $this->render("admin/login.html.twig", array("error" => $errorMessage,));
+    }
+
+    /**
+     * Controller method for the admin page for admin
+     *
+     * @return void
+     */
+    public function adminPage()
+    {
+        $displayAdminName = null;
+
+        if(isset($_SESSION['user'])) {
+            $displayAdminName = $_SESSION['user'];
+        }
+        echo $this->render("admin/admin.html.twig", array("monitoring" => $displayAdminName));
     }
 
     /**
@@ -66,4 +77,6 @@ class AdminController extends Controller
         session_unset();
         header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
+
+
 }
