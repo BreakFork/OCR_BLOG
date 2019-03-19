@@ -63,13 +63,15 @@ class Controller
      */
     protected function render(string $page, $args = array()):string
     {
+        $args["user"] = isset($_SESSION["user"]) ? $_SESSION["user"] : null;
+
         return $this->twig->render($page, $args);
     }
 
     /**
-     * Controller method to redirect to login page if connection stops
+     * Redirects to login page if the user is not connected, or returns the connected user
      *
-     * @return void
+     * @return User|void the user if it is connected
      */
     public function redirectToLoginIfNotConnected()
     {
@@ -77,5 +79,6 @@ class Controller
             header("Location: " . $_SERVER['admin/login.html.twig']);
             exit;
         }
+        return $_SESSION['user'];
     }
 }

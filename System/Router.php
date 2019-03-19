@@ -10,12 +10,11 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
-require_once('autoload.php');
-require_once('../vendor/autoload.php');
+require_once __DIR__ . '/' . 'autoload.php';
+require_once __DIR__ . '/' . '../vendor/autoload.php';
 
 use Controllers\PageController;
 use Controllers\AdminController;
-use Controllers\AdminConnectedController;
 
 session_start();
 

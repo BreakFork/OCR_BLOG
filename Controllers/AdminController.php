@@ -56,14 +56,11 @@ class AdminController extends Controller
      *
      * @return void
      */
-    public function adminPage()
+    public function adminPage(): void
     {
-        $user = null;
+        $user = redirectToLoginIfNotConnected();
 
-        if (isset($_SESSION['user'])) {
-            $user = $_SESSION['user'];
-        }
-        echo $this->render("admin/admin.html.twig", array("user" => $user));
+        echo $this->render("admin/admin.html.twig");
     }
 
     /**

@@ -23,13 +23,21 @@ namespace Models;
  * @link     http://blog.local/
  */
 
+/**
+ * @Entity @Table(name="User")
+ **/
 class User
 {
+    /** @Id @Column(type="integer") @GeneratedValue **/
+    protected $id;
+
     /**
      * The name of the user
      *
      * @var string $username the name of the user
      */
+
+    /** @Column(type="string") **/
     private $username;
 
     /**
@@ -37,6 +45,8 @@ class User
      *
      * @var string $passwordHash the hash of the password
      */
+
+    /** @Column(type="string") **/
     private $passwordHash;
 
     /**
