@@ -29,17 +29,17 @@ class Database{
     /**
      * The username to be used for access to database
      */
-    private const DB_USERNAME = "p5_dasymfony";
+    private const DB_USERNAME = "new_ocr_blog";
 
     /**
      * The password to be used for access to database
      */
-    private const DB_PASSWORD = "p5_dasymfony";
+    private const DB_PASSWORD = "new_ocr_blog";
 
     /**
      * The name of the database to be used
      */
-    private const DB_NAME = "p5_dasymfony";
+    private const DB_NAME = "new_ocr_blog";
 
     /**
      * @var EntityManager|null the Doctrine EntityManager

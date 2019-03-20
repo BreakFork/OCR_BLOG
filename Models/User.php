@@ -21,32 +21,34 @@ namespace Models;
  * @author   Hervé Boulangué <h.boulangue@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
- */
-
-/**
+ *
  * @Entity @Table(name="User")
- **/
+ */
 class User
 {
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /**
+     * User's id into User table
+     *
+     * @Id @Column(type="integer") @GeneratedValue
+     */
     protected $id;
 
     /**
      * The name of the user
      *
      * @var string $username the name of the user
+     *
+     * @Column(type="string")
      */
-
-    /** @Column(type="string") **/
     private $username;
 
     /**
      * The hash of the password
      *
      * @var string $passwordHash the hash of the password
+     *
+     * @Column(type="string")
      */
-
-    /** @Column(type="string") **/
     private $passwordHash;
 
     /**
@@ -88,6 +90,26 @@ class User
     private static function hashPassword(string $password): string
     {
         return $password;
+    }
+
+    /**
+     * Returns the user's id for the database
+     *
+     * @return integer the id of the user
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the id of the user
+     *
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
