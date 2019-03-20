@@ -58,8 +58,6 @@ class AdminController extends Controller
      */
     public function adminPage(): void
     {
-        $user = redirectToLoginIfNotConnected();
-
         echo $this->render("admin/admin.html.twig");
     }
 
