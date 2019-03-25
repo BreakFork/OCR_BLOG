@@ -10,11 +10,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="https://www.linkedin.com/in/hervé-boulangué-392915b1/"><i class="fab fa-linkedin"></i></a>
             </li>
-            {% if user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/logout">Déconnexion</a>
-                </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fas fa-gavel"></i>&nbsp;&nbsp;Mentions légales</a>
             </li>
@@ -24,4 +19,34 @@
             Tous droits réservés
         </div>
     </div>
+    {% if user %}
+        <nav class="navbar navbar-expand-md navbar-light bg-success">
+
+            <div class="container">
+
+                <button class="navbar-toggler order-2 order-md-1" type="button" data-toggle="collapse" data-target="#navbar-admin" aria-controls="navbar-admin" aria-expanded="false" aria-label="Toggle navigation admin" style="border: none;">
+                    <span><i class="fas fa-bars text-dark fa-lg"></i></span>
+                </button>
+
+                <a class="navbar-brand text-uppercase  order-0 order-md-0" href="index.html"><i class="fa fa-lg fa-user"></i></a>
+
+                <span class="px-3 border border-success rounded-pill">{{ user }} est connecté</span>
+
+                <div class="collapse navbar-collapse order-4 order-md-0" id="navbar-admin">
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="page-edition.html">Editer un article</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/logout">Déconnexion</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+    {% endif %}
 </footer>
