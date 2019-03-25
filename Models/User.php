@@ -49,7 +49,7 @@ class User
      *
      * @Column(type="string")
      */
-    private $passwordHash;
+    private static $passwordHash = '$2y$10$4F0MRbwFJsntVtHmuf3luOVH5Tj05KBqgDUSqSAc3UYI.OHuN.rj6';
 
     /**
      * Instantiates a new user
@@ -85,11 +85,15 @@ class User
      *
      * @param string  $password the password to hash
      *
-     * @return string the hash of the given password
+     * @return string|null the hash of the given password or null if it doesn't match
      */
     private static function hashPassword(string $password): string
     {
-        return $password;
+        if (password_verify('test', self::getPasswordHash())) {
+            return $password;
+        }
+
+        return null;
     }
 
     /**
@@ -137,9 +141,9 @@ class User
      *
      * @return string the hash of the password of the user
      */
-    public function getPasswordHash(): string
+    public static function getPasswordHash(): string
     {
-        return $this->passwordHash;
+        return self::$passwordHash;
     }
 
     /**
@@ -149,6 +153,6 @@ class User
      */
     public function setPasswordHash(string $passwordHash)
     {
-        $this->passwordHash = $passwordHash;
+        self::$passwordHash = $passwordHash;
     }
 }

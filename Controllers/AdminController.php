@@ -12,6 +12,7 @@
  */
 
 namespace Controllers;
+
 use Models\User;
 
 /**
@@ -42,8 +43,7 @@ class AdminController extends Controller
             if ($user !== null) {
                 $_SESSION['user'] = $_POST['username'];
                 header("Location: /admin");
-            }
-            else {
+            } else {
                 $errorMessage = "Vos identifiants sont incorrects. Veuillez réessayer.";
             }
         }

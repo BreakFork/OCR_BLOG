@@ -25,7 +25,8 @@ use Doctrine\ORM\EntityManager;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
-class Database{
+class Database
+{
     /**
      * The username to be used for access to database
      */
@@ -50,8 +51,9 @@ class Database{
      * Returns the Doctrine Entity Manager of the application
      * @return EntityManager|null the Entity Manager or null if an error occurs
      */
-    public static function getEntityManager(): ?EntityManager {
-        if(self::$entityManager == null){
+    public static function getEntityManager(): ?EntityManager
+    {
+        if (self::$entityManager == null) {
             $paths = array(__DIR__ . "/" . "../Models");
             $isDevMode = false;
 
