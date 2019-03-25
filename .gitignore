@@ -1,3 +1,4 @@
 error.log
 vendor/
 composer.lock
+.idea
