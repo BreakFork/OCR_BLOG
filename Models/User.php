@@ -12,6 +12,7 @@
  */
 
 namespace Models;
+
 use System\Database;
 
 /**
@@ -50,7 +51,7 @@ class User
      *
      * @Column(type="string")
      */
-    private static $passwordHash = '$2y$10$4F0MRbwFJsntVtHmuf3luOVH5Tj05KBqgDUSqSAc3UYI.OHuN.rj6';
+    private static $passwordHash;
 
     /**
      * Instantiates a new user
@@ -89,22 +90,6 @@ class User
                 return $user;
             }
         }
-        return null;
-    }
-
-    /**
-     * Returns the hash of the given password
-     *
-     * @param string  $password the password to hash
-     *
-     * @return string|null the hash of the given password or null if it doesn't match
-     */
-    private static function hashPassword(string $password): string
-    {
-        if (password_verify('test', self::getPasswordHash())) {
-            return $password;
-        }
-
         return null;
     }
 
