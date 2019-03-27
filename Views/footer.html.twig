@@ -10,11 +10,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="https://www.linkedin.com/in/hervé-boulangué-392915b1/"><i class="fab fa-linkedin"></i></a>
             </li>
-            {% if user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/logout">Déconnexion</a>
-                </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fas fa-gavel"></i>&nbsp;&nbsp;Mentions légales</a>
             </li>
@@ -24,4 +19,19 @@
             Tous droits réservés
         </div>
     </div>
+        {% if user %}
+            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between bg-warning">
+                <div class="w-auto d-flex  justify-content-center">
+                    <span class="nav-link text-white border border-white rounded-pill">{{ user }} est connecté</span>
+                </div>
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pageeditionarticle">Éditer un article</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
 </footer>
