@@ -1,6 +1,6 @@
 <?php
 /**
- * User class file
+ * Post class file
  *
  * PHP Version 7.2
  *
@@ -38,9 +38,11 @@ class Post
     /**
      * The route of the post
      *
-     * @Id @Column(type="string") @GeneratedValue
+     * @var string $route the route of the post
+     *
+     * @Column(type="string")
      */
-    protected $route;
+    protected $postRoute;
 
     /**
      * The title of the post
@@ -72,15 +74,59 @@ class Post
     /**
      * The date of the last modification of the post
      *
-     * @var DateTime $postDateModified the content of the post
+     * @var date $postDateModified the date of the last modification of the post
      *
-     * @Column(type="DateTime")
+     * @Column(type="date")
      */
     protected $postDateModified;
 
+    /**
+     * Instantiates a new post
+     *
+     * @param string   $postRoute        the route of the post to set
+     * @param string   $postTitle        the title of the post to set
+     * @param string   $postAuthor       the author of the post to set
+     * @param string   $postContent      the content of the post to set
+     * @param date     $postDateModified the date of the last modification of the post to set
+     */
+    public function __construct(string $postRoute, string $postTitle, string $postAuthor, string $postContent, DateTime $postDateModified)
+    {
+        $this->setPostRoute($postRoute);
+        $this->setPostTitle($postTitle);
+        $this->setPostAuthor($postAuthor);
+        $this->setPostContent($postContent);
+        $this->setPostDateModified($postDateModified);
+    }
 
+    /**
+     * Returns a post created into the database
+     *
+     * @param string   $postRoute        the route of the post to return
+     * @param string   $postTitle        the title of the post to return
+     * @param string   $postAuthor       the author of the post to return
+     * @param string   $postContent      the content of the post to return
+     * @param date     $postDateModified the date of the last modification of the post to return
+     *
+     * @return Post
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public static function createPost(string $postRoute, string $postTitle, string $postAuthor, string $postContent, DateTime $postDateModified): ?Post
+    {
+       $postRepository = Database::getEntityManager()->getRepository("Models\\Post");
+       $post = $postRepository->persist(
+           array(
+               "route" => $postRoute,
+               "title" => $postTitle,
+               "author" => $postAuthor,
+               "content" => $postContent,
+               "postDateModified" => $postDateModified
+           )
+       );
+       $postRepository->flush();
 
-
+       return $post;
+    }
 
     /**
      * Returns the post's id for the database
@@ -109,7 +155,7 @@ class Post
      */
     public function getRoute()
     {
-        return $this->route;
+        return $this->postRoute;
     }
 
     /**
@@ -117,9 +163,9 @@ class Post
      *
      * @param string $route
      */
-    public function setRoute($route): void
+    public function setPostRoute($postRoute): void
     {
-        $this->route = $route;
+        $this->postRoute = $postRoute;
     }
 
     /**

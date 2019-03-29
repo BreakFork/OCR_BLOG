@@ -71,8 +71,20 @@ class AdminController extends Controller
     {
         $message = null;
 
-        if (!isset($_POST['title']) && !isset($_POST['author']) && !isset($_POST['content'])) {
-            $message = "Veuillez remplir tous les champs";
+        if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content'])) {
+            $postTitle = $_POST['title'];
+            $postRoute = $_POST['route'];
+            $postAuthor = $_POST['author'];
+            $postContent = $_POST['content'];
+            $postDateModified = CURRENT_DATE();
+
+            $post = Post::createPost($postTitle, $postRoute, $postAuthor, $postContent, $postDateModified);
+
+            if ($post !== null) {
+                $message = "L'article à été enregistré";
+            }
+        } else {
+            $message = "Veuillez remplir tous les champs.";
         }
 
         echo $this->render("admin/postEdit.html.twig", array("message" => $message,));
