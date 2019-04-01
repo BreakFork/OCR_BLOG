@@ -74,58 +74,47 @@ class Post
     /**
      * The date of the last modification of the post
      *
-     * @var date $postDateModified the date of the last modification of the post
+     * @var int $lastUpdateTimestamp the date of the last modification of the post
      *
-     * @Column(type="date")
+     * @Column(type="int")
      */
-    protected $postDateModified;
+    protected $lastUpdateTimestamp;
 
     /**
      * Instantiates a new post
      *
-     * @param string   $postRoute        the route of the post to set
-     * @param string   $postTitle        the title of the post to set
-     * @param string   $postAuthor       the author of the post to set
-     * @param string   $postContent      the content of the post to set
-     * @param date     $postDateModified the date of the last modification of the post to set
+     * @param string   $postRoute           the route of the post to set
+     * @param string   $postTitle           the title of the post to set
+     * @param string   $postAuthor          the author of the post to set
+     * @param string   $postContent         the content of the post to set
+     * @param int      $lastUpdateTimestamp the date of the last modification of the post to set
      */
-    public function __construct(string $postRoute, string $postTitle, string $postAuthor, string $postContent, DateTime $postDateModified)
+    public function __construct(string $postRoute, string $postTitle, string $postAuthor, string $postContent, int $lastUpdateTimestamp)
     {
         $this->setPostRoute($postRoute);
         $this->setPostTitle($postTitle);
         $this->setPostAuthor($postAuthor);
         $this->setPostContent($postContent);
-        $this->setPostDateModified($postDateModified);
+        $this->setLastUpdateTimestamp($lastUpdateTimestamp);
     }
 
     /**
      * Returns a post created into the database
      *
-     * @param string   $postRoute        the route of the post to return
-     * @param string   $postTitle        the title of the post to return
-     * @param string   $postAuthor       the author of the post to return
-     * @param string   $postContent      the content of the post to return
-     * @param date     $postDateModified the date of the last modification of the post to return
-     *
      * @return Post
      *
      * @throws \Doctrine\ORM\ORMException
      */
-    public static function createPost(string $postRoute, string $postTitle, string $postAuthor, string $postContent, DateTime $postDateModified): ?Post
+    public function persist(): ?Post
     {
-       $postRepository = Database::getEntityManager()->getRepository("Models\\Post");
-       $post = $postRepository->persist(
-           array(
-               "route" => $postRoute,
-               "title" => $postTitle,
-               "author" => $postAuthor,
-               "content" => $postContent,
-               "postDateModified" => $postDateModified
-           )
-       );
-       $postRepository->flush();
+        $post = null;
 
-       return $post;
+        $postRepository = Database::getEntityManager();
+
+        $postRepository->persist($this);
+        $postRepository->flush();
+
+        return $post;
     }
 
     /**
@@ -231,20 +220,20 @@ class Post
     /**
      * Returns the date of the last modification of the post
      *
-     * @return DateTime the date of the last modification of the post
+     * @return int the date of the last modification of the post
      */
-    public function getPostDateModified(): DateTime
+    public function getLastUpdateTimestamp(): int
     {
-        return $this->postDateModified;
+        return $this->lastUpdateTimestamp;
     }
 
     /**
      * Sets the date of the last modification of the post
      *
-     * @param DateTime $postDateModified
+     * @param int $lastUpdateTimestamp
      */
-    public function setPostDateModified(DateTime $postDateModified): void
+    public function setLastUpdateTimestamp(int $lastUpdateTimestamp): void
     {
-        $this->postDateModified = $postDateModified;
+        $this->lastUpdateTimestamp = $lastUpdateTimestamp;
     }
 }

@@ -76,14 +76,16 @@ class AdminController extends Controller
             $postRoute = $_POST['route'];
             $postAuthor = $_POST['author'];
             $postContent = $_POST['content'];
-            $postDateModified = CURRENT_DATE();
-
-            $post = Post::createPost($postTitle, $postRoute, $postAuthor, $postContent, $postDateModified);
+            $lastUpdateTimestamp = time();
++
+            $post = new Post($postTitle, $postRoute, $postAuthor, $postContent, $lastUpdateTimestamp);
 
             if ($post !== null) {
                 $message = "L'article à été enregistré";
+                $post = new Post($postRoute, $postTitle, $postAuthor, $postContent, $lastUpdateTimestamp);
+                $post->persist();
             }
-        } else {
+        } else if (!isset($_POST['title']) || !isset($_POST['route']) || !isset($_POST['author']) || !isset($_POST['content'])) {
             $message = "Veuillez remplir tous les champs.";
         }
 
