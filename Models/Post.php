@@ -107,9 +107,9 @@ class Post
      */
     public function persist()
     {
-        $postRepository = Database::getEntityManager();
-        $postRepository->persist($this);
-        $postRepository->flush();
+        $entityManager = Database::getEntityManager();
+        $entityManager->persist($this);
+        $entityManager->flush();
     }
 
     /**
