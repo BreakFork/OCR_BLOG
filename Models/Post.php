@@ -67,7 +67,7 @@ class Post
      *
      * @var string $postContent the content of the post
      *
-     * @Column(type="string")
+     * @Column(type="text")
      */
     protected $postContent;
 
@@ -101,11 +101,11 @@ class Post
     /**
      * Returns a post created into the database
      *
-     * @return Post|null
+     * @return void
      *
      * @throws \Doctrine\ORM\ORMException
      */
-    public function persist(): ?Post
+    public function persist()
     {
         $postRepository = Database::getEntityManager();
         $postRepository->persist($this);
