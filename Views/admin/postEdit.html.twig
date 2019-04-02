@@ -6,7 +6,7 @@
         <div class="container">
 
             <div class="row">
-                <form class="col-md-8 mx-auto d-flex flex-column" action="" method="post">
+                <form class="col-md-8 mx-auto d-flex flex-column" action="" method="post" id="postForm">
                     <div class="text-center">
                         <h2>Nouvel article</h2>
                         {% if message %}
@@ -17,23 +17,23 @@
 
                     <div class="form-group">
                         <label for="title">Titre</label>
-                        <input type="text" class="form-control form-control-lg" id="title" placeholder="Titre de l'article">
+                        <input type="text" class="form-control form-control-lg" name="title" placeholder="Titre de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="route">Route</label>
-                        <input type="text" class="form-control form-control-lg" id="route" placeholder="Route de l'article">
+                        <input type="text" class="form-control form-control-lg" name="route" placeholder="Route de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="author">Auteur</label>
-                        <input type="text" class="form-control form-control-lg" id="author" placeholder="Auteur de l'article">
+                        <input type="text" class="form-control form-control-lg" name="author" placeholder="Auteur de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="content">Contenu</label>
                         <div class="editor">
-                            <div class="js-editable">
+                            <div class="js-editable" id="content">
                                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque <a href="#">penatibus</a> et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, <strong>pretium quis, sem.</strong></p>
 
                                 <p>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
@@ -49,10 +49,20 @@
                         </div>
                     </div>
 
+                    <input type="hidden" name="content" id="contentField" value="" />
+
                     <button type="submit" class="btn btn-warning rounded-pill shadow w-25 align-self-end" name="publish" value="Publier">Publier</button>
                 </form>
             </div>
         </div>
 
     </main>
+
+    <script language="JavaScript">
+        $(document).ready(function() {
+            $("#postForm").submit(function(event){
+                $("#contentField").val($("#content").html());
+            });
+        });
+    </script>
 {% endblock %}

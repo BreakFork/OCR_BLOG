@@ -72,23 +72,23 @@ class AdminController extends Controller
         $message = null;
 
         if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content'])) {
+
             $postTitle = $_POST['title'];
             $postRoute = $_POST['route'];
             $postAuthor = $_POST['author'];
             $postContent = $_POST['content'];
             $lastUpdateTimestamp = time();
-+
-            $post = new Post($postTitle, $postRoute, $postAuthor, $postContent, $lastUpdateTimestamp);
 
-            if ($post !== null) {
-                $message = "L'article à été enregistré";
-                $post = new Post($postRoute, $postTitle, $postAuthor, $postContent, $lastUpdateTimestamp);
+            $post = new Post($postRoute, $postTitle, $postAuthor, $postContent, $lastUpdateTimestamp);
+
+            try {
                 $post->persist();
+                $message = "L'article à été enregistré";
             }
-        } else if (!isset($_POST['title']) || !isset($_POST['route']) || !isset($_POST['author']) || !isset($_POST['content'])) {
-            $message = "Veuillez remplir tous les champs.";
+            catch(\Exception $e){
+                $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+            }
         }
-
         echo $this->render("admin/postEdit.html.twig", array("message" => $message,));
     }
 

@@ -74,9 +74,9 @@ class Post
     /**
      * The date of the last modification of the post
      *
-     * @var int $lastUpdateTimestamp the date of the last modification of the post
+     * @var integer $lastUpdateTimestamp the date of the last modification of the post
      *
-     * @Column(type="int")
+     * @Column(type="integer")
      */
     protected $lastUpdateTimestamp;
 
@@ -87,7 +87,7 @@ class Post
      * @param string   $postTitle           the title of the post to set
      * @param string   $postAuthor          the author of the post to set
      * @param string   $postContent         the content of the post to set
-     * @param int      $lastUpdateTimestamp the date of the last modification of the post to set
+     * @param integer  $lastUpdateTimestamp the date of the last modification of the post to set
      */
     public function __construct(string $postRoute, string $postTitle, string $postAuthor, string $postContent, int $lastUpdateTimestamp)
     {
@@ -101,20 +101,15 @@ class Post
     /**
      * Returns a post created into the database
      *
-     * @return Post
+     * @return Post|null
      *
      * @throws \Doctrine\ORM\ORMException
      */
     public function persist(): ?Post
     {
-        $post = null;
-
         $postRepository = Database::getEntityManager();
-
         $postRepository->persist($this);
         $postRepository->flush();
-
-        return $post;
     }
 
     /**
@@ -220,7 +215,7 @@ class Post
     /**
      * Returns the date of the last modification of the post
      *
-     * @return int the date of the last modification of the post
+     * @return integer the date of the last modification of the post
      */
     public function getLastUpdateTimestamp(): int
     {
@@ -230,7 +225,7 @@ class Post
     /**
      * Sets the date of the last modification of the post
      *
-     * @param int $lastUpdateTimestamp
+     * @param integer $lastUpdateTimestamp
      */
     public function setLastUpdateTimestamp(int $lastUpdateTimestamp): void
     {
