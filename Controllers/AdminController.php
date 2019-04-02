@@ -14,6 +14,7 @@
 namespace Controllers;
 
 use Models\User;
+use Models\Post;
 
 /**
  * Controller for the admin pages of the site
@@ -59,6 +60,36 @@ class AdminController extends Controller
     public function adminPage(): void
     {
         echo $this->render("admin/admin.html.twig");
+    }
+
+    /**
+     * Controller method for the admin to edit a post
+     *
+     * @return void
+     */
+    public function postEdit(): void
+    {
+        $message = null;
+
+        if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content'])) {
+
+            $postTitle = $_POST['title'];
+            $postRoute = $_POST['route'];
+            $postAuthor = $_POST['author'];
+            $postContent = $_POST['content'];
+            $lastUpdateTimestamp = time();
+
+            $post = new Post($postRoute, $postTitle, $postAuthor, $postContent, $lastUpdateTimestamp);
+
+            try {
+                $post->persist();
+                $message = "L'article à été enregistré";
+            }
+            catch(\Exception $e){
+                $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+            }
+        }
+        echo $this->render("admin/postEdit.html.twig", array("message" => $message,));
     }
 
     /**

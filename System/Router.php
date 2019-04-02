@@ -26,6 +26,9 @@ if ($path === "/") {
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
+} elseif ($path === "/admin/postEdit") {
+        $editPost = new AdminController();
+        $editPost->postEdit();
 } elseif ($path === "/admin/logout") {
         $logout = new AdminController();
         $logout->logoutPage();
