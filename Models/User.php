@@ -81,6 +81,7 @@ class User
                 "username" => $username
             )
         );
+
         if($user != null){
             if(password_verify($password, $user->getPasswordHash())){
                 /**

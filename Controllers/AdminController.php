@@ -62,12 +62,17 @@ class AdminController extends Controller
         echo $this->render("admin/admin.html.twig");
     }
 
+
     /**
      * Controller method for the admin to edit a post
      *
-     * @return void
+     * @param int|null $postId
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function postEdit(): void
+    public function postEdit(int $postId = null): void
     {
         $message = null;
 
@@ -88,7 +93,17 @@ class AdminController extends Controller
             catch(\Exception $e){
                 $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
             }
+        } elseif ($postId != null) {
+
+            $post = Post::getPost($postId);
+
+
+            $_POST['title'] = $post->getPostTitle();
+            $_POST['route'] = $post->getRoute();
+            $_POST['author'] = $post->getPostAuthor();
+            $_POST['content'] = $post->getPostContent();
         }
+
         echo $this->render("admin/postEdit.html.twig", array("message" => $message,));
     }
 
