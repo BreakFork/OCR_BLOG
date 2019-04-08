@@ -77,6 +77,7 @@ class AdminController extends Controller
         $message = null;
 
         $post = null;
+
         $postTitle = null;
         $postRoute = null;
         $postAuthor = null;
@@ -84,6 +85,7 @@ class AdminController extends Controller
 
         if($postId != null) {
             $post = Post::getPost($postId);
+
             $postTitle = $post->getPostTitle();
             $postRoute = $post->getRoute();
             $postAuthor = $post->getPostAuthor();
@@ -106,18 +108,18 @@ class AdminController extends Controller
                 }
             }
 
-                $post->setPostTitle($postTitle);
-                $post->setPostRoute($postRoute);
-                $post->setPostAuthor($postAuthor);
-                $post->setPostContent($postContent);
-                $post->setLastUpdateTimestamp($lastUpdateTimestamp);
+            $post->setPostTitle($postTitle);
+            $post->setPostRoute($postRoute);
+            $post->setPostAuthor($postAuthor);
+            $post->setPostContent($postContent);
+            $post->setLastUpdateTimestamp($lastUpdateTimestamp);
 
-                try {
-                    $post->persist();
-                    $postId = $post->getId();
-                    $message = "L'article à été enregistré";
-                } catch (\Exception $e) {
-                    $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+            try {
+                $post->persist();
+                $postId = $post->getId();
+                $message = "L'article à été enregistré";
+            } catch (\Exception $e) {
+                $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
                 }
             }
 

@@ -7,6 +7,8 @@
 
             <div class="row">
                 <form class="col-md-8 mx-auto d-flex flex-column" action="" method="post" id="postForm">
+                    <input type="hidden" name="postId" value="{% if postId %}{{ postId }}{% endif %}" />
+
                     <div class="text-center">
                         <h2>Nouvel article</h2>
                         {% if message %}
