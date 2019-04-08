@@ -12,29 +12,29 @@
                         {% if message %}
                             <p class="text-center text-justify my-5">{{ message }}</p>
                         {% endif %}
-                        <hr />
+                        <hr/>
                     </div>
 
                     <div class="form-group">
                         <label for="title">Titre</label>
-                        <input type="text" class="form-control form-control-lg" name="title" placeholder="Titre de l'article">
+                        <input type="text" class="form-control form-control-lg" name="title" value="{% if postTitle %}{{ postTitle }}{% endif %}" placeholder="Titre de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="route">Route</label>
-                        <input type="text" class="form-control form-control-lg" name="route" placeholder="Route de l'article">
+                        <input type="text" class="form-control form-control-lg" name="route" value="{% if postRoute %}{{ postRoute }}{% endif %}" placeholder="Route de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="author">Auteur</label>
-                        <input type="text" class="form-control form-control-lg" name="author" placeholder="Auteur de l'article">
+                        <input type="text" class="form-control form-control-lg" name="author" value="{% if postAuthor %}{{ postAuthor }}{% endif %}" placeholder="Auteur de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="content">Contenu</label>
                         <div class="editor">
                             <div class="js-editable" id="content">
-
+                                {% if postContent %}{{ postContent|raw }}{% endif %}
                             </div>
                         </div>
                     </div>

@@ -24,18 +24,12 @@ $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 if ($path === "/") {
         $home = new PageController();
         $home->homePage();
-} elseif ($path === "/postList") {
-        $list = new PageController();
-        $list->postList();
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
 } elseif (preg_match ( '/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
         $editPost = new AdminController();
         $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
-} elseif ($path === "/admin/postModify") {
-        $modifyPost = new AdminController();
-        $modifyPost->postModify();
 } elseif ($path === "/admin/logout") {
         $logout = new AdminController();
         $logout->logoutPage();

@@ -81,24 +81,6 @@ class Post
     protected $lastUpdateTimestamp;
 
     /**
-     * Instantiates a new post
-     *
-     * @param string   $postRoute           the route of the post to set
-     * @param string   $postTitle           the title of the post to set
-     * @param string   $postAuthor          the author of the post to set
-     * @param string   $postContent         the content of the post to set
-     * @param integer  $lastUpdateTimestamp the date of the last modification of the post to set
-     */
-    public function __construct(string $postRoute, string $postTitle, string $postAuthor, string $postContent, int $lastUpdateTimestamp)
-    {
-        $this->setPostRoute($postRoute);
-        $this->setPostTitle($postTitle);
-        $this->setPostAuthor($postAuthor);
-        $this->setPostContent($postContent);
-        $this->setLastUpdateTimestamp($lastUpdateTimestamp);
-    }
-
-    /**
      * Returns a post created into the database
      *
      * @return void
@@ -111,7 +93,6 @@ class Post
         $entityManager->persist($this);
         $entityManager->flush();
     }
-
 
     /**
      * Returns a post object from DB selected by id
