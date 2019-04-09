@@ -62,16 +62,37 @@ class AdminController extends Controller
         echo $this->render("admin/admin.html.twig");
     }
 
+
     /**
      * Controller method for the admin to edit a post
      *
-     * @return void
+     * @param int|null $postId
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function postEdit(): void
+    public function postEdit(int $postId = null): void
     {
         $message = null;
 
-        if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content'])) {
+        $post = null;
+
+        $postTitle = null;
+        $postRoute = null;
+        $postAuthor = null;
+        $postContent = null;
+
+        if($postId != null) {
+            $post = Post::getPost($postId);
+
+            $postTitle = $post->getPostTitle();
+            $postRoute = $post->getRoute();
+            $postAuthor = $post->getPostAuthor();
+            $postContent = $post->getPostContent();
+        }
+
+        if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
 
             $postTitle = $_POST['title'];
             $postRoute = $_POST['route'];
@@ -79,17 +100,39 @@ class AdminController extends Controller
             $postContent = $_POST['content'];
             $lastUpdateTimestamp = time();
 
-            $post = new Post($postRoute, $postTitle, $postAuthor, $postContent, $lastUpdateTimestamp);
+            if ($post == null) {
+                if (!empty($_POST["postId"])) {
+                    $post = Post::getPost((int) $_POST["postId"]);
+                } else {
+                    $post = new Post();
+                }
+            }
+
+            $post->setPostTitle($postTitle);
+            $post->setPostRoute($postRoute);
+            $post->setPostAuthor($postAuthor);
+            $post->setPostContent($postContent);
+            $post->setLastUpdateTimestamp($lastUpdateTimestamp);
 
             try {
                 $post->persist();
+                $postId = $post->getId();
                 $message = "L'article à été enregistré";
-            }
-            catch(\Exception $e){
+            } catch (\Exception $e) {
                 $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+                }
             }
-        }
-        echo $this->render("admin/postEdit.html.twig", array("message" => $message,));
+
+            echo $this->render("admin/postEdit.html.twig",
+                array(
+                    "postId" => $postId,
+                    "message" => $message,
+                    "postTitle" => $postTitle,
+                    "postRoute" => $postRoute,
+                    "postAuthor" => $postAuthor,
+                    "postContent" => $postContent
+                    )
+            );
     }
 
     /**

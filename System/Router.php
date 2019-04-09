@@ -10,6 +10,7 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
+
 require_once __DIR__ . '/' . 'autoload.php';
 require_once __DIR__ . '/' . '../vendor/autoload.php';
 
@@ -26,9 +27,9 @@ if ($path === "/") {
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
-} elseif ($path === "/admin/postEdit") {
+} elseif (preg_match ( '/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
         $editPost = new AdminController();
-        $editPost->postEdit();
+        $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
 } elseif ($path === "/admin/logout") {
         $logout = new AdminController();
         $logout->logoutPage();
