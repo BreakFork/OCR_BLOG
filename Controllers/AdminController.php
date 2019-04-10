@@ -136,6 +136,23 @@ class AdminController extends Controller
     }
 
     /**
+     * Controller method to display the list of the posts in admin session
+     *
+     * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function postList(): void
+    {
+         $postList = array(Post::getPostList());
+//       var_dump($postList);
+
+        echo $this->render("admin/postList.html.twig", $postList);
+    }
+
+    /**
      * Controller method for logout
      *
      * @return void
