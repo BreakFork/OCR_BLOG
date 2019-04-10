@@ -146,10 +146,14 @@ class AdminController extends Controller
      */
     public function postList(): void
     {
-         $postList = array(Post::getPostList());
-//       var_dump($postList);
+         $postList = Post::getPostList();
+       //var_dump($postList);
 
-        echo $this->render("admin/postList.html.twig", $postList);
+        echo $this->render("admin/postList.html.twig",
+        array(
+            'postList' => $postList
+            )
+        );
     }
 
     /**

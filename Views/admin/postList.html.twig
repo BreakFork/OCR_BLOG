@@ -12,11 +12,11 @@
                             <li class="list-group-item">
                                 <article class="d-flex justify-content-between align-content-center">
 
-                                    <h3 class="card-title">Article : {{ post.postTitle }}</h3>
+                                    <h3 class="card-title">{{ post.postTitle }}</h3>
 
                                     <div class="d-flex justify-content-between">
 
-                                            <a class="nav-link text-uppercase text-white font-weight-bold m-auto bg-warning shadow" href="/admin/postEdit">Modifier</a>
+                                            <a class="nav-link text-uppercase text-white font-weight-bold m-auto bg-warning shadow" href="/admin/postEdit/{{ post.id }}">Modifier</a>
                                             <a class="nav-link text-uppercase text-white font-weight-bold m-auto bg-warning shadow border-left border-light" href="/admin/postRemoved">Effacer</a>
 
                                     </div>

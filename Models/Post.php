@@ -123,9 +123,9 @@ class Post
     /**
      * Returns a list of posts from DB
      *
-     * @return array
+     * @return array $postList the list of the posts
      */
-    public static function getPostList()
+    public static function getPostList(): array
     {
         $postRepository = Database::getEntityManager()->getRepository("Models\\Post");
         $postList = $postRepository->findAll();
