@@ -49,6 +49,6 @@ class PageController extends Controller
      */
     public function postList(): void
     {
-        echo $this->render("postList.html.twig");
+        echo $this->render("userPostList.html.twig");
     }
 }
