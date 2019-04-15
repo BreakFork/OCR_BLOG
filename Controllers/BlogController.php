@@ -35,53 +35,14 @@ class BlogController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function getUserPostList(): void
+    public function postList(): void
     {
-        $userPostList = Post::getPostList();
+        $postList = Post::getPostList();
 
-        echo $this->render("userPostList.html.twig",
+        echo $this->render("postList.html.twig",
             array(
-                'userPostList' => $userPostList
+                'userPostList' => $postList
             )
         );
     }
-
-    /**
-     * Controller method to display a post selected from the user's list of posts
-     *
-     * @return void
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
-    public function postFocus(): void
-    {
-        $postId = null;
-        $postTitle = null;
-        $postAuthor = null;
-        $postContent = null;
-        $lastUpdateTimestamp = null;
-
-        if (isset($_POST['postId'])) {
-            $postId = $_POST['postId'];
-
-            $post = Post::getPost($postId);
-
-            $postTitle = $post->getPostTitle();
-            $postAuthor = $post->getPostAuthor();
-            $postContent = $post->getPostContent();
-            $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
-        }
-
-        echo $this->render("postPageFocus.html.twig",
-            array(
-                "postTitle" => $postTitle,
-                "postAuthor" => $postAuthor,
-                "postContent" => $postContent,
-                "lastUpdateTimestamp" => $lastUpdateTimestamp
-            )
-        );
-    }
-
 }

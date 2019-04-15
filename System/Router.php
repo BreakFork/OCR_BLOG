@@ -25,15 +25,9 @@ $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 if ($path === "/") {
         $home = new PageController();
         $home->homePage();
-} elseif ($path === "/userPostList") {
+} elseif ($path === "/postList") {
         $userList = new BlogController();
-        $userList->getUserPostList();
-} elseif ($path === "/postPageFocus") {
-        $userSelection = new BlogController();
-        $userSelection->postFocus();
-} elseif ($path === "/admin/postList") {
-        $list = new AdminController();
-        $list->postList();
+        $userList->postList();
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
