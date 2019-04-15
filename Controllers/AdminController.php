@@ -74,52 +74,54 @@ class AdminController extends Controller
      */
     public function postEdit(int $postId = null): void
     {
-        $message = null;
+        if (isset($_SESSION['user'])) {
 
-        $post = null;
+            $message = null;
 
-        $postTitle = null;
-        $postRoute = null;
-        $postAuthor = null;
-        $postContent = null;
+            $post = null;
 
-        if($postId != null) {
-            $post = Post::getPost($postId);
+            $postTitle = null;
+            $postRoute = null;
+            $postAuthor = null;
+            $postContent = null;
 
-            $postTitle = $post->getPostTitle();
-            $postRoute = $post->getRoute();
-            $postAuthor = $post->getPostAuthor();
-            $postContent = $post->getPostContent();
-        }
+            if ($postId != null) {
+                $post = Post::getPost($postId);
 
-        if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
-
-            $postTitle = $_POST['title'];
-            $postRoute = $_POST['route'];
-            $postAuthor = $_POST['author'];
-            $postContent = $_POST['content'];
-            $lastUpdateTimestamp = time();
-
-            if ($post == null) {
-                if (!empty($_POST["postId"])) {
-                    $post = Post::getPost((int) $_POST["postId"]);
-                } else {
-                    $post = new Post();
-                }
+                $postTitle = $post->getPostTitle();
+                $postRoute = $post->getRoute();
+                $postAuthor = $post->getPostAuthor();
+                $postContent = $post->getPostContent();
             }
 
-            $post->setPostTitle($postTitle);
-            $post->setPostRoute($postRoute);
-            $post->setPostAuthor($postAuthor);
-            $post->setPostContent($postContent);
-            $post->setLastUpdateTimestamp($lastUpdateTimestamp);
+            if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
 
-            try {
-                $post->persist();
-                $postId = $post->getId();
-                $message = "L'article à été enregistré";
-            } catch (\Exception $e) {
-                $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+                $postTitle = $_POST['title'];
+                $postRoute = $_POST['route'];
+                $postAuthor = $_POST['author'];
+                $postContent = $_POST['content'];
+                $lastUpdateTimestamp = time();
+
+                if ($post == null) {
+                    if (!empty($_POST["postId"])) {
+                        $post = Post::getPost((int)$_POST["postId"]);
+                    } else {
+                        $post = new Post();
+                    }
+                }
+
+                $post->setPostTitle($postTitle);
+                $post->setPostRoute($postRoute);
+                $post->setPostAuthor($postAuthor);
+                $post->setPostContent($postContent);
+                $post->setLastUpdateTimestamp($lastUpdateTimestamp);
+
+                try {
+                    $post->persist();
+                    $postId = $post->getId();
+                    $message = "L'article à été enregistré";
+                } catch (\Exception $e) {
+                    $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
                 }
             }
 
@@ -131,8 +133,12 @@ class AdminController extends Controller
                     "postRoute" => $postRoute,
                     "postAuthor" => $postAuthor,
                     "postContent" => $postContent
-                    )
+                )
             );
+        } else {
+            session_unset();
+            header("Location: /admin");
+        }
     }
 
     /**
@@ -146,14 +152,19 @@ class AdminController extends Controller
      */
     public function postList(): void
     {
-         $postList = Post::getPostList();
-       //var_dump($postList);
+        if (isset($_SESSION['user'])) {
+            var_dump($_SESSION['user']);
+            $postList = Post::getPostList();
 
-        echo $this->render("admin/postList.html.twig",
-        array(
-            'postList' => $postList
-            )
-        );
+            echo $this->render("admin/postList.html.twig",
+                array(
+                    'postList' => $postList
+                )
+            );
+        } else {
+            session_unset();
+            header("Location: /admin");
+        }
     }
 
     /**
