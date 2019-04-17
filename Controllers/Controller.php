@@ -72,14 +72,13 @@ class Controller
     /**
      * Redirects to login page if the user is not connected, or returns the connected user
      *
-     * @return User|void the user if it is connected
+     * @return void
      */
     public function redirectToLoginIfNotConnected()
     {
         if (!isset($_SESSION['user'])) {
-            header("Location: " . $_SERVER['admin/login.html.twig']);
+            header("Location: /admin/login");
             exit;
         }
-        return $_SESSION['user'];
     }
 }

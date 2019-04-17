@@ -74,71 +74,67 @@ class AdminController extends Controller
      */
     public function postEdit(int $postId = null): void
     {
-        if (isset($_SESSION['user'])) {
+        $this->redirectToLoginIfNotConnected();
 
-            $message = null;
+        $message = null;
 
-            $post = null;
+        $post = null;
 
-            $postTitle = null;
-            $postRoute = null;
-            $postAuthor = null;
-            $postContent = null;
+        $postTitle = null;
+        $postRoute = null;
+        $postAuthor = null;
+        $postContent = null;
 
-            if ($postId != null) {
-                $post = Post::getPost($postId);
+        if ($postId != null) {
+            $post = Post::getPost($postId);
 
-                $postTitle = $post->getPostTitle();
-                $postRoute = $post->getRoute();
-                $postAuthor = $post->getPostAuthor();
-                $postContent = $post->getPostContent();
-            }
-
-            if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
-
-                $postTitle = $_POST['title'];
-                $postRoute = $_POST['route'];
-                $postAuthor = $_POST['author'];
-                $postContent = $_POST['content'];
-                $lastUpdateTimestamp = time();
-
-                if ($post == null) {
-                    if (!empty($_POST["postId"])) {
-                        $post = Post::getPost((int)$_POST["postId"]);
-                    } else {
-                        $post = new Post();
-                    }
-                }
-
-                $post->setPostTitle($postTitle);
-                $post->setPostRoute($postRoute);
-                $post->setPostAuthor($postAuthor);
-                $post->setPostContent($postContent);
-                $post->setLastUpdateTimestamp($lastUpdateTimestamp);
-
-                try {
-                    $post->persist();
-                    $postId = $post->getId();
-                    $message = "L'article à été enregistré";
-                } catch (\Exception $e) {
-                    $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
-                }
-            }
-
-            echo $this->render("admin/postEdit.html.twig",
-                array(
-                    "postId" => $postId,
-                    "message" => $message,
-                    "postTitle" => $postTitle,
-                    "postRoute" => $postRoute,
-                    "postAuthor" => $postAuthor,
-                    "postContent" => $postContent
-                )
-            );
-        } else {
-            session_unset();
-            header("Location: /admin");
+            $postTitle = $post->getPostTitle();
+            $postRoute = $post->getRoute();
+            $postAuthor = $post->getPostAuthor();
+            $postContent = $post->getPostContent();
         }
+
+        if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
+
+            $postTitle = $_POST['title'];
+            $postRoute = $_POST['route'];
+            $postAuthor = $_POST['author'];
+            $postContent = $_POST['content'];
+            $lastUpdateTimestamp = time();
+
+            if ($post == null) {
+                if (!empty($_POST["postId"])) {
+                    $post = Post::getPost((int)$_POST["postId"]);
+                } else {
+                    $post = new Post();
+                }
+            }
+
+            $post->setPostTitle($postTitle);
+            $post->setPostRoute($postRoute);
+            $post->setPostAuthor($postAuthor);
+            $post->setPostContent($postContent);
+            $post->setLastUpdateTimestamp($lastUpdateTimestamp);
+
+            try {
+                $post->persist();
+                $postId = $post->getId();
+                $message = "L'article à été enregistré";
+            } catch (\Exception $e) {
+                $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+            }
+        }
+
+        echo $this->render("admin/postEdit.html.twig",
+            array(
+                "postId" => $postId,
+                "message" => $message,
+                "postTitle" => $postTitle,
+                "postRoute" => $postRoute,
+                "postAuthor" => $postAuthor,
+                "postContent" => $postContent
+            )
+        );
     }
 
     /**
@@ -152,19 +148,15 @@ class AdminController extends Controller
      */
     public function postList(): void
     {
-        if (isset($_SESSION['user'])) {
-            var_dump($_SESSION['user']);
-            $postList = Post::getPostList();
+        $this->redirectToLoginIfNotConnected();
+
+        $postList = Post::getPostList();
 
             echo $this->render("admin/postList.html.twig",
                 array(
                     'postList' => $postList
                 )
             );
-        } else {
-            session_unset();
-            header("Location: /admin");
-        }
     }
 
     /**
