@@ -27,6 +27,9 @@ if ($path === "/") {
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
+} elseif ($path === "/admin/postList") {
+        $list = new AdminController();
+        $list->postList();
 } elseif (preg_match ( '/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
         $editPost = new AdminController();
         $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);

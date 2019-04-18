@@ -74,6 +74,8 @@ class AdminController extends Controller
      */
     public function postEdit(int $postId = null): void
     {
+        $this->redirectToLoginIfNotConnected();
+
         $message = null;
 
         $post = null;
@@ -83,7 +85,7 @@ class AdminController extends Controller
         $postAuthor = null;
         $postContent = null;
 
-        if($postId != null) {
+        if ($postId != null) {
             $post = Post::getPost($postId);
 
             $postTitle = $post->getPostTitle();
@@ -102,7 +104,7 @@ class AdminController extends Controller
 
             if ($post == null) {
                 if (!empty($_POST["postId"])) {
-                    $post = Post::getPost((int) $_POST["postId"]);
+                    $post = Post::getPost((int)$_POST["postId"]);
                 } else {
                     $post = new Post();
                 }
@@ -120,18 +122,40 @@ class AdminController extends Controller
                 $message = "L'article à été enregistré";
             } catch (\Exception $e) {
                 $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
-                }
             }
+        }
 
-            echo $this->render("admin/postEdit.html.twig",
+        echo $this->render("admin/postEdit.html.twig",
+            array(
+                "postId" => $postId,
+                "message" => $message,
+                "postTitle" => $postTitle,
+                "postRoute" => $postRoute,
+                "postAuthor" => $postAuthor,
+                "postContent" => $postContent
+            )
+        );
+    }
+
+    /**
+     * Controller method to display the list of the posts in admin session
+     *
+     * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function postList(): void
+    {
+        $this->redirectToLoginIfNotConnected();
+
+        $postList = Post::getPostList();
+
+            echo $this->render("admin/postList.html.twig",
                 array(
-                    "postId" => $postId,
-                    "message" => $message,
-                    "postTitle" => $postTitle,
-                    "postRoute" => $postRoute,
-                    "postAuthor" => $postAuthor,
-                    "postContent" => $postContent
-                    )
+                    'postList' => $postList
+                )
             );
     }
 
