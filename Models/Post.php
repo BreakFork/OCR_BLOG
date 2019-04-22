@@ -158,7 +158,7 @@ class Post
      *
      * @return string the route of the post
      */
-    public function getRoute()
+    public function getPostRoute()
     {
         return $this->postRoute;
     }
