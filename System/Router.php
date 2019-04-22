@@ -28,9 +28,6 @@ if ($path === "/") {
 } elseif ($path === "/postList") {
         $userList = new BlogController();
         $userList->postList();
-} elseif ($path === "/post") {
-        $userPost = new BlogController();
-        $userPost->post();
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
