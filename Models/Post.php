@@ -38,7 +38,7 @@ class Post
     /**
      * The route of the post
      *
-     * @var string $route the route of the post
+     * @var string $postRoute the route of the post
      *
      * @Column(type="string")
      */

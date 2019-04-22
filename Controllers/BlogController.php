@@ -45,4 +45,35 @@ class BlogController extends Controller
             )
         );
     }
+
+    /**
+     * Controller method to display a post selected by user in postList
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function post(): void
+    {
+        if ($_POST['postId'] != null) {
+
+            $post = Post::getPost($_POST['postId']);
+
+            $postTitle           = $post->getPostTitle();
+            $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
+            $postRoute           = $post->getRoute();
+            $postAuthor          = $post->getPostAuthor();
+            $postContent         = $post->getPostContent();
+
+            echo $this->render("post.html.twig",
+                array(
+                    "postTitle"           => $postTitle,
+                    "lastUpdateTimestamp" => $lastUpdateTimestamp,
+                    "postRoute"           => $postRoute,
+                    "postAuthor"          => $postAuthor,
+                    "postContent"         => $postContent
+                )
+            );
+        }
+    }
 }
