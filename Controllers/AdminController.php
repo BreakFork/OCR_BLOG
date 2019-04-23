@@ -89,7 +89,7 @@ class AdminController extends Controller
             $post = Post::getPost($postId);
 
             $postTitle = $post->getPostTitle();
-            $postRoute = $post->getRoute();
+            $postRoute = $post->getPostRoute();
             $postAuthor = $post->getPostAuthor();
             $postContent = $post->getPostContent();
         }

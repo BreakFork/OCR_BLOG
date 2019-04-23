@@ -16,6 +16,7 @@ require_once __DIR__ . '/' . '../vendor/autoload.php';
 
 use Controllers\PageController;
 use Controllers\AdminController;
+use Controllers\BlogController;
 
 session_start();
 
@@ -24,6 +25,9 @@ $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 if ($path === "/") {
         $home = new PageController();
         $home->homePage();
+} elseif ($path === "/postList") {
+        $userList = new BlogController();
+        $userList->postList();
 } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();

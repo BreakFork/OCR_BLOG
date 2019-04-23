@@ -38,7 +38,7 @@ class Post
     /**
      * The route of the post
      *
-     * @var string $route the route of the post
+     * @var string $postRoute the route of the post
      *
      * @Column(type="string")
      */
@@ -158,7 +158,7 @@ class Post
      *
      * @return string the route of the post
      */
-    public function getRoute()
+    public function getPostRoute()
     {
         return $this->postRoute;
     }
