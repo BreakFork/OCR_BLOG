@@ -39,7 +39,8 @@ class BlogController extends Controller
     {
         $postList = Post::getPostList();
 
-        echo $this->render("postList.html.twig",
+        echo $this->render(
+            "postList.html.twig",
             array(
                 'userPostList' => $postList
             )
@@ -62,7 +63,6 @@ class BlogController extends Controller
         $post = Post::getPostByRoute($postRoute);
 
         if ($post != null) {
-
             $post = Post::getPostByRoute($postRoute);
 
             $postTitle           = $post->getPostTitle();
@@ -70,7 +70,8 @@ class BlogController extends Controller
             $postAuthor          = $post->getPostAuthor();
             $postContent         = $post->getPostContent();
 
-            echo $this->render("post.html.twig",
+            echo $this->render(
+                "post.html.twig",
                 array(
                     "postTitle"           => $postTitle,
                     "lastUpdateTimestamp" => $lastUpdateTimestamp,

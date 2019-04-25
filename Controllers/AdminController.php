@@ -95,7 +95,6 @@ class AdminController extends Controller
         }
 
         if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
-
             $postTitle = $_POST['title'];
             $postRoute = $_POST['route'];
             $postAuthor = $_POST['author'];
@@ -125,7 +124,8 @@ class AdminController extends Controller
             }
         }
 
-        echo $this->render("admin/postEdit.html.twig",
+        echo $this->render(
+            "admin/postEdit.html.twig",
             array(
                 "postId" => $postId,
                 "message" => $message,
@@ -152,7 +152,8 @@ class AdminController extends Controller
 
         $postList = Post::getPostList();
 
-            echo $this->render("admin/postList.html.twig",
+            echo $this->render(
+                "admin/postList.html.twig",
                 array(
                     'postList' => $postList
                 )
