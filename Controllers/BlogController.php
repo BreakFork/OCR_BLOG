@@ -45,4 +45,42 @@ class BlogController extends Controller
             )
         );
     }
+
+    /**
+     * Controller method to display a post selected by user in postList using route of the post
+     *
+     * @param string $postRoute The route of the post
+     *
+     * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function post($postRoute): void
+    {
+        $post = Post::getPostByRoute($postRoute);
+
+        if ($post != null) {
+
+            $post = Post::getPostByRoute($postRoute);
+
+            $postTitle           = $post->getPostTitle();
+            $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
+            $postAuthor          = $post->getPostAuthor();
+            $postContent         = $post->getPostContent();
+
+            echo $this->render("post.html.twig",
+                array(
+                    "postTitle"           => $postTitle,
+                    "lastUpdateTimestamp" => $lastUpdateTimestamp,
+                    "postAuthor"          => $postAuthor,
+                    "postContent"         => $postContent
+                )
+            );
+        } else {
+            //TODO: 404
+            echo 'ERROR 404';
+        }
+    }
 }
