@@ -40,7 +40,7 @@ class Post
      *
      * @var string $postRoute the route of the post
      *
-     * @Column(type="string")
+     * @Column(name="postRoute", type="string", nullable=false)
      */
     protected $postRoute;
 
@@ -184,7 +184,7 @@ class Post
      *
      * @return string the route of the post
      */
-    public function getPostRoute()
+    public function getPostRoute(): string
     {
         return $this->postRoute;
     }

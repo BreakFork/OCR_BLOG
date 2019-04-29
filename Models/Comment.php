@@ -33,28 +33,22 @@ class Comment
      *
      * @Id @Column(type="integer") @GeneratedValue
      */
-    protected $commentId;
+    private $commentId;
 
     /**
      * The route of the post tied to the comment
      *
-     * @var string $tiedPost the route of the post tied to the comment
-     *
-     * @Column(type="string")
-     *
-     * @ManyToOne(targetEntity="Post")
-     * @JoinColumn(name="tiedPost", referencedColumnName="postRoute")
+     * @ManyToOne(targetEntity="Models\Post")
      */
-    protected $tiedPost;
+    private $commentPostRoute;
 
     /**
-     * The author of the comment
-     *
+                       *
      * @var string $commentAuthor the author of the comment
      *
      * @Column(type="string")
      */
-    protected $commentAuthor;
+    private $commentAuthorName;
 
     /**
      * The email adress of the comment's author
@@ -63,7 +57,7 @@ class Comment
      *
      * @Column(type="string")
      */
-    protected $emailAuthor;
+    private $commentAuthorEmail;
 
     /**
      * The content of the comment
@@ -72,25 +66,25 @@ class Comment
      *
      * @Column(type="text")
      */
-    protected $commentContent;
+    private $commentContent;
 
     /**
-     * The date of the last modification of the comment
+     * The timestamp when the comment has been lastly modified
      *
      * @var integer $commentLastUpdateTimestamp the date of the last modification of the comment
      *
      * @Column(type="integer")
      */
-    protected $commentLastUpdateTimestamp;
+    private $commentLastUpdateTimestamp;
 
     /**
-     * The state of the comment publishing
+     * Whether the comment is shown on public post or not
      *
-     * @var bool $commentPublished the state of the comment publishing (false : unpublished - true : published)
+     * @var boolean $commentPublished Whether the comment is shown on public post or not
      *
      * @Column(type="boolean")
      */
-    protected $commentPublished = false;
+    private $commentPublished = false;
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -135,19 +129,19 @@ class Comment
      *
      * @return string the route of the comment
      */
-    public function getTiedPost(): string
+    public function getCommentPostRoute()
     {
-        return $this->tiedPost;
+        return $this->commentPostRoute;
     }
 
     /**
      * Sets the route of the comment
      *
-     * @param string $tiedPost
+     * @param string $commentPostRoute
      */
-    public function setTiedPost(string $tiedPost): void
+    public function setCommentPostRoute($commentPostRoute): void
     {
-        $this->tiedPost = $tiedPost;
+        $this->commentPostRoute = $commentPostRoute;
     }
 
     /**
@@ -155,19 +149,19 @@ class Comment
      *
      * @return string The author of the comment
      */
-    public function getCommentAuthor(): string
+    public function getCommentAuthorName(): string
     {
-        return $this->commentAuthor;
+        return $this->commentAuthorName;
     }
 
     /**
      * Sets the author of the comment
      *
-     * @param string $commentAuthor
+     * @param string $commentAuthorName
      */
-    public function setCommentAuthor(string $commentAuthor): void
+    public function setCommentAuthorName(string $commentAuthorName): void
     {
-        $this->commentAuthor = $commentAuthor;
+        $this->commentAuthorName = $commentAuthorName;
     }
 
     /**
@@ -175,19 +169,19 @@ class Comment
      *
      * @return string The email of the comment
      */
-    public function getEmailAuthor(): string
+    public function getCommentAuthorEmail(): string
     {
-        return $this->emailAuthor;
+        return $this->commentAuthorEmail;
     }
 
     /**
      * Sets the email of the comment
      *
-     * @param string $emailAuthor
+     * @param string $commentAuthorEmail
      */
-    public function setEmailAuthor(string $emailAuthor): void
+    public function setCommentAuthorEmail(string $commentAuthorEmail): void
     {
-        $this->emailAuthor = $emailAuthor;
+        $this->commentAuthorEmail = $commentAuthorEmail;
     }
 
     /**
@@ -235,7 +229,7 @@ class Comment
      *
      * @return bool The state of the comment publication
      */
-    public function getCommentPublished(): bool
+    public function isCommentPublished(): bool
     {
         return $this->commentPublished;
     }
@@ -249,4 +243,8 @@ class Comment
     {
         $this->commentPublished = $commentPublished;
     }
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
 }
