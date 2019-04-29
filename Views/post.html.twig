@@ -46,9 +46,12 @@
                         </div>
 
                         <div class="mt-5">
-                            <h5>Écrire un commentaire</h5><br><br>
+                            <h5>Écrire un commentaire</h5><br>
+
+                            <span class="font-italic font-weight-bold text-muted">{{ messageSend }}</span><br>
+
                             <form class="d-flex flex-column" action="" method="post" id="sendComment">
-                                <input type="hidden" id="route" name="route" value="{{ postRoute }}">
+                                <input type="hidden" id="postId" name="postId" value="{{ postId }}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="name" name="name" placeholder="Votre nom">

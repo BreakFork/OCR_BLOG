@@ -70,6 +70,8 @@ class BlogController extends Controller
             $postAuthor          = $post->getPostAuthor();
             $postContent         = $post->getPostContent();
 
+
+
             echo $this->render(
                 "post.html.twig",
                 array(

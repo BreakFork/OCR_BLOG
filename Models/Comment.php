@@ -36,11 +36,11 @@ class Comment
     private $commentId;
 
     /**
-     * The route of the post tied to the comment
+     * The id of the post tied to the comment
      *
      * @ManyToOne(targetEntity="Models\Post")
      */
-    private $commentPostRoute;
+    private $commentPost;
 
     /**
      * The name of author of the comment
