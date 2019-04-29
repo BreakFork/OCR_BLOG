@@ -126,23 +126,23 @@ class Comment
     }
 
     /**
-     * Returns the route of the post whom the comment is attached to
+     * Returns the id of the post whom the comment is attached to
      *
-     * @return string the route of the comment
+     * @return int the id of the post whom the comment is attached to
      */
-    public function getCommentPostRoute()
+    public function getCommentPost()
     {
-        return $this->commentPostRoute;
+        return $this->commentPost;
     }
 
     /**
-     * Sets the route of the comment
+     * Sets the id of the post whom the comment is attached to
      *
-     * @param string $commentPostRoute
+     * @param int $commentPost
      */
-    public function setCommentPostRoute($commentPostRoute): void
+    public function setCommentPost($commentPost): void
     {
-        $this->commentPostRoute = $commentPostRoute;
+        $this->commentPost = $commentPost;
     }
 
     /**
