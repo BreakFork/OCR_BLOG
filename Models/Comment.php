@@ -43,7 +43,8 @@ class Comment
     private $commentPostRoute;
 
     /**
-                       *
+     * The name of author of the comment
+     *
      * @var string $commentAuthor the author of the comment
      *
      * @Column(type="string")
@@ -71,7 +72,7 @@ class Comment
     /**
      * The timestamp when the comment has been lastly modified
      *
-     * @var integer $commentLastUpdateTimestamp the date of the last modification of the comment
+     * @var integer $commentLastUpdateTimestamp The timestamp when the comment has been lastly modified
      *
      * @Column(type="integer")
      */
