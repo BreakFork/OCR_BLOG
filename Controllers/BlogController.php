@@ -14,6 +14,7 @@
 namespace Controllers;
 
 use Models\Post;
+use Models\Comment;
 
 /**
  * Controller for the blog pages of the site
@@ -65,20 +66,49 @@ class BlogController extends Controller
         if ($post != null) {
             $post = Post::getPostByRoute($postRoute);
 
+            $id                  = $post->getId();
             $postTitle           = $post->getPostTitle();
             $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
             $postAuthor          = $post->getPostAuthor();
             $postContent         = $post->getPostContent();
 
+            $submitMessage = null;
 
+            if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
+
+                $commentPost                = $_POST['postId'];
+                $commentAuthorName          = $_POST['name'];
+                $commentAuthorEmail         = $_POST['email'];
+                $commentContent             = $_POST['content'];
+                $commentLastUpdateTimestamp = time();
+
+                $comment = new Comment();
+
+                $comment->setCommentPublished(false);
+                $comment->setCommentPost($commentPost);
+                $comment->setCommentAuthorName($commentAuthorName);
+                $comment->setCommentAuthorEmail($commentAuthorEmail);
+                $comment->setCommentContent($commentContent);
+                $comment->setCommentLastUpdateTimestamp($commentLastUpdateTimestamp);
+
+                try {
+                    $comment->persist();
+                    $submitMessage = "Votre commentaire a bien été envoyé.";
+                } catch (\Exception $e) {
+                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+                }
+            }
 
             echo $this->render(
                 "post.html.twig",
                 array(
-                    "postTitle"           => $postTitle,
-                    "lastUpdateTimestamp" => $lastUpdateTimestamp,
-                    "postAuthor"          => $postAuthor,
-                    "postContent"         => $postContent
+                    "id"                         => $id,
+                    "postTitle"                  => $postTitle,
+                    "lastUpdateTimestamp"        => $lastUpdateTimestamp,
+                    "postAuthor"                 => $postAuthor,
+                    "postContent"                => $postContent,
+
+                    "message"                    => $submitMessage
                 )
             );
         } else {
