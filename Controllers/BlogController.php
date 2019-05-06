@@ -11,6 +11,7 @@
  * @link     http://blog.local/
  */
 
+namespace Doctrine\Common\Collections;
 namespace Controllers;
 
 use Models\Post;
@@ -64,8 +65,6 @@ class BlogController extends Controller
         $post = Post::getPostByRoute($postRoute);
 
         if ($post != null) {
-            $post = Post::getPostByRoute($postRoute);
-
             $id                  = $post->getId();
             $postTitle           = $post->getPostTitle();
             $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
@@ -74,29 +73,35 @@ class BlogController extends Controller
 
             $submitMessage = null;
 
-            if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
+            if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
+                $submitMessage = "Veuillez remplir tous les champs.";
+            } elseif (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
 
-                $commentPost                = $_POST['postId'];
                 $commentAuthorName          = $_POST['name'];
                 $commentAuthorEmail         = $_POST['email'];
                 $commentContent             = $_POST['content'];
                 $commentLastUpdateTimestamp = time();
+//                $linkedPost                = $id;
 
                 $comment = new Comment();
 
-                $comment->setCommentPublished(false);
-                $comment->setCommentPost($commentPost);
                 $comment->setCommentAuthorName($commentAuthorName);
                 $comment->setCommentAuthorEmail($commentAuthorEmail);
                 $comment->setCommentContent($commentContent);
                 $comment->setCommentLastUpdateTimestamp($commentLastUpdateTimestamp);
+                $comment->setCommentPublished(false);
 
-                try {
-                    $comment->persist();
-                    $submitMessage = "Votre commentaire a bien été envoyé.";
-                } catch (\Exception $e) {
-                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
-                }
+//                $linkedPost = $post->getId();
+//                $comment->setLinkedPost($linkedPost);
+
+                $comment->commentPersist();
+
+//                try {
+//                    $comment->commentPersist();
+//                    $submitMessage = "Votre commentaire a bien été envoyé.";
+//                } catch (\Exception $e) {
+//                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+//                }
             }
 
             echo $this->render(

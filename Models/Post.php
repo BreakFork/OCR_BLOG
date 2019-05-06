@@ -14,6 +14,7 @@
 namespace Models;
 
 use System\Database;
+//use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Model for post
@@ -31,9 +32,21 @@ class Post
     /**
      * Post's id into Post table
      *
+     * @var int
+     *
      * @Id @Column(type="integer") @GeneratedValue
+     *
      */
     protected $id;
+
+    /**
+     * The comments whom the post is attached to
+     *
+     * @var int
+     *
+     * @OneToMany(targetEntity="Models\Comment", mappedBy="linkedPost", cascade={"persist", "remove"})
+     */
+    protected $comments;
 
     /**
      * The route of the post
@@ -79,6 +92,18 @@ class Post
      * @Column(type="integer")
      */
     protected $lastUpdateTimestamp;
+
+//____________________________________________________________________________________ METHODS
+
+    /*
+     * One post have many comments
+     *
+     * Post constructor.
+     */
+//    public function __construct()
+//    {
+//        $this->postComment = new ArrayCollection();
+//    }
 
     /**
      * Returns a post created into the database
@@ -159,6 +184,8 @@ class Post
         return null;
     }
 
+//___________________________________________________________________________________ GETTERS & SETTERS
+
     /**
      * Returns the post's id for the database
      *
@@ -177,6 +204,26 @@ class Post
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * Returns the id of the comments whom the post is attached to
+     *
+     * @return int
+     */
+    public function getComments(): int
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Sets the id of the comments whom the post is attached to
+     *
+     * @param int $comments
+     */
+    public function setComments(int $comments): void
+    {
+        $this->comments = $comments;
     }
 
     /**

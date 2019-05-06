@@ -31,16 +31,21 @@ class Comment
     /**
      * Comment's id into comment table
      *
+     * @var int The id of the comment
+     *
      * @Id @Column(type="integer") @GeneratedValue
      */
     private $commentId;
 
     /**
-     * The id of the post tied to the comment
+     * The id of the post whom the comments are attached to
      *
-     * @ManyToOne(targetEntity="Models\Post")
+     * @var int
+     *
+     * @ManyToOne(targetEntity="Models\Post", inversedBy="comments")
+     * @JoinColumn(name="linkedPost_id", referencedColumnName="id")
      */
-    private $commentPost;
+    private $linkedPost;
 
     /**
      * The name of author of the comment
@@ -96,7 +101,7 @@ class Comment
      *
      * @throws \Doctrine\ORM\ORMException
      */
-    public function persist()
+    public function commentPersist()
     {
         $entityManager = Database::getEntityManager();
         $entityManager->persist($this);
@@ -110,7 +115,7 @@ class Comment
      *
      * @return integer The id of the comment
      */
-    public function getCommentId()
+    public function getCommentId(): int
     {
         return $this->commentId;
     }
@@ -126,23 +131,23 @@ class Comment
     }
 
     /**
-     * Returns the id of the post whom the comment is attached to
+     * Returns the id of the post
      *
-     * @return int the id of the post whom the comment is attached to
+     * @return int
      */
-    public function getCommentPost()
+    public function getLinkedPost(): int
     {
-        return $this->commentPost;
+        return $this->linkedPost;
     }
 
     /**
-     * Sets the id of the post whom the comment is attached to
+     * Sets the id of the post
      *
-     * @param int $commentPost
+     * @param int $linkedPost
      */
-    public function setCommentPost($commentPost): void
+    public function setLinkedPost(int $linkedPost): void
     {
-        $this->commentPost = $commentPost;
+        $this->linkedPost = $linkedPost;
     }
 
     /**
