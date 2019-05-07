@@ -71,7 +71,14 @@ class BlogController extends Controller
             $postAuthor          = $post->getPostAuthor();
             $postContent         = $post->getPostContent();
 
-            $submitMessage = null;
+            $commentsList        = Comment::getPublishedCommentsList($id);
+            if ($commentsList != null) {
+                $commentMessage = null;
+            } else {
+              $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
+            }
+
+            $submitMessage       = null;
 
             if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
                 $submitMessage = "Veuillez remplir tous les champs.";
@@ -81,7 +88,6 @@ class BlogController extends Controller
                 $commentAuthorEmail         = $_POST['email'];
                 $commentContent             = $_POST['content'];
                 $commentLastUpdateTimestamp = time();
-//                $linkedPost                = $id;
 
                 $comment = new Comment();
 
@@ -91,29 +97,29 @@ class BlogController extends Controller
                 $comment->setCommentLastUpdateTimestamp($commentLastUpdateTimestamp);
                 $comment->setCommentPublished(false);
 
-//                $linkedPost = $post->getId();
-//                $comment->setLinkedPost($linkedPost);
+                $comment->setLinkedPost($post);
 
-                $comment->commentPersist();
-
-//                try {
-//                    $comment->commentPersist();
-//                    $submitMessage = "Votre commentaire a bien été envoyé.";
-//                } catch (\Exception $e) {
-//                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
-//                }
+                try {
+                    $comment->commentPersist();
+                    $submitMessage = "Votre commentaire a bien été envoyé.";
+                } catch (\Exception $e) {
+                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+                }
             }
 
             echo $this->render(
                 "post.html.twig",
                 array(
-                    "id"                         => $id,
-                    "postTitle"                  => $postTitle,
-                    "lastUpdateTimestamp"        => $lastUpdateTimestamp,
-                    "postAuthor"                 => $postAuthor,
-                    "postContent"                => $postContent,
+                    "id"                  => $id,
+                    "postTitle"           => $postTitle,
+                    "lastUpdateTimestamp" => $lastUpdateTimestamp,
+                    "postAuthor"          => $postAuthor,
+                    "postContent"         => $postContent,
 
-                    "message"                    => $submitMessage
+                    "commentMessage"      => $commentMessage,
+                    "commentList"         => $commentsList,
+
+                    "message"             => $submitMessage
                 )
             );
         } else {

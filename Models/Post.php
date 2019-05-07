@@ -14,7 +14,6 @@
 namespace Models;
 
 use System\Database;
-//use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Model for post
@@ -94,16 +93,6 @@ class Post
     protected $lastUpdateTimestamp;
 
 //____________________________________________________________________________________ METHODS
-
-    /*
-     * One post have many comments
-     *
-     * Post constructor.
-     */
-//    public function __construct()
-//    {
-//        $this->postComment = new ArrayCollection();
-//    }
 
     /**
      * Returns a post created into the database

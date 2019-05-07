@@ -13,14 +13,14 @@
 
                         <div class="card-meta">
 
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between mb-5">
                                 <div>
                                     <span class="text-dark font-weight-bold">Auteur :</span><a href="/">&nbsp;{{ postAuthor }}</a>
                                 </div>
                                 <div class="card-meta">
                                     <span class="font-italic font-weight-bold">Publié le :&nbsp;</span>{{ lastUpdateTimestamp|date("d/m/Y") }}
                                 </div>
-                            </div><br>
+                            </div>
 
                         </div>
 
@@ -38,12 +38,25 @@
 
                         <h3>Commentaires : </h3><br>
 
-                        <div class="media mb-3">
+                        <span class="text-muted font-weight-bold font-italic">{{ commentMessage|nl2br }}</span>
+
+                        {% for comment in commentList %}
+
+                        <div class="media rounded bg-light mb-1">
                             <div class="media-body text-justify">
-                                <p class="mt-3 mb-2">Vestibulum volutpat pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed lectus. Donec mollis hendrerit risus. Phasellus nec sem in justo pellentesque facilisis.</p>
-                                <time class="timeago text-muted" datetime="2017-11-20 20:00">20 november 2017</time>
+                                <div class="d-flex justify-content-between card-meta">
+                                    <div>
+                                        <span class="text-muted font-weight-bold">Auteur :</span>&nbsp;{{ comment.commentAuthorName }}
+                                    </div>
+                                    <div>
+                                        <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-2">{{ comment.commentContent }}</p>
                             </div>
                         </div>
+
+                        {% endfor %}
 
                         <div class="mt-5">
                             <h5>Écrire un commentaire</h5>{{ commentPost }}

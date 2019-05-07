@@ -108,6 +108,26 @@ class Comment
         $entityManager->flush();
     }
 
+    /**
+     * Returns a list of the published comments attached to a specific post from DB
+     *
+     * @param integer $linkedPost The id of the post whom the comments are attached to
+     *
+     * @return array $commentsList The list of the published comments
+     */
+    public static function getPublishedCommentsList($linkedPost)
+    {
+            $commentRepository = Database::getEntityManager()->getRepository("Models\\Comment");
+            $commentsList = $commentRepository->findBy(
+                array(
+                    "linkedPost"       => $linkedPost,
+                    "commentPublished" => true
+                )
+            );
+
+            return $commentsList;
+    }
+
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
     /**
@@ -143,9 +163,9 @@ class Comment
     /**
      * Sets the id of the post
      *
-     * @param int $linkedPost
+     * @param  $linkedPost
      */
-    public function setLinkedPost(int $linkedPost): void
+    public function setLinkedPost(Post $linkedPost)
     {
         $this->linkedPost = $linkedPost;
     }
