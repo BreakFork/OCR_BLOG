@@ -15,6 +15,7 @@ namespace Controllers;
 
 use Models\User;
 use Models\Post;
+use Models\Comment;
 
 /**
  * Controller for the admin pages of the site
@@ -53,15 +54,40 @@ class AdminController extends Controller
     }
 
     /**
-     * Controller method for the admin page for admin
+     * Controller method for the admin's home page
+     * Returns the list of the unpublished comments submitted by users before validation
      *
-     * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function adminPage(): void
+    public function adminPage()
     {
-        echo $this->render("admin/admin.html.twig");
-    }
+        $this->redirectToLoginIfNotConnected();
 
+        $postList = Post::getPostList();
+
+        foreach ($postList as $post) {
+            return $post;
+
+            $id = $post->getId();
+
+            $commentsList = Comment::getUnpublishedCommentsList();
+
+            echo $this->render("admin/admin.html.twig",
+                array(
+                    "postList"     => $postList,
+//                "postId"=> $id,
+                    "commentsList" => $commentsList
+                )
+            );
+
+            }
+
+
+
+    }
 
     /**
      * Controller method for the admin to edit a post

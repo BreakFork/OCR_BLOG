@@ -86,13 +86,23 @@ class Comment
     /**
      * Whether the comment is shown on public post or not
      *
-     * @var boolean $commentPublished Whether the comment is shown on public post or not
+     * @var boolean $commentPending Whether the comment is shown on public post or not
      *
      * @Column(type="boolean")
      */
-    private $commentPublished = false;
+    private $commentPending = true;
 
-/*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    /**
+     * Whether the comment is activated or not.
+     * Mainly to display the comment or not, according to whether it is useful or not in the admin pages
+     *
+     * @var bool $commentUnabled Whether the comment is activated or not.
+     *
+     * @Column(type="boolean")
+     */
+    private $commentUnabled = true;
+
+    //____________________________________________________________________________________ METHODS
 
     /**
      * Returns a comment created into the database
@@ -117,18 +127,37 @@ class Comment
      */
     public static function getPublishedCommentsList($linkedPost)
     {
-            $commentRepository = Database::getEntityManager()->getRepository("Models\\Comment");
-            $commentsList = $commentRepository->findBy(
-                array(
-                    "linkedPost"       => $linkedPost,
-                    "commentPublished" => true
-                )
-            );
+        $commentRepository = Database::getEntityManager()->getRepository("Models\\Comment");
+        $commentsList = $commentRepository->findBy(
+            array(
+                "linkedPost"     => $linkedPost,
+                "commentPending" => false
+            )
+        );
 
-            return $commentsList;
+        return $commentsList;
     }
 
-/*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    /*
+     * Returns a list of the unpublished comments from DB
+     *
+     * @param integer $linkedPost The id of the post whom the comments are attached to
+     *
+     * @return array $commentsList The list of the unpublished comments
+     */
+//    public static function getUnpublishedCommentsList()
+//    {
+//        $commentRepository = Database::getEntityManager()->getRepository("Models\\Comment");
+//        $commentsList = $commentRepository->findBy(
+//            array(
+//                "commentPending" => false
+//            )
+//        );
+//
+//        return $commentsList;
+//    }
+
+//___________________________________________________________________________________ GETTERS & SETTERS
 
     /**
      * Returns the comment's id for DB
@@ -255,22 +284,38 @@ class Comment
      *
      * @return bool The state of the comment publication
      */
-    public function isCommentPublished(): bool
+    public function getCommentPending(): bool
     {
-        return $this->commentPublished;
+        return $this->commentPending;
     }
 
     /**
      * Sets the state of the comment publication
      *
-     * @param bool $commentPublished
+     * @param bool $commentPending
      */
-    public function setCommentPublished(bool $commentPublished): void
+    public function setCommentPending(bool $commentPending): void
     {
-        $this->commentPublished = $commentPublished;
+        $this->commentPending = $commentPending;
     }
 
-/*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    /**
+     * Returns the state of the comment activation in admin's pages
+     *
+     * @return bool The state of the comment's activation
+     */
+    public function isCommentUnabled(): bool
+    {
+        return $this->commentUnabled;
+    }
 
-
+    /**
+     * Sets the state of the comment activation in admin's pages
+     *
+     * @param bool $commentUnabled
+     */
+    public function setCommentUnabled(bool $commentUnabled): void
+    {
+        $this->commentUnabled = $commentUnabled;
+    }
 }

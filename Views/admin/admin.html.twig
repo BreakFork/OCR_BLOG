@@ -3,31 +3,42 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-10 mx-auto">
 
                 <article class="card mb-5">
                     <header class="card-header text-center">
-                        <h1 class="card-title">Editeur Admin</h1>
+                        <h1 class="card-title">Tableau de bord :</h1>
                     </header>
 
                     <div class="card-body">
 
-                        <div class="col-12 d-flex flex-column mb-4 mt-3">
-                            <p class="text-justify text-center pb-5 border-bottom border-muted">
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                <br>
-                                <br>
-                                :)
-                            </p>
+                    {{ alertMessage }}
+
+
+                    {% for post in postList %}
+                        {#{% if comment %}#}
+                        <h4 class="card-title">{{ post.postTitle }}</h4>
+                        {{ post.id }}
+                    {% for comment in commentsList %}
+
+                        <div class="media rounded bg-light mb-1">
+                            <div class="media-body text-justify">
+                                <div class="d-flex justify-content-between card-meta">
+                                    <div>
+                                        <span class="text-muted font-weight-bold">Auteur :</span>&nbsp;{{ comment.commentAuthorName }}
+                                    </div>
+                                    <div>
+                                        <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-2">{{ comment.commentContent }}</p>
+                            </div>
                         </div>
+
+                    {% endfor %}
+                        {#{% endif %}#}
+                    {% endfor %}
+
 
                     </div>
                 </article><!-- /.card -->
