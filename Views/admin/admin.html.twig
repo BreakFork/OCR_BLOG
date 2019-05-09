@@ -16,7 +16,7 @@
 
 
                     {% for post in postList %}
-                        {#{% if comment %}#}
+
                         <h4 class="card-title">{{ post.postTitle }}</h4>
                         {{ post.id }}
                     {% for comment in commentsList %}
@@ -36,7 +36,7 @@
                         </div>
 
                     {% endfor %}
-                        {#{% endif %}#}
+
                     {% endfor %}
 
 

@@ -66,24 +66,7 @@ class AdminController extends Controller
     {
         $this->redirectToLoginIfNotConnected();
 
-        $postList = Post::getPostList();
-
-        foreach ($postList as $post) {
-            return $post;
-
-            $id = $post->getId();
-
-            $commentsList = Comment::getUnpublishedCommentsList();
-
-            echo $this->render("admin/admin.html.twig",
-                array(
-                    "postList"     => $postList,
-//                "postId"=> $id,
-                    "commentsList" => $commentsList
-                )
-            );
-
-            }
+        $this->getCommentsPendingList();
 
 
 

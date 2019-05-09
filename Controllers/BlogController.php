@@ -95,6 +95,7 @@ class BlogController extends Controller
                 $comment->setCommentAuthorEmail($commentAuthorEmail);
                 $comment->setCommentContent($commentContent);
                 $comment->setCommentLastUpdateTimestamp($commentLastUpdateTimestamp);
+                $comment->setCommentEnable(false);
                 $comment->setCommentPending(true);
 
                 $comment->setLinkedPost($post);

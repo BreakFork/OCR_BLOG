@@ -100,7 +100,7 @@ class Comment
      *
      * @Column(type="boolean")
      */
-    private $commentUnabled = true;
+    private $commentEnable = true;
 
     //____________________________________________________________________________________ METHODS
 
@@ -131,6 +131,7 @@ class Comment
         $commentsList = $commentRepository->findBy(
             array(
                 "linkedPost"     => $linkedPost,
+                "commentEnable"  => true,
                 "commentPending" => false
             )
         );
@@ -138,24 +139,23 @@ class Comment
         return $commentsList;
     }
 
-    /*
-     * Returns a list of the unpublished comments from DB
+    /**
+     * Returns a list of the unpublished and activated comments from DB
      *
-     * @param integer $linkedPost The id of the post whom the comments are attached to
-     *
-     * @return array $commentsList The list of the unpublished comments
+     * @return array $commentsList The list of the unpublished and activated comments
      */
-//    public static function getUnpublishedCommentsList()
-//    {
-//        $commentRepository = Database::getEntityManager()->getRepository("Models\\Comment");
-//        $commentsList = $commentRepository->findBy(
-//            array(
-//                "commentPending" => false
-//            )
-//        );
-//
-//        return $commentsList;
-//    }
+    public static function getCommentsPendingList()
+    {
+        $commentRepository = Database::getEntityManager()->getRepository("Models\\Comment");
+        $commentsList = $commentRepository->findBy(
+            array(
+                "commentPending" => true
+//                "commentEnable"  => true
+            )
+        );
+
+        return $commentsList;
+    }
 
 //___________________________________________________________________________________ GETTERS & SETTERS
 
@@ -304,18 +304,18 @@ class Comment
      *
      * @return bool The state of the comment's activation
      */
-    public function isCommentUnabled(): bool
+    public function isCommentEnable(): bool
     {
-        return $this->commentUnabled;
+        return $this->commentEnable;
     }
 
     /**
      * Sets the state of the comment activation in admin's pages
      *
-     * @param bool $commentUnabled
+     * @param bool $commentEnable
      */
-    public function setCommentUnabled(bool $commentUnabled): void
+    public function setCommentEnable(bool $commentEnable): void
     {
-        $this->commentUnabled = $commentUnabled;
+        $this->commentEnable = $commentEnable;
     }
 }
