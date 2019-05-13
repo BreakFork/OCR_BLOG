@@ -32,6 +32,10 @@ class AdminController extends Controller
      * Controller method for the login page for admin
      *
      * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function loginPage(): void
     {
@@ -53,25 +57,87 @@ class AdminController extends Controller
         echo $this->render("admin/login.html.twig", array("error" => $errorMessage,));
     }
 
+//________________________________________________________________________DISPLAY COMMENTS LIST
+
     /**
      * Controller method for the admin's home page
      * Returns the list of the unpublished comments submitted by users before validation
-     *
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function adminPage()
+    public function adminPage(): void
     {
         $this->redirectToLoginIfNotConnected();
 
-        $this->getCommentsPendingList();
+        $postList = Post::getPostList();
+        $commentsList = Comment::getCommentsPendingList();
 
+        $waitingValidation = null;
+        $nothingToValidate = null;
 
+        if ($commentsList !== null) {
+            $waitingValidation = "De nouveaux commentaires sont en attente de validation";
+        } else {
+            $nothingToValidate = "Vous n'avez pas de commentaires en attente de validation.";
+        }
 
+        echo $this->render(
+            "admin/admin.html.twig",
+            array(
+                "postList"      => $postList,
+                "commentsList"  => $commentsList,
+
+                "Message_A"     => $waitingValidation,
+                "Message_B"     => $nothingToValidate
+            )
+        );
+    }
+//_________________________________________________________________________PUBLISH COMMENT
+
+    /**
+     * Publish a comment object selected by $commentId
+     *
+     * @return void
+     *
+     * @param $commentId
+     */
+    public function publishComment($commentId): void
+    {
+        $this->redirectToLoginIfNotConnected();
+
+        $comment = Comment::updateComment($commentId);
+
+        try {
+            $comment->commentPersist();
+        } catch (\Exception $e) {
+            //TODO: 404
+            echo 'ERROR 404';
+        }
+
+        header("Location: /admin");
+        exit;
     }
 
+//_________________________________________________________________________REMOVE COMMENT
+
+    /**
+     * @param $commentId
+     *
+     * @return void
+     */
+    public function deleteComment($commentId): void
+    {
+        $this->redirectToLoginIfNotConnected();
+
+        Comment::removeComment($commentId);
+
+        header("Location: /admin");
+        exit;
+    }
+
+//_________________________________________________________________________EDIT POST
     /**
      * Controller method for the admin to edit a post
      *
@@ -93,6 +159,7 @@ class AdminController extends Controller
         $postRoute = null;
         $postAuthor = null;
         $postContent = null;
+        $pageTitle = null;
 
         if ($postId != null) {
             $post = Post::getPost($postId);
@@ -136,15 +203,18 @@ class AdminController extends Controller
         echo $this->render(
             "admin/postEdit.html.twig",
             array(
-                "postId" => $postId,
-                "message" => $message,
-                "postTitle" => $postTitle,
-                "postRoute" => $postRoute,
-                "postAuthor" => $postAuthor,
-                "postContent" => $postContent
+                "postId"      => $postId,
+                "message"     => $message,
+                "postTitle"   => $postTitle,
+                "postRoute"   => $postRoute,
+                "postAuthor"  => $postAuthor,
+                "postContent" => $postContent,
+                "pageTitle"   => $pageTitle
             )
         );
     }
+
+//_________________________________________________________________________GET POST LIST
 
     /**
      * Controller method to display the list of the posts in admin session
@@ -168,6 +238,8 @@ class AdminController extends Controller
                 )
             );
     }
+
+//_________________________________________________________________________LOGOUT
 
     /**
      * Controller method for logout

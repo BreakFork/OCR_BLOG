@@ -2,35 +2,65 @@
 
 {% block body %}
 
-    <main class="main pt-4" role="main">
+    <header class="card-header text-center mb-5">
+        <h1 class="card-title">Édition des articles</h1>
+    </header>
 
+    <main class="main pt-4" role="main">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-group list-group-flush">
-                        {% for post in postList %}
-                            <li class="list-group-item">
-                                <article class="d-flex justify-content-between align-content-center">
+                <div class="col-lg-12 mb-4">
+                    {% for post in postList | reverse %}
 
-                                    <h3 class="card-title">{{ post.postTitle }}</h3>
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-content-center border-darkest" style="margin-bottom: 1px;">
 
-                                    <div class="d-flex justify-content-between">
+                            <div class="d-none d-md-flex flex-column-reverse w-100 {% if loop.index is odd %}bg-white{% else %}bg-light{% endif %}">
+                                <div class="d-flex">
 
-                                            <a class="nav-link text-uppercase text-white font-weight-bold m-auto bg-warning shadow" href="/admin/postEdit/{{ post.id }}">Modifier</a>
-                                            <a class="nav-link text-uppercase text-white font-weight-bold m-auto bg-warning shadow border-left border-light" href="/admin/postRemoved">Effacer</a>
-
+                                    <div class="d-none d-md-flex mb-2 border-right border-dark">
+                                        <span class="px-3 font-weight-bold align-self-center">{{ post.lastUpdateTimestamp|date("d/m/Y") }}</span>
                                     </div>
+                                    <a href="/post/{{ post.postRoute }}" class="d-none d-md-block nav-link mb-n2 ">
+                                        <h5 class="card-title text-center pb-1 text-dark">{{ post.postTitle }}</h5>
+                                    </a>
 
-                                </article><!-- /.card -->
-                            </li>
-                        {% endfor %}
-                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="d-md-none d-flex flex-column-reverse w-100">
+                                <div class="d-flex">
+
+                                    <div class="d-none d-md-flex mb-2">
+                                        <span class="pl-3 font-weight-bold align-self-center">{{ post.lastUpdateTimestamp|date("d/m/Y") }}</span>
+                                    </div>
+                                    <a href="/post/{{ post.postRoute }}" class="d-md-none nav-link">
+                                        <h5 class="card-title text-center text-dark pt-4">{{ post.postTitle }}</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between bg-light">
+                                <div class="d-flex d-md-none">
+                                    <span class="pl-3 font-weight-bold align-self-center">{{ post.lastUpdateTimestamp|date("d/m/Y") }}</span>
+                                </div>
+
+                                <div class="d-none d-md-flex align-item-center">
+                                    <a class="align-self-center py-3 nav-link text-uppercase text-center font-weight-bolder text-warning border-left border-white bg-dark shadow" href="/admin/postEdit/{{ post.id }}">Modifier</a>
+                                    <a class="align-self-center py-3 nav-link text-uppercase text-center font-weight-bolder text-warning border-left border-white bg-dark shadow" href="/admin/postRemoved">Effacer</a>
+                                </div>
+
+                                <div class="d-md-none d-flex flex-row align-item-center">
+                                    <a class="nav-link text-uppercase text-center py-3 font-weight-bolder text-warning bg-dark shadow" href="/admin/postEdit/{{ post.id }}">Modifier</a>
+                                    <a class="nav-link text-uppercase text-center py-3 font-weight-bolder text-warning bg-dark shadow" href="/admin/postRemoved">Effacer</a>
+                                </div>
+                            </div>
+
+                        </div><!-- /.card -->
+
+                    {% endfor %}
                 </div>
             </div>
-
-
         </div>
     </main>
-
-
 {% endblock %}

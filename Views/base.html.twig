@@ -10,19 +10,22 @@
 
     <title>{% block title %}Accueil{% endblock %}</title>
 
-    <link href="/public/css/app.css" rel="stylesheet"/>
+    <link href="/Public/css/app.css" rel="stylesheet"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body class="d-flex flex-column justify-content-between" style="height: 100vh;">
+<body class="d-flex flex-column justify-content-between min-vh-100">
 
 {{ include('header.html.twig') }}
 
-{% block body %} {% endblock %}
+    <div class="d-flex flex-column justify-content-start">
+
+    {% block body %} {% endblock %}
+
+    </div>
 
 {{ include('footer.html.twig') }}
-
-<script src="/public/js/app.js"></script>
+<script src="/Public/js/app.js"></script>
 
 </body>
 </html>

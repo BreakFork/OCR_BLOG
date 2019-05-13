@@ -7,7 +7,7 @@
 
             <div class="row">
 
-                <article class="card border-0">
+                <article class="card border-0 w-100">
 
                     <header class="card-header text-center">
 
@@ -36,12 +36,12 @@
                         <hr />
                         <br>
 
-                        <div class="mt-3">
-                            <h5>Écrire un commentaire</h5>{{ commentPost }}
+                        <div class="mt-3 mb-4">
+                            <h3><i class="far fa-comment"></i>&nbsp;&nbsp;Écrire un commentaire</h3>{{ commentPost }}
 
-                            <span class="font-italic font-weight-bold text-primary">{{ message }}</span><br><br>
+                            <span class="font-italic font-weight-bold text-primary" style="margin-left: 38px;">{{ message }}</span><br><br>
 
-                            <form class="d-flex flex-column" action="" method="post" id="sendComment">
+                            <form class="d-flex flex-column mt-4" action="" method="post" id="sendComment">
                                 <input type="hidden" id="postId" name="postId" value="{{ id }}">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -60,13 +60,13 @@
                         <hr />
                         <br>
 
-                        <h3>Commentaires : </h3><br>
+                        <h3><i class="far fa-comments"></i>&nbsp;&nbsp;Commentaires</h3><br>
 
                         <span class="text-muted font-weight-bold font-italic">{{ commentMessage|nl2br }}</span>
 
                         {% for comment in commentList %}
 
-                        <div class="media rounded bg-light mb-1">
+                        <div class="media rounded bg-light mb-1 mt-4">
                             <div class="media-body text-justify">
                                 <div class="d-flex justify-content-between card-meta">
                                     <div>

@@ -40,6 +40,12 @@ if ($path === "/") {
 } elseif (preg_match('/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
     $editPost = new AdminController();
     $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
+} elseif (preg_match('/\/admin\/publishComment(\/([\d]*)){0,1}/m', $path, $matches)) {
+    $publish = new AdminController();
+    $publish->publishComment(count($matches) >= 3 ? $matches[2] : null);
+} elseif (preg_match('/\/admin\/deleteComment(\/([\d]*)){0,1}/m', $path, $matches)) {
+    $remove = new AdminController();
+    $remove->deleteComment(count($matches) >= 3 ? $matches[2] : null);
 } elseif ($path === "/admin/logout") {
     $logout = new AdminController();
     $logout->logoutPage();
