@@ -28,6 +28,7 @@ use Models\Comment;
  */
 class AdminController extends Controller
 {
+    //___________________________________________________________________LOGIN
     /**
      * Controller method for the login page for admin
      *
@@ -57,11 +58,13 @@ class AdminController extends Controller
         echo $this->render("admin/login.html.twig", array("error" => $errorMessage,));
     }
 
-//________________________________________________________________________DISPLAY COMMENTS LIST
+    //____________________________________________________________________DISPLAY / PUBLISH / DELETE PENDING COMMENTS
 
     /**
      * Controller method for the admin's home page
-     * Returns the list of the unpublished comments submitted by users before validation
+     * Displays the list of the unpublished comments submitted by users before validation
+     *
+     * @return void
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
@@ -71,77 +74,57 @@ class AdminController extends Controller
     {
         $this->redirectToLoginIfNotConnected();
 
+        $waitingValidation = null;
+        $nothingToValidate = null;
+        $editMessage = null;
+
+        if (isset($_POST["publishAction"]) && isset($_POST['commentId'])) {
+            $comment = Comment::updateComment($_POST['commentId']);
+
+            try {
+                $comment->commentPersist();
+                $editMessage = "Le commentaire a bien été publié";
+            } catch (\Exception $e) {
+                //TODO: 404
+                echo 'ERROR 404';
+            }
+        }
+
+        if (isset($_POST["deleteAction"]) && isset($_POST['commentId'])) {
+            Comment::removeComment($_POST['commentId']);
+
+            $editMessage = "Le commentaire a bien été effacé";
+        }
+
         $postList = Post::getPostList();
         $commentsList = Comment::getCommentsPendingList();
 
-        $waitingValidation = null;
-        $nothingToValidate = null;
-
         if ($commentsList !== null) {
-            $waitingValidation = "De nouveaux commentaires sont en attente de validation";
+            $waitingValidation = "Des commentaires sont en attente de validation";
         } else {
-            $nothingToValidate = "Vous n'avez pas de commentaires en attente de validation.";
+            $nothingToValidate = "Vous n'avez pas de commentaires en attente de validation";
         }
 
         echo $this->render(
             "admin/admin.html.twig",
             array(
-                "postList"      => $postList,
-                "commentsList"  => $commentsList,
+                "postList"                 => $postList,
+                "commentsList"             => $commentsList,
 
-                "Message_A"     => $waitingValidation,
-                "Message_B"     => $nothingToValidate
+                "waitingValidationMessage" => $waitingValidation,
+                "nothingToValidateMessage" => $nothingToValidate,
+                "editMessage"              => $editMessage
             )
         );
     }
-//_________________________________________________________________________PUBLISH COMMENT
 
-    /**
-     * Publish a comment object selected by $commentId
-     *
-     * @return void
-     *
-     * @param $commentId
-     */
-    public function publishComment($commentId): void
-    {
-        $this->redirectToLoginIfNotConnected();
-
-        $comment = Comment::updateComment($commentId);
-
-        try {
-            $comment->commentPersist();
-        } catch (\Exception $e) {
-            //TODO: 404
-            echo 'ERROR 404';
-        }
-
-        header("Location: /admin");
-        exit;
-    }
-
-//_________________________________________________________________________REMOVE COMMENT
-
-    /**
-     * @param $commentId
-     *
-     * @return void
-     */
-    public function deleteComment($commentId): void
-    {
-        $this->redirectToLoginIfNotConnected();
-
-        Comment::removeComment($commentId);
-
-        header("Location: /admin");
-        exit;
-    }
-
-//_________________________________________________________________________EDIT POST
+    //____________________________________________________________________EDIT POST
     /**
      * Controller method for the admin to edit a post
      *
      * @param int|null $postId
+     *
+     * @return void
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
@@ -185,10 +168,10 @@ class AdminController extends Controller
                 }
             }
 
-            $post->setPostTitle($postTitle);
-            $post->setPostRoute($postRoute);
-            $post->setPostAuthor($postAuthor);
-            $post->setPostContent($postContent);
+            $post->setPostTitle(trim($postTitle));
+            $post->setPostRoute(trim($postRoute));
+            $post->setPostAuthor(trim($postAuthor));
+            $post->setPostContent(trim($postContent));
             $post->setLastUpdateTimestamp($lastUpdateTimestamp);
 
             try {
@@ -214,7 +197,7 @@ class AdminController extends Controller
         );
     }
 
-//_________________________________________________________________________GET POST LIST
+    //_____________________________________________________________________GET POST LIST
 
     /**
      * Controller method to display the list of the posts in admin session
@@ -239,7 +222,7 @@ class AdminController extends Controller
             );
     }
 
-//_________________________________________________________________________LOGOUT
+    //_____________________________________________________________________LOGOUT
 
     /**
      * Controller method for logout

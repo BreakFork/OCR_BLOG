@@ -43,7 +43,7 @@ class Post
      *
      * @var int
      *
-     * @OneToMany(targetEntity="Models\Comment", mappedBy="linkedPost", cascade={"persist", "remove"})
+     * @OneToMany(targetEntity="Models\Comment", mappedBy="linkedPost", cascade={"persist", "remove"}, orphanRemoval = true)
      */
     protected $comments;
 

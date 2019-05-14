@@ -102,7 +102,9 @@ class Comment
      */
     private $commentEnable = true;
 
-    //____________________________________________________________________________________ METHODS
+    //__METHODS_________________________________________________________________________________________
+
+    //_____________________________________________________________________PERSIST & FLUSH
 
     /**
      * Returns a comment created into the database
@@ -117,6 +119,8 @@ class Comment
         $entityManager->persist($this);
         $entityManager->flush();
     }
+
+    //_____________________________________________________________________SELECT COMMENTS (PUBLISHED, ACTIVATED)
 
     /**
      * Returns a list of the published comments attached to a specific post from DB
@@ -138,6 +142,8 @@ class Comment
 
         return $commentsList;
     }
+
+    //______________________________________________________________________SELECT COMMENTS (UNPUBLISHED, DESACTIVATED)
 
     /**
      * Returns a list of the unpublished and disactivated comments from DB
@@ -165,6 +171,8 @@ class Comment
 
         return $scanResult;
     }
+
+    //_______________________________________________________________________UPDATE COMMENT
 
     /**
      * Controller method to modify the status of the comment (activated and published)
@@ -196,28 +204,34 @@ class Comment
         return null;
     }
 
+    //_______________________________________________________________________DELETE COMMENT
+
     /**
      * Remove a comment object from DB selected by id
      *
      * @param $commentId
      *
-     * @return null
+     * @return void
      */
-    public static function removeComment($commentId)
+    public static function removeComment($commentId): void
     {
         $commentRepository = Database::getEntityManager()->getRepository("Models\\Comment");
         $comment = $commentRepository->findOneBy(
             array(
-                "commentId" => $commentId
-            )
+                "commentId" => $commentId)
         );
-        return $comment;
+        try {
+            $entityManager = Database::getEntityManager();
+            $entityManager->persist($comment);
+            $entityManager->remove($comment);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            //TODO: 404
+            echo 'ERROR 404';
+        }
+   }
 
-        $commentRepository->remove($comment);
-        $commentRepository->flush();
-    }
-
-//___________________________________________________________________________________ GETTERS & SETTERS
+//__GETTERS & SETTERS__________________________________________________________________________________
 
     /**
      * Returns the comment's id for DB
