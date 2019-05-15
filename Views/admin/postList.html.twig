@@ -2,35 +2,101 @@
 
 {% block body %}
 
-    <main class="main pt-4" role="main">
+    <header class="card-header text-center mb-5">
+        <h1 class="font-weight-bold">TABLEAU DE BORD</h1>
+    </header>
 
+    <main class="main pt-4" role="main">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-group list-group-flush">
-                        {% for post in postList %}
-                            <li class="list-group-item">
-                                <article class="d-flex justify-content-between align-content-center">
+                <div class="col-lg-12 mb-4">
 
-                                    <h3 class="card-title">{{ post.postTitle }}</h3>
+                    <div class="d-flex flex-column mb-5 bg-dark" style="border-bottom-right-radius: 100px; border-top-right-radius: 100px;">
 
-                                    <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="d-flex px-3 pb-1 pt-3 text-white bg-dark">
 
-                                            <a class="nav-link text-uppercase text-white font-weight-bold m-auto bg-warning shadow" href="/admin/postEdit/{{ post.id }}">Modifier</a>
-                                            <a class="nav-link text-uppercase text-white font-weight-bold m-auto bg-warning shadow border-left border-light" href="/admin/postRemoved">Effacer</a>
+                                    <i class="fas fa-edit fa-lg text-warning"></i>&nbsp;&nbsp;&nbsp;
 
+                                    <span class="font-weight-bold">EDITION DES ARTICLES</span>
+
+                                </div>
+
+                                <div class="d-flex px-3 pt-2 pb-3 text-white bg-dark">
+                                    {% if editMessage %}
+                                        <i class="far fa-thumbs-up fa-lg mt-1"></i><span class="font-weight-bold mt-1">&nbsp;&nbsp;&nbsp;{{ editMessage }} </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div>
+                                <i class="fas fa-info-circle fa-3x mr-3 my-4 text-light"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {% for post in postList | reverse %}
+
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-content-center border-left border-dark shadow {% if loop.first %}border-top border-dark{% endif %} {% if loop.last %}border-bottom border-dark{% endif %}" style="margin-bottom: 1px;">
+
+                            <div class="d-none d-md-flex flex-column-reverse w-100 {% if loop.index is odd %}bg-white{% else %}bg-light{% endif %}">
+                                <div class="d-flex">
+
+                                    <div class="d-none d-md-flex mb-2 border-right border-dark">
+                                        <span class="px-3 font-weight-bold align-self-center">{{ post.lastUpdateTimestamp|date("d/m/Y") }}</span>
                                     </div>
+                                    <a href="/post/{{ post.postRoute }}" class="d-none d-md-block nav-link mb-n2 ">
+                                        <h5 class="card-title text-center pb-1 text-dark">{{ post.postTitle }}</h5>
+                                    </a>
 
-                                </article><!-- /.card -->
-                            </li>
-                        {% endfor %}
-                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="d-md-none d-flex flex-column-reverse w-100 border-right border-dark">
+                                <div class="d-flex">
+
+                                    <div class="d-none d-md-flex mb-2">
+                                        <span class="pl-3 font-weight-bold align-self-center">{{ post.lastUpdateTimestamp|date("d/m/Y") }}</span>
+                                    </div>
+                                    <a href="/post/{{ post.postRoute }}" class="d-md-none nav-link">
+                                        <h5 class="card-title text-center text-dark pt-4">{{ post.postTitle }}</h5>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between bg-light">
+                                <div class="d-flex d-md-none">
+                                    <span class="pl-3 font-weight-bold align-self-center">{{ post.lastUpdateTimestamp|date("d/m/Y") }}</span>
+                                </div>
+
+                                <div class="d-none d-md-flex align-item-center">
+
+                                    <a class="align-self-center py-3 nav-link text-uppercase text-center font-weight-bolder text-warning border-left border-white bg-dark shadow" href="/admin/postEdit/{{ post.id }}">Modifier</a>
+
+                                    <form action="" method="post" id="deletePost">
+                                        <input type="hidden" name="postId" value="{{ post.id }}" />
+                                        <button type="submit" class="nav-link text-uppercase text-center py-3 font-weight-bolder text-warning bg-dark border-0 shadow" style="margin-left: 1px;" name="delete" value="Effacer">Effacer</button>
+                                    </form>
+                                </div>
+
+                                <div class="d-md-none d-flex flex-row align-item-center">
+
+                                    <a class="nav-link text-uppercase text-center py-3 font-weight-bolder text-warning bg-dark shadow" href="/admin/postEdit/{{ post.id }}">Modifier</a>
+
+                                    <form action="" method="post" id="deletePost">
+                                        <input type="hidden" name="postId" value="{{ post.id }}" />
+                                        <button type="submit" class="nav-link text-uppercase text-center py-3 font-weight-bolder text-warning bg-dark border-0 shadow" style="margin-left: 1px;" name="delete" value="Effacer">Effacer</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div><!-- /.card -->
+
+                    {% endfor %}
                 </div>
             </div>
-
-
         </div>
     </main>
-
-
 {% endblock %}

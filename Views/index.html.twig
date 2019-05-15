@@ -4,9 +4,9 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-xs-12 ">
 
-                <article class="card mb-4">
+                <article class="card mb-4 border-0">
                     <header class="card-header text-center">
                         <h1 class="card-title">Hervé Boulangué</h1>
                     </header>
@@ -22,87 +22,40 @@
                             <p class="text-justify pb-5 border-bottom border-muted"><i class="fas fa-quote-left fa-2x fa-pull-left mt-1"></i>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
                         </div>
 
-                        <h4 class=" mb-4 text-center">Contact</h4>
+                        <h4 class=" mb-5 text-center">Contact</h4>
 
-                        <form class="d-flex flex-column">
-                            <div class="form-group">
-                                <label for="name">Nom</label>
-                                <input type="text" class="form-control" id="name" placeholder="Nom">
-                            </div>
+                        <form class="d-flex flex-column" action="" method="post" id="contactForm">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="name">Nom</label>
+                                    <input type="text" class="form-control font-italic" id="name" placeholder="Nom">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="name">Prénom</label>
-                                <input type="text" class="form-control" id="name" placeholder="Prénom">
-                            </div>
+                                <div class="form-group col-md-6">
+                                    <label for="name">Prénom</label>
+                                    <input type="text" class="form-control font-italic" id="name" placeholder="Prénom">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="email">Adresse Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Adresse Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="question">Message</label>
-                                <textarea class="form-control" id="message" rows="4" placeholder="Message"></textarea>
-                            </div>
+                                <div class="form-group col-md-6">
+                                    <label for="email">Adresse Email</label>
+                                    <input type="email" class="form-control font-italic" id="email" placeholder="Adresse Email">
+                                </div>
 
-                            <button type="button" class="btn btn-primary rounded-pill shadow w-25 align-self-end">Envoyer</button>
+                                <div class="form-group col-md-6">
+                                    <label for="text">Société</label>
+                                    <input type="text" class="form-control font-italic" id="societe" placeholder="Nom de votre entreprise&nbsp;( facultatif )">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="question">Message</label>
+                                    <textarea class="form-control font-italic" id="message" rows="4" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary rounded-pill shadow mw-25 align-self-end">Envoyer</button>
                         </form>
 
                     </div>
                 </article><!-- /.card -->
 
-            </div>
-        </div>
-    </div>
-
-    <div class="site-instagram">
-        <div class="row no-gutters">
-            <div class="col-sm-6">
-                <div class="row no-gutters">
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/1.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/2.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/3.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/4.jpg" alt="" style="object-fit:cover; filter: brightness(150%);"/>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row no-gutters">
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/5.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/6.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/7.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <a class="photo" href="#">
-                            <img class="img-fluid" src="/public/img/instagram/8.jpg" alt="" />
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

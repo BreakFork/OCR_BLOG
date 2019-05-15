@@ -1,50 +1,94 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main class="main py-5 bg-white" role="main">
+    <header class="card-header text-center mb-5">
+        <h1 class="font-weight-bold">TABLEAU DE BORD</h1>
+    </header>
+
+    <main class="main bg-white" role="main">
 
         <div class="container">
 
             <div class="row">
-                <form class="col-md-8 mx-auto d-flex flex-column" action="" method="post" id="postForm">
+                <div class="col-sm-12">
+                <form class="d-flex flex-column" action="" method="post" id="postForm">
                     <input type="hidden" name="postId" value="{% if postId %}{{ postId }}{% endif %}" />
 
-                    <div class="text-center">
-                        <h2>Nouvel article</h2>
-                        {% if message %}
-                            <p class="text-center text-justify my-5">{{ message }}</p>
-                        {% endif %}
-                        <hr/>
+                    <div class="d-flex flex-column mb-5 bg-dark" style="border-bottom-right-radius: 100px; border-top-right-radius: 100px;">
+
+                        <div class="d-flex justify-content-between">
+
+                            {% if postId %}
+                            <div>
+                                <div class="d-flex px-3 pb-1 pt-3 text-white bg-dark">
+
+                                    <i class="fas fa-edit fa-lg text-warning"></i>&nbsp;&nbsp;&nbsp;
+                                    <span class="font-weight-bold">EDITION DE L'ARTICLE<span class="font-weight-bold text-warning">&nbsp;&nbsp;#&nbsp;{{ postId }}</span></span>
+
+                                </div>
+
+                                <div class="d-flex px-3 pt-2 pb-3 text-white bg-dark">
+                                    {% if message %}
+                                        <i class="far fa-thumbs-up fa-lg mt-1"></i><span class="font-weight-bold mt-1">&nbsp;&nbsp;&nbsp;{{ message }} </span>
+                                    {% else %}
+                                        <i class="fas fa-clock fa-lg text-warning"></i>&nbsp;&nbsp;&nbsp;
+                                        <span class="font-weight-bold">Dernière modification le<span class="font-weight-bold">&nbsp;&nbsp;{{ lastUpdateTimestamp|date("d/m/Y") }}</span></span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div>
+                                <div class="d-flex px-3 pb-1 pt-3 text-white bg-dark">
+
+                                    <i class="fas fa-edit fa-lg text-warning"></i>&nbsp;&nbsp;&nbsp;
+                                    <span class="font-weight-bold">NOUVEL ARTICLE</span>
+
+                                </div>
+
+                                <div class="d-flex px-3 pt-2 pb-3 text-white bg-dark">
+                                    {% if message %}
+                                        <i class="far fa-thumbs-up fa-lg mt-1"></i><span class="font-weight-bold mt-1">&nbsp;&nbsp;&nbsp;{{ message }} </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div>
+                                <i class="fas fa-info-circle fa-3x mr-3 my-4 text-light"></i>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="title">Titre</label>
-                        <input type="text" class="form-control form-control-lg" name="title" value="{% if postTitle %}{{ postTitle }}{% endif %}" placeholder="Titre de l'article">
+                        <input type="text" class="form-control form-control-lg" name="title" value="{% if postTitle %} {{ postTitle|trim }} {% endif %}" placeholder="Titre de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="route">Route</label>
-                        <input type="text" class="form-control form-control-lg" name="route" value="{% if postRoute %}{{ postRoute }}{% endif %}" placeholder="Route de l'article">
+                        <input type="text" class="form-control form-control-lg" name="route" value="{% if postRoute %} {{ postRoute|trim }} {% endif %}" placeholder="Route de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="author">Auteur</label>
-                        <input type="text" class="form-control form-control-lg" name="author" value="{% if postAuthor %}{{ postAuthor }}{% endif %}" placeholder="Auteur de l'article">
+                        <input type="text" class="form-control form-control-lg" name="author" value="{% if postAuthor %} {{ postAuthor|trim }} {% endif %}" placeholder="Auteur de l'article">
                     </div>
 
                     <div class="form-group">
                         <label for="content">Contenu</label>
                         <div class="editor">
-                            <div class="js-editable" id="content">
-                                {% if postContent %}{{ postContent|raw }}{% endif %}
+                            <div class="js-editable text-justify" id="content">
+                                {% if postContent %} {{ postContent|trim|raw }} {% endif %}
                             </div>
                         </div>
                     </div>
 
                     <input type="hidden" name="content" id="contentField" value="" />
 
-                    <button type="submit" class="btn btn-warning rounded-pill shadow w-25 align-self-end" name="publish" value="Publier">Publier</button>
+                    <button type="submit" class="btn btn-warning rounded-pill shadow mw-25 align-self-end" name="publish" value="Publier">Publier</button>
                 </form>
+                </div>
             </div>
         </div>
 

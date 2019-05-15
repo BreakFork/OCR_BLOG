@@ -15,6 +15,7 @@ namespace Controllers;
 
 use Models\User;
 use Models\Post;
+use Models\Comment;
 
 /**
  * Controller for the admin pages of the site
@@ -27,10 +28,15 @@ use Models\Post;
  */
 class AdminController extends Controller
 {
+    //___________________________________________________________________LOGIN
     /**
      * Controller method for the login page for admin
      *
      * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function loginPage(): void
     {
@@ -52,21 +58,71 @@ class AdminController extends Controller
         echo $this->render("admin/login.html.twig", array("error" => $errorMessage,));
     }
 
+    //____________________________________________________________________DISPLAY / PUBLISH / DELETE PENDING COMMENTS
+
     /**
-     * Controller method for the admin page for admin
+     * Controller method for the admin's home page
+     * Displays the list of the unpublished comments submitted by users before validation
      *
      * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function adminPage(): void
     {
-        echo $this->render("admin/admin.html.twig");
+        $this->redirectToLoginIfNotConnected();
+
+        $waitingValidation = null;
+        $nothingToValidate = null;
+        $editMessage = null;
+
+        if (isset($_POST["publishAction"]) && isset($_POST['commentId'])) {
+            $comment = Comment::updateComment($_POST['commentId']);
+
+            try {
+                $comment->commentPersist();
+                $editMessage = "Le commentaire a bien été publié";
+            } catch (\Exception $e) {
+                //TODO: 404
+                echo 'ERROR 404';
+            }
+        }
+
+        if (isset($_POST["deleteAction"]) && isset($_POST['commentId'])) {
+            Comment::removeComment($_POST['commentId']);
+
+            $editMessage = "Le commentaire a bien été effacé";
+        }
+
+        $commentsList = Comment::getCommentsPendingList();
+
+        if ($commentsList !== null) {
+            $waitingValidation = "Des commentaires sont en attente de validation";
+        } else {
+            $nothingToValidate = "Vous n'avez pas de commentaires en attente de validation";
+        }
+
+        echo $this->render(
+            "admin/admin.html.twig",
+            array(
+                "commentsList"             => $commentsList,
+
+                "waitingValidationMessage" => $waitingValidation,
+                "nothingToValidateMessage" => $nothingToValidate,
+                "editMessage"              => $editMessage
+            )
+        );
     }
 
-
+    //____________________________________________________________________EDIT POST
     /**
      * Controller method for the admin to edit a post
      *
      * @param int|null $postId
+     *
+     * @return void
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
@@ -84,6 +140,7 @@ class AdminController extends Controller
         $postRoute = null;
         $postAuthor = null;
         $postContent = null;
+        $pageTitle = null;
 
         if ($postId != null) {
             $post = Post::getPost($postId);
@@ -95,7 +152,6 @@ class AdminController extends Controller
         }
 
         if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
-
             $postTitle = $_POST['title'];
             $postRoute = $_POST['route'];
             $postAuthor = $_POST['author'];
@@ -110,10 +166,10 @@ class AdminController extends Controller
                 }
             }
 
-            $post->setPostTitle($postTitle);
-            $post->setPostRoute($postRoute);
-            $post->setPostAuthor($postAuthor);
-            $post->setPostContent($postContent);
+            $post->setPostTitle(trim($postTitle));
+            $post->setPostRoute(trim($postRoute));
+            $post->setPostAuthor(trim($postAuthor));
+            $post->setPostContent(trim($postContent));
             $post->setLastUpdateTimestamp($lastUpdateTimestamp);
 
             try {
@@ -125,17 +181,21 @@ class AdminController extends Controller
             }
         }
 
-        echo $this->render("admin/postEdit.html.twig",
+        echo $this->render(
+            "admin/postEdit.html.twig",
             array(
-                "postId" => $postId,
-                "message" => $message,
-                "postTitle" => $postTitle,
-                "postRoute" => $postRoute,
-                "postAuthor" => $postAuthor,
-                "postContent" => $postContent
+                "postId"      => $postId,
+                "message"     => $message,
+                "postTitle"   => $postTitle,
+                "postRoute"   => $postRoute,
+                "postAuthor"  => $postAuthor,
+                "postContent" => $postContent,
+                "pageTitle"   => $pageTitle
             )
         );
     }
+
+    //_____________________________________________________________________GET POST LIST, DELETE POST
 
     /**
      * Controller method to display the list of the posts in admin session
@@ -150,14 +210,26 @@ class AdminController extends Controller
     {
         $this->redirectToLoginIfNotConnected();
 
+        $editMessage = null;
+
+        if (isset($_POST['postId'])) {
+            Post::removePost($_POST['postId']);
+
+            $editMessage = "L'article a bien été effacé";
+        }
+
         $postList = Post::getPostList();
 
-            echo $this->render("admin/postList.html.twig",
+            echo $this->render(
+                "admin/postList.html.twig",
                 array(
-                    'postList' => $postList
+                    'postList'    => $postList,
+                    'editMessage' => $editMessage
                 )
             );
     }
+
+    //_____________________________________________________________________LOGOUT
 
     /**
      * Controller method for logout

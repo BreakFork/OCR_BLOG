@@ -28,7 +28,7 @@ if ($path === "/") {
 } elseif ($path === "/postList") {
     $userList = new BlogController();
     $userList->postList();
-} elseif (preg_match ( '/\/post\/([A-Za-z0-9-]+)/m', $path, $matches)) {
+} elseif (preg_match('/\/post\/([A-Za-z0-9-]+)/m', $path, $matches)) {
     $controller = new BlogController();
     $controller->post($matches[1]);
 } elseif ($path === "/admin/login") {
@@ -37,7 +37,7 @@ if ($path === "/") {
 } elseif ($path === "/admin/postList") {
     $list = new AdminController();
     $list->postList();
-} elseif (preg_match ( '/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
+} elseif (preg_match('/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
     $editPost = new AdminController();
     $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
 } elseif ($path === "/admin/logout") {

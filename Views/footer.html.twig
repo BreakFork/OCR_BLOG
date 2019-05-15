@@ -1,4 +1,4 @@
-<footer class="site-footer bg-darkest" role="contentinfo">
+<footer class="site-footer  bg-darkest" role="contentinfo">
     <div class="container">
         <ul class="nav justify-content-center">
             <li class="nav-item">
@@ -15,24 +15,27 @@
             </li>
         </ul>
         <div class="copy">
-            &copy; Hervé Boulangué 2019<br />
+            &copy; Hervé Boulangué {{ 'now'|date('Y') }} <br />
             Tous droits réservés
         </div>
     </div>
         {% if user %}
-            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between bg-warning">
-                <div class="w-auto d-flex  justify-content-center">
-                    <span class="nav-link text-white border border-white rounded-pill">{{ user }} est connecté</span>
+            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between bg-warning py-2">
+                <div class="d-flex  justify-content-center mx-3">
+                    <span class="py-2 nav-link text-white border border-white rounded-pill"><i class="fas fa-user fa-lg"></i>&nbsp;&nbsp;&nbsp;{{ user }} est connecté</span>
                 </div>
-                <ul class="nav justify-content-center">
+                <ul class="nav justify-content-center mt-1">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/postList">Liste</a>
+                        <a class="nav-link text-white" href="/admin"><i class="fas fa-tachometer-alt fa-lg"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/postEdit">Ajouter un article</a>
+                        <a class="nav-link text-white" href="/admin/postList"><i class="fas fa-list-ol fa-lg"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/logout">Déconnexion</a>
+                        <a class="nav-link text-white" href="/admin/postEdit"><i class="fas fa-edit fa-lg"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/admin/logout"><i class="fas fa-sign-out-alt fa-lg"></i></a>
                     </li>
                 </ul>
             </div>

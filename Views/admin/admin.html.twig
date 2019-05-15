@@ -1,38 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
+        <div class="row d-flex justify-content-center  align-content-start">
 
-                <article class="card mb-5">
-                    <header class="card-header text-center">
-                        <h1 class="card-title">Editeur Admin</h1>
+                <article class="card border-bottom-0 w-100">
+
+                    <header class="card-header text-center mb-5">
+                        <h1 class="font-weight-bold">TABLEAU DE BORD</h1>
                     </header>
 
-                    <div class="card-body">
+                    <br class="card-body">
 
-                        <div class="col-12 d-flex flex-column mb-4 mt-3">
-                            <p class="text-justify text-center pb-5 border-bottom border-muted">
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                Contenu temporaire.<br>
-                                <br>
-                                <br>
-                                :)
-                            </p>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-column mb-5 {% if waitingValidationMessage %} bg-dark {% else %} bg-light {% endif %}" style="border-bottom-right-radius: 100px; border-top-right-radius: 100px;">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="{% if waitingValidationMessage %} d-flex px-3 pb-1 pt-3 text-white bg-dark {% else %} d-flex px-3 pb-1 pt-3 bg-light {% endif %}">
+                                            <i class="{% if waitingValidationMessage %} fas fa-exclamation-circle fa-lg text-warning {% else %} fas fa-coffee fa-lg {% endif %}"></i>&nbsp;&nbsp;&nbsp;
+                                            <span class="font-weight-bold">{{ waitingValidationMessage }} {{ nothingToValidateMessage }}</span>
+                                        </div>
+                                        <div class="{% if waitingValidationMessage %} d-flex px-3 pt-2 pb-3 text-white bg-dark {% else %} d-flex px-3 pt-2 pb-3 bg-light{% endif %}">
+                                            {% if editMessage %}
+                                                <i class="far fa-thumbs-up fa-lg"></i><span class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ editMessage }} </span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-info-circle fa-3x mr-3 my-4{% if waitingValidationMessage %} text-light {% else %} text-dark{% endif %}"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
+                        {% for comment in commentsList %}
+
+                            <div class="shadow mx-auto my-2 w-100">
+
+                                <div class="d-flex justify-content-between py-1 px-3 text-white border-right border-left border-darkest bg-dark">
+                                    <div>
+                                        <a href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope"></i></a>
+                                        <span class="ml-2 text-light font-weight-bold">&nbsp;-&nbsp;&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
+                                    </div>
+                                    <div>
+                                        <span class="text-light font-italic font-weight-bold">Posté le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
+                                    </div>
+                                </div>
+
+                                <div class="media border-right border-left border-darkest bg-light">
+                                    <div class="media-body text-justify">
+                                        <p class="my-2 px-2">{{ comment.commentContent }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-end py-2 text-white border-right border-left border-darkest bg-dark">
+                                    <div class="d-flex">
+
+                                        <form class="" action="" method="post" id="publishComment">
+                                            <input type="hidden" name="publishAction" value="publishAction" />
+                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
+                                            <button type="submit" class="nav-link text-uppercase px-3 font-weight-bolder text-warning bg-dark border-left-0 border-top-0 border-bottom-0 border-right border-white" name="publishComment" value="Publier">Publier</button>
+                                        </form>
+
+                                        <form class="" action="" method="post" id="deleteComment">
+                                            <input type="hidden" name="deleteAction" value="deleteAction" />
+                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
+                                            <button type="submit" class="nav-link text-uppercase px-3 font-weight-bolder text-warning bg-dark border-0" name="" value="">Effacer</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
                 </article><!-- /.card -->
 
-            </div>
         </div>
     </div>
 {% endblock %}

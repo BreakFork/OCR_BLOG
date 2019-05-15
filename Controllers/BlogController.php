@@ -11,9 +11,11 @@
  * @link     http://blog.local/
  */
 
+namespace Doctrine\Common\Collections;
 namespace Controllers;
 
 use Models\Post;
+use Models\Comment;
 
 /**
  * Controller for the blog pages of the site
@@ -39,7 +41,8 @@ class BlogController extends Controller
     {
         $postList = Post::getPostList();
 
-        echo $this->render("postList.html.twig",
+        echo $this->render(
+            "postList.html.twig",
             array(
                 'userPostList' => $postList
             )
@@ -62,20 +65,62 @@ class BlogController extends Controller
         $post = Post::getPostByRoute($postRoute);
 
         if ($post != null) {
-
-            $post = Post::getPostByRoute($postRoute);
-
+            $id                  = $post->getId();
             $postTitle           = $post->getPostTitle();
             $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
             $postAuthor          = $post->getPostAuthor();
             $postContent         = $post->getPostContent();
 
-            echo $this->render("post.html.twig",
+            $commentsList        = Comment::getPublishedCommentsList($id);
+            if ($commentsList != null) {
+                $commentMessage = null;
+            } else {
+              $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
+            }
+
+            $submitMessage       = null;
+
+            if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
+                $submitMessage = "Veuillez remplir tous les champs.";
+            } elseif (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
+
+                $commentAuthorName          = $_POST['name'];
+                $commentAuthorEmail         = $_POST['email'];
+                $commentContent             = $_POST['content'];
+                $commentLastUpdateTimestamp = time();
+
+                $comment = new Comment();
+
+                $comment->setCommentAuthorName($commentAuthorName);
+                $comment->setCommentAuthorEmail($commentAuthorEmail);
+                $comment->setCommentContent($commentContent);
+                $comment->setCommentLastUpdateTimestamp($commentLastUpdateTimestamp);
+                $comment->setCommentEnable(false);
+                $comment->setCommentPending(true);
+
+                $comment->setLinkedPost($post);
+
+                try {
+                    $comment->commentPersist();
+                    $submitMessage = "Votre commentaire a bien été envoyé.";
+                } catch (\Exception $e) {
+                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
+                }
+            }
+
+            echo $this->render(
+                "post.html.twig",
                 array(
+                    "id"                  => $id,
                     "postTitle"           => $postTitle,
                     "lastUpdateTimestamp" => $lastUpdateTimestamp,
                     "postAuthor"          => $postAuthor,
-                    "postContent"         => $postContent
+                    "postContent"         => $postContent,
+
+                    "commentMessage"      => $commentMessage,
+                    "commentList"         => $commentsList,
+
+                    "message"             => $submitMessage
                 )
             );
         } else {
