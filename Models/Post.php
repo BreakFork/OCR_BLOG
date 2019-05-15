@@ -92,8 +92,10 @@ class Post
      */
     protected $lastUpdateTimestamp;
 
-//____________________________________________________________________________________ METHODS
+    //__METHODS____________________________________________________________________________________________________
 
+
+    //_______________________________________________________________________________PERSIST & FLUSH
     /**
      * Returns a post created into the database
      *
@@ -107,6 +109,8 @@ class Post
         $entityManager->persist($this);
         $entityManager->flush();
     }
+
+    //_______________________________________________________________________________SELECT POST (by $id)
 
     /**
      * Returns a post object from DB selected by id
@@ -134,6 +138,8 @@ class Post
         return null;
     }
 
+    //_______________________________________________________________________________SELECT POSTS (all)
+
     /**
      * Returns a list of posts from DB
      *
@@ -146,6 +152,8 @@ class Post
 
         return $postList;
     }
+
+    //_______________________________________________________________________________SELECT POST (by $postRoute)
 
     /**
      * Returns a post object from DB selected by route
@@ -173,7 +181,35 @@ class Post
         return null;
     }
 
-//___________________________________________________________________________________ GETTERS & SETTERS
+    //_______________________________________________________________________________DELETE POST
+
+    /**
+     * Removes a post object from DB
+     *
+     * @return void
+     *
+     * @param $id
+     */
+    public static function removePost($id): void
+    {
+        $postRepository = Database::getEntityManager()->getRepository("Models\\Post");
+        $post = $postRepository->findOneBy(
+            array(
+                "id" => $id
+            )
+        );
+        try {
+            $entityManager = Database::getEntityManager();
+            $entityManager->persist($post);
+            $entityManager->remove($post);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            //TODO: 404
+            echo 'ERROR 404';
+        }
+    }
+
+    //__GETTERS & SETTERS___________________________________________________________________________________________
 
     /**
      * Returns the post's id for the database

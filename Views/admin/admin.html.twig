@@ -6,40 +6,31 @@
 
                 <article class="card border-bottom-0 w-100">
 
-                    <header class="card-header text-center">
-                        <h1 class="card-title">Tableau de bord :</h1>
+                    <header class="card-header text-center mb-5">
+                        <h1 class="font-weight-bold">TABLEAU DE BORD</h1>
                     </header>
 
                     <br class="card-body">
 
                         <div class="d-flex flex-column">
-
                             <div class="d-flex flex-column mb-5 {% if waitingValidationMessage %} bg-dark {% else %} bg-light {% endif %}" style="border-bottom-right-radius: 100px; border-top-right-radius: 100px;">
-
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <div class="{% if waitingValidationMessage %} d-flex px-3 pb-1 pt-3 text-white bg-dark {% else %} d-flex px-3 pb-1 pt-3 bg-light {% endif %}">
-
                                             <i class="{% if waitingValidationMessage %} fas fa-exclamation-circle fa-lg text-warning {% else %} fas fa-coffee fa-lg {% endif %}"></i>&nbsp;&nbsp;&nbsp;
-
                                             <span class="font-weight-bold">{{ waitingValidationMessage }} {{ nothingToValidateMessage }}</span>
-
                                         </div>
-
                                         <div class="{% if waitingValidationMessage %} d-flex px-3 pt-2 pb-3 text-white bg-dark {% else %} d-flex px-3 pt-2 pb-3 bg-light{% endif %}">
-                                            {#<i class="far fa-thumbs-up fa-lg"></i><span class="font-weight-bold">&nbsp;&nbsp;&nbsp;Le commentaire a bien été publié </span>#}
                                             {% if editMessage %}
                                                 <i class="far fa-thumbs-up fa-lg"></i><span class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ editMessage }} </span>
                                             {% endif %}
                                         </div>
                                     </div>
                                     <div>
-                                        <i class="fas fa-info-circle fa-3x mr-3 my-4{% if waitingValidationMessage %} text-warning {% else %} text-dark{% endif %}"></i>
+                                        <i class="fas fa-info-circle fa-3x mr-3 my-4{% if waitingValidationMessage %} text-light {% else %} text-dark{% endif %}"></i>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
 
                         {% for comment in commentsList %}

@@ -96,7 +96,6 @@ class AdminController extends Controller
             $editMessage = "Le commentaire a bien été effacé";
         }
 
-        $postList = Post::getPostList();
         $commentsList = Comment::getCommentsPendingList();
 
         if ($commentsList !== null) {
@@ -108,7 +107,6 @@ class AdminController extends Controller
         echo $this->render(
             "admin/admin.html.twig",
             array(
-                "postList"                 => $postList,
                 "commentsList"             => $commentsList,
 
                 "waitingValidationMessage" => $waitingValidation,
@@ -197,7 +195,7 @@ class AdminController extends Controller
         );
     }
 
-    //_____________________________________________________________________GET POST LIST
+    //_____________________________________________________________________GET POST LIST, DELETE POST
 
     /**
      * Controller method to display the list of the posts in admin session
@@ -212,12 +210,21 @@ class AdminController extends Controller
     {
         $this->redirectToLoginIfNotConnected();
 
+        $editMessage = null;
+
+        if (isset($_POST['postId'])) {
+            Post::removePost($_POST['postId']);
+
+            $editMessage = "L'article a bien été effacé";
+        }
+
         $postList = Post::getPostList();
 
             echo $this->render(
                 "admin/postList.html.twig",
                 array(
-                    'postList' => $postList
+                    'postList'    => $postList,
+                    'editMessage' => $editMessage
                 )
             );
     }

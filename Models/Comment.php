@@ -207,7 +207,7 @@ class Comment
     //_______________________________________________________________________DELETE COMMENT
 
     /**
-     * Remove a comment object from DB selected by id
+     * Removes a comment object from DB selected by id
      *
      * @param $commentId
      *
