@@ -160,8 +160,8 @@ class Comment
         );
 
         $scanCommentTable = Database::getEntityManager()
-                            ->getRepository("Models\\Comment")
-                            ->findOneBy(array('commentPending' => true));
+            ->getRepository("Models\\Comment")
+            ->findOneBy(array('commentPending' => true));
 
         if ($scanCommentTable !== null) {
             $scanResult = $commentsList;
@@ -226,10 +226,10 @@ class Comment
             $entityManager->remove($comment);
             $entityManager->flush();
         } catch (\Exception $e) {
-            //TODO: 404
-            echo 'ERROR 404';
+            header("location: /error503");
+            exit;
         }
-   }
+    }
 
 //__GETTERS & SETTERS__________________________________________________________________________________
 

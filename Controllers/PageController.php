@@ -51,4 +51,18 @@ class PageController extends Controller
     {
         echo $this->render("postList.html.twig");
     }
+
+    /**
+     * Redirects to the 503 error page
+     *
+     * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function redirectTo503ErrorPage()
+    {
+        echo $this->render("error503Page.html.twig");
+    }
 }

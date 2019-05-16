@@ -17,6 +17,7 @@ require_once __DIR__ . '/' . '../vendor/autoload.php';
 use Controllers\PageController;
 use Controllers\AdminController;
 use Controllers\BlogController;
+use Controllers\Controller;
 
 session_start();
 
@@ -46,6 +47,10 @@ if ($path === "/") {
 } elseif ($path === "/admin") {
     $adminConnected = new AdminController();
     $adminConnected->adminPage();
+} elseif ($path === "/error503") {
+    $redirect = new PageController();
+    $redirect->redirectTo503ErrorPage();
 } else {
-    echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
+    $redirect = new Controller();
+    $redirect->redirectTo404ErrorPage();
 }

@@ -81,4 +81,18 @@ class Controller
             exit;
         }
     }
+
+    /**
+     * Redirects to the 404 error page
+     *
+     * @return void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function redirectTo404ErrorPage(): void
+    {
+        echo $this->render("error404Page.html.twig");
+    }
 }

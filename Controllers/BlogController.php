@@ -75,7 +75,7 @@ class BlogController extends Controller
             if ($commentsList != null) {
                 $commentMessage = null;
             } else {
-              $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
+                $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
             }
 
             $submitMessage       = null;
@@ -124,8 +124,7 @@ class BlogController extends Controller
                 )
             );
         } else {
-            //TODO: 404
-            echo 'ERROR 404';
+            $this->redirectTo404ErrorPage();
         }
     }
 }

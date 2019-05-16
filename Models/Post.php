@@ -204,8 +204,8 @@ class Post
             $entityManager->remove($post);
             $entityManager->flush();
         } catch (\Exception $e) {
-            //TODO: 404
-            echo 'ERROR 404';
+            header("location: /error503");
+            exit;
         }
     }
 

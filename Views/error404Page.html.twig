@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto text-center d-flex flex-column align-items-center">
+                <span><i class="far fa-grin-beam-sweat fa-8x mb-5" data-fa-transform="grow-8"></i></span>
+
+                <h1 class="mb-5">Oups!</h1>
+
+                <div class="font-weight-bold display-1">404</div>
+
+                <div class="mb-5 mt-4 font-weight-bold" style="font-size: 2em;">
+                    Désolé, une erreur est survenue.<br>La page que vous demandez est introuvable !
+                </div>
+
+                <a href="mailto:" class="btn btn-default btn-lg"><i class="fa fa-paper-plane mr-2" style="margin-bottom: 1px;"></i>Contacter le support ?</a>
+
+                <a class="nav-link mt-5 text-uppercase text-center font-weight-bolder text-white rounded-pill bg-primary shadow" href="/" style="max-width: 250px;"><i class="fa fa-home mr-2" style="margin-bottom: 1px;"></i>retour vers l' accueil</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

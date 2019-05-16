@@ -85,8 +85,7 @@ class AdminController extends Controller
                 $comment->commentPersist();
                 $editMessage = "Le commentaire a bien été publié";
             } catch (\Exception $e) {
-                //TODO: 404
-                echo 'ERROR 404';
+                $this->redirectTo404ErrorPage();
             }
         }
 
@@ -220,13 +219,13 @@ class AdminController extends Controller
 
         $postList = Post::getPostList();
 
-            echo $this->render(
-                "admin/postList.html.twig",
-                array(
-                    'postList'    => $postList,
-                    'editMessage' => $editMessage
-                )
-            );
+        echo $this->render(
+            "admin/postList.html.twig",
+            array(
+                'postList'    => $postList,
+                'editMessage' => $editMessage
+            )
+        );
     }
 
     //_____________________________________________________________________LOGOUT
