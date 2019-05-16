@@ -78,7 +78,6 @@ class Controller
     {
         if (!isset($_SESSION['user'])) {
             header("Location: /admin/login");
-            exit;
         }
     }
 
