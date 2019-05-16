@@ -211,7 +211,8 @@ class Comment
      *
      * @param $commentId
      *
-     * @return void
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public static function removeComment($commentId): void
     {
@@ -220,15 +221,11 @@ class Comment
             array(
                 "commentId" => $commentId)
         );
-        try {
-            $entityManager = Database::getEntityManager();
-            $entityManager->persist($comment);
-            $entityManager->remove($comment);
-            $entityManager->flush();
-        } catch (\Exception $e) {
-            header("location: /error503");
-            exit;
-        }
+
+        $entityManager = Database::getEntityManager();
+        $entityManager->persist($comment);
+        $entityManager->remove($comment);
+        $entityManager->flush();
     }
 
 //__GETTERS & SETTERS__________________________________________________________________________________

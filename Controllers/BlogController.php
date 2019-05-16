@@ -11,7 +11,6 @@
  * @link     http://blog.local/
  */
 
-namespace Doctrine\Common\Collections;
 namespace Controllers;
 
 use Models\Post;
@@ -33,9 +32,9 @@ class BlogController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function postList(): void
     {
@@ -56,9 +55,11 @@ class BlogController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Doctrine\ORM\ORMException
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function post($postRoute): void
     {
@@ -83,7 +84,6 @@ class BlogController extends Controller
             if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
                 $submitMessage = "Veuillez remplir tous les champs.";
             } elseif (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
-
                 $commentAuthorName          = $_POST['name'];
                 $commentAuthorEmail         = $_POST['email'];
                 $commentContent             = $_POST['content'];
@@ -100,12 +100,8 @@ class BlogController extends Controller
 
                 $comment->setLinkedPost($post);
 
-                try {
-                    $comment->commentPersist();
-                    $submitMessage = "Votre commentaire a bien été envoyé.";
-                } catch (\Exception $e) {
-                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
-                }
+                $comment->commentPersist();
+                $submitMessage = "Votre commentaire a bien été envoyé.";
             }
 
             echo $this->render(

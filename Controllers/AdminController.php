@@ -34,9 +34,9 @@ class AdminController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function loginPage(): void
     {
@@ -66,9 +66,12 @@ class AdminController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function adminPage(): void
     {
@@ -116,6 +119,7 @@ class AdminController extends Controller
     }
 
     //____________________________________________________________________EDIT POST
+
     /**
      * Controller method for the admin to edit a post
      *
@@ -123,9 +127,11 @@ class AdminController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Doctrine\ORM\ORMException
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function postEdit(int $postId = null): void
     {
@@ -150,7 +156,11 @@ class AdminController extends Controller
             $postContent = $post->getPostContent();
         }
 
-        if (isset($_POST['title']) && isset($_POST['route']) && isset($_POST['author']) && isset($_POST['content']) && isset($_POST['postId'])) {
+        if (isset($_POST['title'])
+            && isset($_POST['route'])
+            && isset($_POST['author'])
+            && isset($_POST['content'])
+            && isset($_POST['postId'])) {
             $postTitle = $_POST['title'];
             $postRoute = $_POST['route'];
             $postAuthor = $_POST['author'];
@@ -171,13 +181,9 @@ class AdminController extends Controller
             $post->setPostContent(trim($postContent));
             $post->setLastUpdateTimestamp($lastUpdateTimestamp);
 
-            try {
-                $post->persist();
-                $postId = $post->getId();
-                $message = "L'article à été enregistré";
-            } catch (\Exception $e) {
-                $message = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
-            }
+            $post->persist();
+            $postId = $post->getId();
+            $message = "L'article à été enregistré";
         }
 
         echo $this->render(
@@ -201,9 +207,12 @@ class AdminController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function postList(): void
     {

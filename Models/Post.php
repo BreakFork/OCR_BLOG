@@ -189,6 +189,9 @@ class Post
      * @return void
      *
      * @param $id
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public static function removePost($id): void
     {
@@ -198,15 +201,10 @@ class Post
                 "id" => $id
             )
         );
-        try {
             $entityManager = Database::getEntityManager();
             $entityManager->persist($post);
             $entityManager->remove($post);
             $entityManager->flush();
-        } catch (\Exception $e) {
-            header("location: /error503");
-            exit;
-        }
     }
 
     //__GETTERS & SETTERS___________________________________________________________________________________________
