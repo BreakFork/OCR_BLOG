@@ -65,7 +65,7 @@ class BlogController extends Controller
     {
         $post = Post::getPostByRoute($postRoute);
 
-        if ($post != null) {
+        if ($post !== null) {
             $id                  = $post->getId();
             $postTitle           = $post->getPostTitle();
             $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
@@ -73,7 +73,7 @@ class BlogController extends Controller
             $postContent         = $post->getPostContent();
 
             $commentsList        = Comment::getPublishedCommentsList($id);
-            if ($commentsList != null) {
+            if ($commentsList !== null) {
                 $commentMessage = null;
             } else {
                 $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";

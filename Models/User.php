@@ -82,7 +82,7 @@ class User
             )
         );
 
-        if ($user != null) {
+        if ($user !== null) {
             if (password_verify($password, $user->getPasswordHash())) {
                 /**
                  * @noinspection PhpIncompatibleReturnTypeInspection

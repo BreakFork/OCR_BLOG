@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block meta_description %}
+    <meta name="description" content="Administration du blog OCR_BLOG : liste des commentaires en attente de modération">
+{% endblock %}
+
+{% block title %}
+    <title>Liste de commentaires en attente de modération</title>
+{% endblock %}
+
 {% block body %}
     <div class="container" xmlns="http://www.w3.org/1999/html">
         <div class="row d-flex justify-content-center  align-content-start">
@@ -33,6 +41,7 @@
                             </div>
                         </div>
 
+                        <div class="mb-5">
                         {% for comment in commentsList %}
 
                             <div class="shadow mx-auto my-2 w-100">
@@ -56,13 +65,13 @@
                                 <div class="d-flex justify-content-end py-2 text-white border-right border-left border-darkest bg-dark">
                                     <div class="d-flex">
 
-                                        <form class="" action="" method="post" id="publishComment">
+                                        <form action="" method="post" id="publishComment">
                                             <input type="hidden" name="publishAction" value="publishAction" />
                                             <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
                                             <button type="submit" class="nav-link text-uppercase px-3 font-weight-bolder text-warning bg-dark border-left-0 border-top-0 border-bottom-0 border-right border-white" name="publishComment" value="Publier">Publier</button>
                                         </form>
 
-                                        <form class="" action="" method="post" id="deleteComment">
+                                        <form action="" method="post" id="deleteComment">
                                             <input type="hidden" name="deleteAction" value="deleteAction" />
                                             <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
                                             <button type="submit" class="nav-link text-uppercase px-3 font-weight-bolder text-warning bg-dark border-0" name="" value="">Effacer</button>
@@ -73,6 +82,7 @@
                             </div>
 
                         {% endfor %}
+                        </div>
 
                 </article><!-- /.card -->
 

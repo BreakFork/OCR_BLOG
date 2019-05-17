@@ -21,7 +21,7 @@ use Doctrine\ORM\EntityManager;
  *
  * @category System
  * @package  System
- * @author   Gaëtan HERFRAY <gaetan.hfy@gmail.com>
+ * @author   Hervé Boulangué <h.boulangue@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  */
@@ -53,7 +53,7 @@ class Database
      */
     public static function getEntityManager(): ?EntityManager
     {
-        if (self::$entityManager == null) {
+        if (self::$entityManager === null) {
             $paths = array(__DIR__ . "/" . "../Models");
             $isDevMode = false;
 

@@ -147,7 +147,7 @@ class AdminController extends Controller
         $postContent = null;
         $pageTitle = null;
 
-        if ($postId != null) {
+        if ($postId !== null) {
             $post = Post::getPost($postId);
 
             $postTitle = $post->getPostTitle();
@@ -167,7 +167,7 @@ class AdminController extends Controller
             $postContent = $_POST['content'];
             $lastUpdateTimestamp = time();
 
-            if ($post == null) {
+            if ($post === null) {
                 if (!empty($_POST["postId"])) {
                     $post = Post::getPost((int)$_POST["postId"]);
                 } else {

@@ -5,10 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{% block meta_description %} Ce blog est un projet étudiant dans le cadre de mon parcours PHP/Symfony à OpenClassrooms.{% endblock %}">
+    {% block meta_description %}{% endblock %}
     <meta name="author" content="Hervé Boulangué">
-
-    <title>{% block title %}Accueil{% endblock %}</title>
+    {% block title %}{% endblock %}
 
     <link href="/Public/css/app.css" rel="stylesheet"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
