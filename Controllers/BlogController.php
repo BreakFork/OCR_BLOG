@@ -73,10 +73,10 @@ class BlogController extends Controller
             $postContent         = $post->getPostContent();
 
             $commentsList        = Comment::getPublishedCommentsList($id);
-            if ($commentsList != null) {
-                $commentMessage = null;
-            } else {
+            if ($commentsList == null) {
                 $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
+            } else {
+                $commentMessage = null;
             }
 
             $submitMessage = null;
