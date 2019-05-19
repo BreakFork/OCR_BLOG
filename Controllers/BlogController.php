@@ -73,13 +73,13 @@ class BlogController extends Controller
             $postContent         = $post->getPostContent();
 
             $commentsList        = Comment::getPublishedCommentsList($id);
-            if ($commentsList !== null) {
+            if ($commentsList != null) {
                 $commentMessage = null;
             } else {
                 $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
             }
 
-            $submitMessage       = null;
+            $submitMessage = null;
 
             if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
                 $submitMessage = "Veuillez remplir tous les champs.";

@@ -24,14 +24,16 @@ use System\Database;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  *
- * @Entity @Table(name="User")
+ * @Entity
+ * @Table(name="User")
  */
 class User
 {
     /**
      * User's id into User table
      *
-     * @Id @Column(type="integer") @GeneratedValue
+     * @Id
+     * @Column(type="integer") @GeneratedValue
      */
     protected $id;
 

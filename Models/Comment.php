@@ -24,7 +24,8 @@ use System\Database;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  *
- * @Entity @Table(name="Comment")
+ * @Entity
+ * @Table(name="Comment")
  */
 class Comment
 {
@@ -33,7 +34,9 @@ class Comment
      *
      * @var int The id of the comment
      *
-     * @Id @Column(type="integer") @GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
     private $commentId;
 

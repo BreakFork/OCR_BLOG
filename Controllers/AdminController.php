@@ -149,7 +149,6 @@ class AdminController extends Controller
 
         if ($postId !== null) {
             $post = Post::getPost($postId);
-
             $postTitle = $post->getPostTitle();
             $postRoute = $post->getPostRoute();
             $postAuthor = $post->getPostAuthor();

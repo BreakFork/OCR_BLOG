@@ -24,7 +24,8 @@ use System\Database;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  *
- * @Entity @Table(name="Post")
+ * @Entity
+ * @Table(name="Post")
  */
 class Post
 {
@@ -33,8 +34,8 @@ class Post
      *
      * @var int
      *
-     * @Id @Column(type="integer") @GeneratedValue
-     *
+     * @Id
+     * @Column(type="integer") @GeneratedValue
      */
     protected $id;
 
