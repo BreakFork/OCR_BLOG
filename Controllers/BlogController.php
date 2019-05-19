@@ -72,11 +72,11 @@ class BlogController extends Controller
             $postAuthor          = $post->getPostAuthor();
             $postContent         = $post->getPostContent();
 
+            $noCommentMessage    = null;
+
             $commentsList        = Comment::getPublishedCommentsList($id);
             if ($commentsList == null) {
-                $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
-            } else {
-                $commentMessage = null;
+                $noCommentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
             }
 
             $submitMessage = null;
@@ -113,7 +113,7 @@ class BlogController extends Controller
                     "postAuthor"          => $postAuthor,
                     "postContent"         => $postContent,
 
-                    "commentMessage"      => $commentMessage,
+                    "noCommentMessage"    => $noCommentMessage,
                     "commentList"         => $commentsList,
 
                     "message"             => $submitMessage
