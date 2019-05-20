@@ -114,7 +114,6 @@ class BlogController extends Controller
                     "postContent"         => $postContent,
 
                     "noCommentMessage"    => $noCommentMessage,
-//                    "commentMessage"      => $commentMessage,
                     "commentList"         => $commentsList,
 
                     "message"             => $submitMessage

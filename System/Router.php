@@ -53,6 +53,5 @@ try {
         $redirect->redirectTo404ErrorPage();
     }
 } catch (\Exception $e) {
-        $redirect = new PageController();
-        $redirect->redirectTo503ErrorPage();
+          header('Location: /Views/page503.html');
 };
