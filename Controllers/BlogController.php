@@ -75,7 +75,7 @@ class BlogController extends Controller
             $noCommentMessage    = null;
 
             $commentsList        = Comment::getPublishedCommentsList($id);
-            if ($commentsList == null) {
+            if (sizeof($commentsList) < 1) {
                 $noCommentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
             }
 
