@@ -30,7 +30,7 @@ use Doctrine\ORM\Mapping\OneToMany;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  *
- * @Entity(repositoryClass="Models\Repository\PostRepository")
+ * @Entity
  * @Table(name="Post")
  */
 class Post

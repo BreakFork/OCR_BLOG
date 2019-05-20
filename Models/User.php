@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  *
- * @Entity(repositoryClass="Models\Repository\UserRepository")
+ * @Entity
  * @Table(name="User")
  */
 class User

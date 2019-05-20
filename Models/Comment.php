@@ -31,7 +31,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  *
- * @Entity(repositoryClass="Models\Repository\CommentRepository")
+ * @Entity
  * @Table(name="Comment")
  */
 class Comment
