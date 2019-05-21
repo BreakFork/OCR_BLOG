@@ -17,35 +17,41 @@ require_once __DIR__ . '/' . '../vendor/autoload.php';
 use Controllers\PageController;
 use Controllers\AdminController;
 use Controllers\BlogController;
+use Controllers\Controller;
 
 session_start();
 
 $path = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
-if ($path === "/") {
-    $home = new PageController();
-    $home->homePage();
-} elseif ($path === "/postList") {
-    $userList = new BlogController();
-    $userList->postList();
-} elseif (preg_match('/\/post\/([A-Za-z0-9-]+)/m', $path, $matches)) {
-    $controller = new BlogController();
-    $controller->post($matches[1]);
-} elseif ($path === "/admin/login") {
-    $log = new AdminController();
-    $log->loginPage();
-} elseif ($path === "/admin/postList") {
-    $list = new AdminController();
-    $list->postList();
-} elseif (preg_match('/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
-    $editPost = new AdminController();
-    $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
-} elseif ($path === "/admin/logout") {
-    $logout = new AdminController();
-    $logout->logoutPage();
-} elseif ($path === "/admin") {
-    $adminConnected = new AdminController();
-    $adminConnected->adminPage();
-} else {
-    echo 'Router' . '<br>' . 'path&nbsp;:&nbsp;&nbsp;' . $path;
-}
+try {
+    if ($path === "/") {
+        $home = new PageController();
+        $home->homePage();
+    } elseif ($path === "/postList") {
+        $userList = new BlogController();
+        $userList->postList();
+    } elseif (preg_match('/\/post\/([A-Za-z0-9-]+)/m', $path, $matches)) {
+        $controller = new BlogController();
+        $controller->post($matches[1]);
+    } elseif ($path === "/admin/login") {
+        $log = new AdminController();
+        $log->loginPage();
+    } elseif ($path === "/admin/postList") {
+        $list = new AdminController();
+        $list->postList();
+    } elseif (preg_match('/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
+        $editPost = new AdminController();
+        $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
+    } elseif ($path === "/admin/logout") {
+        $logout = new AdminController();
+        $logout->logoutPage();
+    } elseif ($path === "/admin") {
+        $adminConnected = new AdminController();
+        $adminConnected->adminPage();
+    } else {
+        $redirect = new Controller();
+        $redirect->redirectTo404ErrorPage();
+    }
+} catch (\Exception $e) {
+          header('Location: /Views/page503.html');
+};

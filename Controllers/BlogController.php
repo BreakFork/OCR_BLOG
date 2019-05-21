@@ -11,7 +11,6 @@
  * @link     http://blog.local/
  */
 
-namespace Doctrine\Common\Collections;
 namespace Controllers;
 
 use Models\Post;
@@ -33,9 +32,9 @@ class BlogController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function postList(): void
     {
@@ -56,34 +55,35 @@ class BlogController extends Controller
      *
      * @return void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Doctrine\ORM\ORMException
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function post($postRoute): void
     {
         $post = Post::getPostByRoute($postRoute);
 
-        if ($post != null) {
+        if ($post !== null) {
             $id                  = $post->getId();
             $postTitle           = $post->getPostTitle();
             $lastUpdateTimestamp = $post->getLastUpdateTimestamp();
             $postAuthor          = $post->getPostAuthor();
             $postContent         = $post->getPostContent();
 
+            $noCommentMessage    = null;
+
             $commentsList        = Comment::getPublishedCommentsList($id);
-            if ($commentsList != null) {
-                $commentMessage = null;
-            } else {
-              $commentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
+            if (sizeof($commentsList) < 1) {
+                $noCommentMessage = "Il n'y a pas de commentaire pour cet article.\nSoyez le(la) premier(ère) à réagir.";
             }
 
-            $submitMessage       = null;
+            $submitMessage = null;
 
             if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
                 $submitMessage = "Veuillez remplir tous les champs.";
             } elseif (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
-
                 $commentAuthorName          = $_POST['name'];
                 $commentAuthorEmail         = $_POST['email'];
                 $commentContent             = $_POST['content'];
@@ -100,12 +100,8 @@ class BlogController extends Controller
 
                 $comment->setLinkedPost($post);
 
-                try {
-                    $comment->commentPersist();
-                    $submitMessage = "Votre commentaire a bien été envoyé.";
-                } catch (\Exception $e) {
-                    $submitMessage = "Une erreur technique est survenue, merci de réessayer ultérieurement.";
-                }
+                $comment->commentPersist();
+                $submitMessage = "Votre commentaire a bien été envoyé.";
             }
 
             echo $this->render(
@@ -117,15 +113,14 @@ class BlogController extends Controller
                     "postAuthor"          => $postAuthor,
                     "postContent"         => $postContent,
 
-                    "commentMessage"      => $commentMessage,
+                    "noCommentMessage"    => $noCommentMessage,
                     "commentList"         => $commentsList,
 
                     "message"             => $submitMessage
                 )
             );
         } else {
-            //TODO: 404
-            echo 'ERROR 404';
+            $this->redirectTo404ErrorPage();
         }
     }
 }

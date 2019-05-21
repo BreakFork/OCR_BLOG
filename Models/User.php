@@ -14,6 +14,11 @@
 namespace Models;
 
 use System\Database;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\GeneratedValue;
 
 /**
  * Model for user
@@ -24,14 +29,16 @@ use System\Database;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://blog.local/
  *
- * @Entity @Table(name="User")
+ * @Entity
+ * @Table(name="User")
  */
 class User
 {
     /**
      * User's id into User table
      *
-     * @Id @Column(type="integer") @GeneratedValue
+     * @Id
+     * @Column(type="integer") @GeneratedValue
      */
     protected $id;
 
@@ -82,7 +89,7 @@ class User
             )
         );
 
-        if ($user != null) {
+        if ($user !== null) {
             if (password_verify($password, $user->getPasswordHash())) {
                 /**
                  * @noinspection PhpIncompatibleReturnTypeInspection
