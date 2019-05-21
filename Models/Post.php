@@ -155,7 +155,7 @@ class Post
     public static function getPostList(): array
     {
         $postRepository = Database::getEntityManager()->getRepository("Models\\Post");
-        $postList = $postRepository->findAll();
+        $postList = $postRepository->findBy(array(), array('id' => 'DESC'), $limit = null, $offset = null);
 
         return $postList;
     }
