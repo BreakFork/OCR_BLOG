@@ -155,7 +155,7 @@ class Post
     public static function getPostList(): array
     {
         $postRepository = Database::getEntityManager()->getRepository("Models\\Post");
-        $postList = $postRepository->findAll();
+        $postList = $postRepository->findBy(array(), array('id' => 'DESC'));
 
         return $postList;
     }
@@ -177,7 +177,6 @@ class Post
                 "postRoute" => $postRoute
             )
         );
-
         if ($postRoute !== null) {
             /**
              * @noinspection PhpIncompatibleReturnTypeInspection

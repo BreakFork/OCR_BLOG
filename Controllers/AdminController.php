@@ -138,6 +138,7 @@ class AdminController extends Controller
         $this->redirectToLoginIfNotConnected();
 
         $message = null;
+        $alertMessage = null;
 
         $post = null;
 
@@ -145,7 +146,6 @@ class AdminController extends Controller
         $postRoute = null;
         $postAuthor = null;
         $postContent = null;
-        $pageTitle = null;
 
         if ($postId !== null) {
             $post = Post::getPost($postId);
@@ -154,12 +154,31 @@ class AdminController extends Controller
             $postAuthor = $post->getPostAuthor();
             $postContent = $post->getPostContent();
         }
-
+        //_____________________________________________________First scenario : fields are empty
+        if (empty($_POST['title'])
+            && empty($_POST['route'])
+            && empty($_POST['author'])
+            && empty($_POST['content'])
+            && empty($_POST['postId'])) {
+            echo $this->render(
+                "admin/postEdit.html.twig",
+                array(
+                    "postId"      => $postId,
+                    "message"     => $message,
+                    "postTitle"   => $postTitle,
+                    "postRoute"   => $postRoute,
+                    "postAuthor"  => $postAuthor,
+                    "postContent" => $postContent
+                )
+            );
+        }
+        //_____________________________________________________Second scenario : fields are set
         if (isset($_POST['title'])
             && isset($_POST['route'])
             && isset($_POST['author'])
             && isset($_POST['content'])
             && isset($_POST['postId'])) {
+
             $postTitle = $_POST['title'];
             $postRoute = $_POST['route'];
             $postAuthor = $_POST['author'];
@@ -179,24 +198,41 @@ class AdminController extends Controller
             $post->setPostAuthor(trim($postAuthor));
             $post->setPostContent(trim($postContent));
             $post->setLastUpdateTimestamp($lastUpdateTimestamp);
+            //_____________________________________________________Verify if the Route exists in DB
+            $scanDB = Post::getPostByRoute($postRoute);
 
-            $post->persist();
-            $postId = $post->getId();
-            $message = "L'article à été enregistré";
+            if ($scanDB !== null) {
+                $alertMessage = "Cette route existe déjà, veuillez en choisir une autre.";
+
+                echo $this->render(
+                    "admin/postEdit.html.twig",
+                    array(
+                        "postId"      => $postId,
+                        "alertMessage"=> $alertMessage,
+                        "postTitle"   => $postTitle,
+                        "postAuthor"  => $postAuthor,
+                        "postContent" => $postContent
+                    )
+                );
+            } else {
+                $post->persist();
+                $postId = $post->getId();
+                $message = "L'article à été enregistré";
+
+
+                echo $this->render(
+                    "admin/postEdit.html.twig",
+                    array(
+                        "postId"      => $postId,
+                        "message"     => $message,
+                        "postTitle"   => $postTitle,
+                        "postRoute"   => $postRoute,
+                        "postAuthor"  => $postAuthor,
+                        "postContent" => $postContent
+                    )
+                );
+            }
         }
-
-        echo $this->render(
-            "admin/postEdit.html.twig",
-            array(
-                "postId"      => $postId,
-                "message"     => $message,
-                "postTitle"   => $postTitle,
-                "postRoute"   => $postRoute,
-                "postAuthor"  => $postAuthor,
-                "postContent" => $postContent,
-                "pageTitle"   => $pageTitle
-            )
-        );
     }
 
     //_____________________________________________________________________GET POST LIST, DELETE POST
