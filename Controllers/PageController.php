@@ -45,11 +45,19 @@ class PageController extends Controller
                 $societe = null;
             }
             $to        = 'h.boulangue@gmail.com';
-            $lastname  = 'Nom : ' . $_POST['lastname'];
-            $firstname = 'Prénom : ' . $_POST['firstname'];
+            $lastname  = $_POST['lastname'];
+            $firstname = $_POST['firstname'];
             $message   = $_POST['message'];
 
             mail($to, $lastname, $firstname, $societe, $message);
+
+            $sendMessage = 'Votre email a bien été envoyé';
+
+            echo $this->render("index.html.twig",
+                array(
+                    'sendMessage' => $sendMessage
+                )
+            );
         }
 
         echo $this->render("index.html.twig");
