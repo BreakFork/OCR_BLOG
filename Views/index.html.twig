@@ -30,38 +30,43 @@
                             <p class="text-justify pb-5 border-bottom border-muted">
                                 <i class="fas fa-quote-left fa-2x fa-pull-left mt-1"></i>
                                 Bienvenue sur OCR-BLOG. Ce blog étudiant à été réalisé lors de mon parcours PHP / Symfony à Openclassrooms. S'il ne possède pas toute les fonctionnalités d'un WP, il articule déjà les bases de la MVC et de la POO en PHP. N'hésitez pas à commenter un article ou me contacter via le formulaire de contact. <br><br>Bonne lecture.
-
                             </p>
                         </div>
 
                         <h4 class="mb-5 text-center">Contact</h4>
 
-                        <span class="text-primary font-weight-bold"> {{ sendMessage }} </span><br>
+                        <div class="text-dark font-weight-bold font-italic"> {{ sendMessage }} </div><br>
 
                         <form class="d-flex flex-column" action="" method="post" id="contactForm">
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="lastname">Nom</label>
-                                    <input type="text" class="form-control font-italic" id="lastname" placeholder="Nom" required>
+                                    <input type="text" class="form-control font-italic" name="lastname" id="lastname" placeholder="Nom" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="firstname">Prénom</label>
-                                    <input type="text" class="form-control font-italic" id="firstname" placeholder="Prénom" required>
+                                    <input type="text" class="form-control font-italic" name="firstname" id="firstname" placeholder="Prénom" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="email">Adresse Email</label>
-                                    <input type="email" class="form-control font-italic" id="email" placeholder="Adresse Email" required>
+                                    <input type="email" class="form-control font-italic" name="email" id="email" placeholder="Adresse Email" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="text">Société</label>
-                                    <input type="text" class="form-control font-italic" id="societe" placeholder="Nom de votre entreprise&nbsp;( facultatif )">
+                                    <input type="text" class="form-control font-italic" name="societe" id="societe" placeholder="Nom de votre entreprise&nbsp;( facultatif )">
                                 </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="subject">Objet</label>
+                                    <input type="text" class="form-control font-italic" name="subject" id="subject" placeholder="Objet du message" required>
+                                </div>
+
                                 <div class="form-group col-12">
-                                    <label for="question">Message</label>
-                                    <textarea class="form-control font-italic" id="message" rows="4" placeholder="Message" required></textarea>
+                                    <label for="message">Message</label>
+                                    <textarea class="form-control font-italic" name="message" id="message" rows="4" placeholder="Message" required></textarea>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary rounded-pill shadow mw-25 align-self-end">Envoyer</button>
