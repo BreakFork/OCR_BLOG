@@ -53,5 +53,5 @@ try {
         $redirect->redirectTo404ErrorPage();
     }
 } catch (\Exception $e) {
-          header('Location: /Views/page503.html');
+    require __DIR__."/../Views/page503.html";
 };
