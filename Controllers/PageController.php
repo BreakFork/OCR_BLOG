@@ -47,9 +47,14 @@ class PageController extends Controller
             $to        = 'h.boulangue@gmail.com';
             $lastname  = $_POST['lastname'];
             $firstname = $_POST['firstname'];
-            $message   = $_POST['message'];
+            $email     = $_POST['email'];
+            $message   = wordwrap($_POST['message'], 70, "\r\n");
 
-            mail($to, $lastname, $firstname, $societe, $message);
+            $headers   = "Message de :" . " " . $lastname . " " . $firstname . "\r\n" .
+                         "Email :" . " " . $email . "\r\n" .
+                         "Société" . $societe . "\r\n";
+
+            mail($to, $headers, $message);
 
             $sendMessage = 'Votre email a bien été envoyé';
 
