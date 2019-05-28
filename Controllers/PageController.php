@@ -49,10 +49,11 @@ class PageController extends Controller
             $firstname = $_POST['firstname'];
             $email     = $_POST['email'];
             $subject   = $_POST['subject'];
-            $message   = $_POST['message'];
-            $headers   = 'De :' . ' ' . $firstname . ' ' . $lastname . "\r\n" .
-                         'Email :' . ' ' . $email . "\r\n" .
-                         'Société :' . ' ' . $societe . "\r\n";
+            $message   = wordwrap($_POST['message'], 70, "\r\n");
+
+            $headers   = "From:" . " " . $firstname . " " . $lastname . "\r\n";
+            $headers  .= "Reply-To:" . " " . $email . "\r\n";
+            $headers  .= "Société :" . " " . $societe . "\r\n";
 
             mail($to, $subject, $message, $headers);
 
