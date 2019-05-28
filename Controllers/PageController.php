@@ -49,19 +49,17 @@ class PageController extends Controller
             $firstname = $_POST['firstname'];
             $email     = $_POST['email'];
             $subject   = $_POST['subject'];
-            $headers   = array(
-                'De'      => $firstname . ' ' . $lastname,
-                'Email'   => $email,
-                'societe' => $societe
-            );
             $message   = $_POST['message'];
+            $headers   = 'De :' . ' ' . $firstname . ' ' . $lastname . "\r\n" .
+                         'Email :' . ' ' . $email . "\r\n" .
+                         'Société :' . ' ' . $societe . "\r\n";
 
             mail($to, $subject, $message, $headers);
 
-            $sendMessage = 'Votre email a bien été envoyé';
+            $sendMessage = 'Votre message a bien été envoyé';
 
         } else {
-            $sendMessage = "Une question ? Un commentaire ? N'hésitez pas à me laisser un message.";
+            $sendMessage = "Une question ? Un commentaire ? N'hésitez pas à laisser un message.";
         }
 
         echo $this->render("index.html.twig",
