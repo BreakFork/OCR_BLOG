@@ -53,11 +53,11 @@ class PageController extends Controller
 
             $headers = "From:" . $lastname . "\r\n";
             $headers .= "Reply-To:" . $email . "\r\n";
-            $headers .= "Société:" . " " . $societe . "\r\n";
+//            $headers .= "Société:" . " " . $societe . "\r\n";
             $headers .= "Nom :" . " " . $lastname . "\r\n";
             $headers .= "Prénom :" . " " . $firstname . "\r\n";
 
-            mail($to, $subject, $message, $headers, $email);
+            mail($to, $subject, $message, $headers);
 
             $sendMessage = 'Votre message a bien été envoyé';
 
