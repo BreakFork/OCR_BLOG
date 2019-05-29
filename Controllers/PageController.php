@@ -35,7 +35,35 @@ class PageController extends Controller
      */
     public function homePage():void
     {
-        echo $this->render("index.html.twig");
+        if (isset($_POST['lastname'])
+            && isset($_POST['firstname'])
+            && isset($_POST['email'])
+            && isset($_POST['message'])) {
+            if (isset($_POST['societe'])) {
+                $societe = $_POST['societe'];
+            } else {
+                $societe = null;
+            }
+            $to        = 'h.boulangue@gmail.com';
+            $lastname  = $_POST['lastname'];
+            $firstname = $_POST['firstname'];
+            $email     = $_POST['email'];
+            $subject   = $_POST['subject'];
+            $message   = wordwrap($_POST['message'], 70, "\r\n");
+
+            $headers = "From: contact" . "\r\n";
+            $headers .= "Reply-To:" . $email . "\r\n";
+            $headers .= $firstname . " " . $lastname . "\r\n";
+            $headers .= "Société:" . " " . $societe . "\r\n";
+
+            mail($to, $subject, $message, $headers);
+
+            $sendMessage = 'Votre message a bien été envoyé';
+        } else {
+            $sendMessage = "Une question ? Un commentaire ? N'hésitez pas à laisser un message.";
+        }
+
+        echo $this->render("index.html.twig", array('sendMessage' => $sendMessage));
     }
 
     /**

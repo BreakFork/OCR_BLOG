@@ -178,7 +178,6 @@ class AdminController extends Controller
             && isset($_POST['author'])
             && isset($_POST['content'])
             && isset($_POST['postId'])) {
-
             $postTitle = $_POST['title'];
             $postRoute = $_POST['route'];
             $postAuthor = $_POST['author'];
