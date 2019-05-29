@@ -51,13 +51,13 @@ class PageController extends Controller
             $subject   = $_POST['subject'];
             $message   = wordwrap($_POST['message'], 70, "\r\n");
 
-            $headers = "From: " . $email . "\r\n";
-            $headers .= "Reply-To: " . $email . "\r\n";
-            $headers .= "Société :" . " " . $societe . "\r\n";
+            $headers = "From:" . $lastname . "\r\n";
+            $headers .= "Reply-To:" . $email . "\r\n";
+            $headers .= "Société:" . " " . $societe . "\r\n";
             $headers .= "Nom :" . " " . $lastname . "\r\n";
             $headers .= "Prénom :" . " " . $firstname . "\r\n";
 
-            mail($to, $subject, $message, $headers);
+            mail($to, $subject, $message, $headers, $email);
 
             $sendMessage = 'Votre message a bien été envoyé';
 
