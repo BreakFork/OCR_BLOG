@@ -77,8 +77,8 @@ class AdminController extends Controller
     {
         $this->redirectToLoginIfNotConnected();
 
-        $waitingValidation = null;
-        $nothingToValidate = null;
+        $waitingValidation = "Des commentaires sont en attente de validation";
+        $nothingToValidate = "Vous n'avez pas de commentaires en attente";
         $editMessage = null;
 
         if (isset($_POST["publishAction"]) && isset($_POST['commentId'])) {
@@ -99,12 +99,6 @@ class AdminController extends Controller
         }
 
         $commentsList = Comment::getCommentsPendingList();
-
-        if ($commentsList !== null) {
-            $waitingValidation = "Des commentaires sont en attente de validation";
-        } else {
-            $nothingToValidate = "Vous n'avez pas de commentaires en attente de validation";
-        }
 
         echo $this->render(
             "admin/admin.html.twig",
@@ -217,7 +211,6 @@ class AdminController extends Controller
                 $post->persist();
                 $postId = $post->getId();
                 $message = "L'article à été enregistré";
-
 
                 echo $this->render(
                     "admin/postEdit.html.twig",
