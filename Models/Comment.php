@@ -158,7 +158,7 @@ class Comment
     /**
      * Returns a list of the unpublished and disactivated comments from DB
      *
-     * @return array|null $commentsList The list of the unpublished and disactivated comments
+     * @return array $commentsList The list of the unpublished and disactivated comments
      */
     public static function getCommentsPendingList()
     {
@@ -169,17 +169,7 @@ class Comment
             )
         );
 
-        $scanCommentTable = Database::getEntityManager()
-            ->getRepository("Models\\Comment")
-            ->findOneBy(array('commentPending' => true));
-
-        if ($scanCommentTable !== null) {
-            $scanResult = $commentsList;
-        } else {
-            $scanResult = null;
-        }
-
-        return $scanResult;
+        return $commentsList;
     }
 
     //_______________________________________________________________________UPDATE COMMENT
