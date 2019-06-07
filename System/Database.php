@@ -66,6 +66,7 @@ class Database
             );
 
             $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
+            $config->setAutoGenerateProxyClasses(true);
 
             try {
                 self::$entityManager = EntityManager::create($dbParams, $config);
