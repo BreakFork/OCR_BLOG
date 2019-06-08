@@ -141,14 +141,54 @@ class AdminController extends Controller
         $postAuthor = null;
         $postContent = null;
 
+        $editMessage = null;
+
+        $disableCommentsList = null;
+        $commentsPendingList = null;
+        $publishedCommentsList = null;
+
+        //_EDIT POST____________________________________________________Comments editing
+        if (isset($_POST["publishAction"]) && isset($_POST['commentId'])) {
+            $comment = Comment::updateComment($_POST['commentId']);
+
+            try {
+                $comment->commentPersist();
+                $editMessage = "Le commentaire a été publié";
+            } catch (\Exception $e) {
+                $this->redirectTo404ErrorPage();
+            }
+        }
+
+        if (isset($_POST["deleteAction"]) && isset($_POST['commentId'])) {
+            Comment::removeComment($_POST['commentId']);
+
+            $editMessage = "Le commentaire a été effacé";
+        }
+
+        if (isset($_POST["disableAction"]) && isset($_POST['commentId'])) {
+            $comment = Comment::disableComment($_POST['commentId']);
+
+            try {
+                $comment->commentPersist();
+                $editMessage = "Le commentaire a été retiré";
+            } catch (\Exception $e) {
+                $this->redirectTo404ErrorPage();
+            }
+        }
+
         if ($postId !== null) {
             $post = Post::getPost($postId);
             $postTitle = $post->getPostTitle();
             $postRoute = $post->getPostRoute();
             $postAuthor = $post->getPostAuthor();
             $postContent = $post->getPostContent();
+
+            $commentsPendingList   = Comment::getCommentsPendingListByPost($postId);
+            $disableCommentsList   = Comment::getDisableCommentsListByPost($postId);
+            $publishedCommentsList = Comment::getPublishedCommentsList($postId);
         }
-        //_____________________________________________________First scenario : fields are empty
+
+        //_EDIT POST____________________________________________________First scenario : fields are empty
         if (empty($_POST['title'])
             && empty($_POST['route'])
             && empty($_POST['author'])
@@ -162,11 +202,17 @@ class AdminController extends Controller
                     "postTitle"   => $postTitle,
                     "postRoute"   => $postRoute,
                     "postAuthor"  => $postAuthor,
-                    "postContent" => $postContent
+                    "postContent" => $postContent,
+
+                    "editMessage" => $editMessage,
+                    "commentsPendingList"   => $commentsPendingList,
+                    "disableCommentsList"   => $disableCommentsList,
+                    "publishedCommentsList" => $publishedCommentsList
                 )
             );
         }
-        //_____________________________________________________Second scenario : fields are set
+
+        //_EDIT POST____________________________________________________Second scenario : fields are set
         if (isset($_POST['title'])
             && isset($_POST['route'])
             && isset($_POST['author'])
@@ -191,7 +237,8 @@ class AdminController extends Controller
             $post->setPostAuthor(trim($postAuthor));
             $post->setPostContent(trim($postContent));
             $post->setLastUpdateTimestamp($lastUpdateTimestamp);
-            //_____________________________________________________Verify if the Route exists in DB
+
+            //_EDIT POST____________________________________________________Verify if the Route exists in DB
             $scanDB = Post::getPostByRoute($postRoute);
 
             if ($scanDB !== null) {
@@ -204,7 +251,12 @@ class AdminController extends Controller
                         "alertMessage"=> $alertMessage,
                         "postTitle"   => $postTitle,
                         "postAuthor"  => $postAuthor,
-                        "postContent" => $postContent
+                        "postContent" => $postContent,
+
+                        "editMessage" => $editMessage,
+                        "commentsPendingList"   => $commentsPendingList,
+                        "disableCommentsList"   => $disableCommentsList,
+                        "publishedCommentsList" => $publishedCommentsList
                     )
                 );
             } else {
