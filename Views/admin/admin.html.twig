@@ -61,12 +61,12 @@
 
                             <div class="shadow mx-auto my-2 w-100">
 
-                                <div class="d-flex justify-content-between py-1 px-3 text-white border-right border-left border-darkest bg-dark">
-                                    <div>
-                                        <a href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope"></i></a>
+                                <div class="d-flex flex-column flex-sm-row justify-content-between py-1 px-3 text-white border-right border-left border-darkest bg-dark">
+                                    <div class="my-2">
+                                        <a href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-warning"></i></a>
                                         <span class="ml-2 text-light font-weight-bold">&nbsp;-&nbsp;&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
                                     </div>
-                                    <div>
+                                    <div class="mb-2 my-sm-2">
                                         <span class="text-light font-italic font-weight-bold">Posté le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
                                     </div>
                                 </div>
