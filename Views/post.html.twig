@@ -11,28 +11,15 @@
 {% block body %}
     <main class="main container-fluid" role="main">
 
-        <div class="container-fluid">
+        <div class="container">
 
             <div class="row">
 
                 <article class="card border-0 w-100">
 
-                    <header class="card-header text-center">
+                    <header class="card-header">
 
-                        <div class="card-meta">
-
-                            <div class="d-flex justify-content-between mb-5">
-                                <div>
-                                    <span class="text-dark font-weight-bold">Auteur :</span><a href="/">&nbsp;{{ postAuthor }}</a>
-                                </div>
-                                <div class="card-meta">
-                                    <span class="font-italic font-weight-bold">Publié le :&nbsp;</span>{{ lastUpdateTimestamp|date("d/m/Y") }}
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <h1 class="card-title mb-4">{{ postTitle }}</h1>
+                        <h1 class="card-title my-3 text-center">{{ postTitle }}</h1>
 
                     </header>
 
@@ -41,13 +28,29 @@
                         {{ postContent|raw }}
 
                         <br>
+
+                        <div class="card-meta">
+                            <div class="d-flex flex-column flex-sm-row justify-content-between mb-5">
+                                <div class=" mb-1">
+                                    <span class="text-dark font-italic font-weight-bold">Auteur :</span><a href="/">&nbsp;{{ postAuthor }}</a>
+                                </div>
+                                <div class="card-meta mb-1">
+                                    <span class="font-italic font-weight-bold">Publié le :&nbsp;</span>{{ lastUpdateTimestamp|date("d/m/Y") }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
                         <hr />
                         <br>
 
                         <div class="mt-3 mb-4">
-                            <h3><i class="far fa-comment"></i>&nbsp;&nbsp;Écrire un commentaire</h3>{{ commentPost }}
 
-                            <span class="font-italic font-weight-bold text-primary" style="margin-left: 38px;">{{ message }}</span><br><br>
+                            <div class="d-flex flex-column">
+                                <h3><i class="far fa-comment"></i>&nbsp;&nbsp;Écrire un commentaire</h3>{{ commentPost }}
+
+                                <span class="font-italic font-weight-bold text-primary" style="margin-left: 38px;">{{ message }}</span><br><br>
+                            </div>
 
                             <form class="d-flex flex-column mt-4" action="" method="post" id="sendComment">
                                 <input type="hidden" id="postId" name="postId" value="{{ id }}">
@@ -76,9 +79,9 @@
 
                         <div class="media rounded bg-light mb-1 mt-4">
                             <div class="media-body text-justify">
-                                <div class="d-flex justify-content-between card-meta">
+                                <div class="d-flex flex-column flex-sm-row justify-content-between card-meta">
                                     <div>
-                                        <span class="text-muted font-weight-bold">Auteur :</span>&nbsp;{{ comment.commentAuthorName }}
+                                        <span class="text-muted font-italic font-weight-bold">Auteur :&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
                                     </div>
                                     <div>
                                         <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
