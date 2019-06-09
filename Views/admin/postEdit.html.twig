@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{#echo var_dump($disableCommentsList);#}
+
 {% block meta_description %}
     <meta name="description" content="Administration du blog OCR_BLOG page permettant l'édition d'un article">
 {% endblock %}
@@ -15,7 +15,7 @@
 
     <main class="main bg-white mb-5" role="main">
 
-        <div class="container border-bottom border-grey mb-5">
+        <div class="container mb-5">
 
             <div class="row">
                 <div class="col-sm-12">
@@ -124,15 +124,15 @@
                         <h2 class="mb-0">
                             <button class="btn text-white text-decoration-none w-100" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>Commentaires en attente</div>
+                                    <div><i class="fas fa-comment-dots fa-lg text-white"></i>&nbsp;&nbsp;&nbsp;Modération</div>
                                     {% if commentsPendingList %}
                                         {% for comment in commentsPendingList %}
                                             {% if loop.last %}
-                                                <div class="d-flex align-items-center text-warning font-weight-bold lead"> {{ loop.length }} &nbsp;<i class="fas fa-comment-dots fa-lg text-white"></i></div>
+                                                <div class="d-flex justify-content-center align-items-center text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;"> {{ loop.length }} </div>
                                             {% endif %}
                                         {% endfor %}
                                     {% else %}
-                                        <div class="text-warning font-weight-bold lead"> 0 &nbsp;<i class="fas fa-comment-dots fa-lg text-white"></i></div>
+                                        <div class="text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">0</div>
                                     {% endif %}
                                 </div>
                             </button>
@@ -144,15 +144,12 @@
 
                             <div class="media rounded bg-light mb-1 mt-4">
                                 <div class="media-body text-justify">
-                                    <div class="d-flex justify-content-between card-meta">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-between card-meta">
                                         <div>
-                                            <a href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-warning"></i></a>
-                                            <span class="text-muted font-weight-bold">&nbsp;-&nbsp;&nbsp;Auteur :</span>&nbsp;{{ comment.commentAuthorName }}
+                                            <span class="text-muted font-italic font-weight-bold">Auteur :&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
                                         </div>
                                         <div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-muted font-italic font-weight-bold">Posté le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
-                                            </div>
+                                            <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
                                         </div>
                                     </div>
                                     <p class="mt-3 mb-2">{{ comment.commentContent }}</p>
@@ -160,7 +157,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center {% if loop.last %} border-0 mb-3 {% else %} pb-4 border-bottom border-dark {% endif %}">
 
-                                <div class="text-dark font-weight-bold pl-3">Edition</div>
+                                <a class="ml-3 bg-dark d-flex justify-content-center align-items-center" style="width: 30px; height: 30px; border: solid 1px transparent; border-radius: 100px;" href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-light"></i></a>
 
                                 <div class="d-flex justify-content-end py-2 text-white bg-transparent">
                                     <div class="d-flex">
@@ -188,15 +185,15 @@
                         <h2 class="mb-0 border-bottom-0">
                             <button class="btn text-white text-decoration-none w-100" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>Commentaires retirés</div>
+                                    <div><i class="fas fa-comment-slash fa-lg text-white ml-n1"></i>&nbsp;&nbsp;&nbsp;Retirés</div>
                                     {% if disableCommentsList %}
                                         {% for comment in disableCommentsList %}
                                             {% if loop.last %}
-                                                <div class="d-flex align-items-center text-warning font-weight-bold lead"> {{ loop.length }} &nbsp;<i class="fas fa-comment-slash fa-lg text-white"></i></div>
+                                                <div class="d-flex justify-content-center align-items-center text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;"> {{ loop.length }} </div>
                                             {% endif %}
                                         {% endfor %}
                                     {% else %}
-                                        <div class="text-warning font-weight-bold lead"> 0 &nbsp;<i class="fas fa-comment-slash fa-lg text-white"></i></div>
+                                        <div class="text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">0</div>
                                     {% endif %}
                                 </div>
                             </button>
@@ -208,10 +205,9 @@
 
                             <div class="media rounded bg-light mb-1 mt-4">
                                 <div class="media-body text-justify">
-                                    <div class="d-flex justify-content-between card-meta">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-between card-meta">
                                         <div>
-                                            <a href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-warning"></i></a>
-                                            <span class="text-muted font-weight-bold">&nbsp;-&nbsp;&nbsp;Auteur :</span>&nbsp;{{ comment.commentAuthorName }}
+                                            <span class="text-muted font-italic font-weight-bold">Auteur :&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
                                         </div>
                                         <div>
                                             <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
@@ -222,7 +218,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center {% if loop.last %} border-0 mb-3 {% else %} pb-4 border-bottom border-dark {% endif %}">
 
-                                <div class="text-dark font-weight-bold pl-3">Edition</div>
+                                <a class="ml-3 bg-dark d-flex justify-content-center align-items-center" style="width: 30px; height: 30px; border: solid 1px transparent; border-radius: 100px;" href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-light"></i></a>
 
                                 <div class="d-flex justify-content-end py-2 text-white bg-transparent">
                                     <div class="d-flex">
@@ -250,15 +246,15 @@
                         <h2 class="mb-0 border-bottom-0">
                             <button class="btn text-white text-decoration-none w-100" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>Commentaires publiés</div>
+                                    <div><i class="fas fa-comments fa-lg text-white"></i>&nbsp;&nbsp;&nbsp;Publiés</div>
                                     {% if publishedCommentsList %}
                                         {% for comment in publishedCommentsList %}
                                             {% if loop.last %}
-                                                <div class="d-flex align-items-center text-warning font-weight-bold lead"> {{ loop.length }} &nbsp;<i class="fas fa-comments fa-lg text-white"></i></div>
+                                                <div class="d-flex justify-content-center align-items-center text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;"> {{ loop.length }} </div>
                                             {% endif %}
                                         {% endfor %}
                                     {% else %}
-                                        <div class="text-warning font-weight-bold lead"> 0 &nbsp;<i class="fas fa-comments fa-lg text-white"></i></div>
+                                        <div class="text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">0</div>
                                     {% endif %}
                                 </div>
                             </button>
@@ -270,10 +266,9 @@
 
                             <div class="media rounded bg-light mb-1 mt-4">
                                 <div class="media-body text-justify">
-                                    <div class="d-flex justify-content-between card-meta">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-between card-meta">
                                         <div>
-                                            <a href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-warning"></i></a>
-                                            <span class="text-muted font-weight-bold">&nbsp;-&nbsp;&nbsp;Auteur :</span>&nbsp;{{ comment.commentAuthorName }}
+                                            <span class="text-muted font-italic font-weight-bold">Auteur :&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
                                         </div>
                                         <div>
                                             <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
@@ -284,7 +279,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center {% if loop.last %} border-0 mb-3 {% else %} pb-4 border-bottom border-dark {% endif %}">
 
-                                <div class="text-dark font-weight-bold pl-3">Edition</div>
+                                <a class="ml-3 bg-dark d-flex justify-content-center align-items-center" style="width: 30px; height: 30px; border: solid 1px transparent; border-radius: 100px;" href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-light"></i></a>
 
                                 <div class="d-flex justify-content-end py-2 text-white bg-transparent">
                                     <div class="d-flex">
