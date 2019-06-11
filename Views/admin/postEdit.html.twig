@@ -12,29 +12,20 @@
     <header class="card-header text-center mb-5">
         <h1 class="font-weight-bold">TABLEAU DE BORD</h1>
     </header>
-
     <main class="main bg-white mb-5" role="main">
-
         <div class="container mb-5">
-
             <div class="row">
                 <div class="col-sm-12">
                     <form class="d-flex flex-column mb-5" action="" method="post" id="postForm">
                         <input type="hidden" name="postId" value="{% if postId %}{{ postId }}{% endif %}" />
-
                         <div class="d-flex flex-column mb-5 bg-dark" style="border-bottom-right-radius: 100px; border-top-right-radius: 100px;">
-
                             <div class="d-flex justify-content-between align-items-center">
-
                                 {% if postId %}
                                     <div>
                                         <div class="d-flex px-3 pb-1 pt-3 text-white bg-dark">
-
                                             <i class="fas fa-edit fa-lg text-warning"></i>&nbsp;&nbsp;&nbsp;
                                             <span class="font-weight-bold" style="padding-top: .10em">EDITION DE L'ARTICLE<span class="font-weight-bold text-warning">&nbsp;&nbsp;#&nbsp;{{ postId }}</span></span>
-
                                         </div>
-
                                         <div class="d-flex px-3 pt-3 pb-3 text-white bg-dark">
                                             {% if message %}
                                                 <i class="far fa-thumbs-up fa-lg mt-1"></i><span class="font-weight-bold mt-1">&nbsp;&nbsp;&nbsp;{{ message }} </span>
@@ -51,12 +42,9 @@
                                 {% else %}
                                     <div>
                                         <div class="d-flex px-3 pb-1 pt-3 text-white bg-dark">
-
                                             <i class="fas fa-edit fa-lg text-warning"></i>&nbsp;&nbsp;&nbsp;
                                             <span class="font-weight-bold" style="padding-top: .10em">NOUVEL ARTICLE</span>
-
                                         </div>
-
                                         <div class="d-flex px-3 pt-2 pb-3 text-white bg-dark">
                                             {% if message %}
                                                 <i class="far fa-thumbs-up fa-lg mt-1"></i><span class="font-weight-bold mt-1">&nbsp;&nbsp;&nbsp;{{ message }} </span>
@@ -67,29 +55,21 @@
                                         </div>
                                     </div>
                                 {% endif %}
-
-                                <div>
-                                    <i class="fas fa-info-circle fa-3x mr-4 text-light"></i>
-                                </div>
-
+                                <div><i class="fas fa-info-circle fa-3x mr-4 text-light"></i></div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="title">Titre</label>
                             <input type="text" class="form-control form-control-lg" name="title" value="{% if postTitle %} {{ postTitle|trim }} {% endif %}" placeholder="Titre de l'article" required>
                         </div>
-
                         <div class="form-group">
                             <label for="route">Route</label>
                             <input type="text" class="form-control form-control-lg" name="route" value="{% if postRoute %} {{ postRoute|trim }} {% endif %}" placeholder="Route de l'article" required>
                         </div>
-
                         <div class="form-group">
                             <label for="author">Auteur</label>
                             <input type="text" class="form-control form-control-lg" name="author" value="{% if postAuthor %} {{ postAuthor|trim }} {% endif %}" placeholder="Auteur de l'article" required>
                         </div>
-
                         <div class="form-group">
                             <label for="content">Contenu</label>
                             <div class="editor">
@@ -98,214 +78,16 @@
                                 </div>
                             </div>
                         </div>
-
                         <input type="hidden" name="content" id="contentField" value="" required/>
-
                         <button type="submit" class="btn btn-warning rounded-pill shadow mw-25 align-self-end" name="publish" value="Publier">Publier</button>
                     </form>
                 </div>
             </div>
         </div>
-
-
         {% if postId %}
-
-        <div class="container bg-light p-3 mt-5" style="border-radius: 5px;">
-
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="p-3"><i class="fas fa-edit fa-lg text-dark"></i>&nbsp;&nbsp;Commentaires</h5>
-                <span class="font-weight-bold text-warning mr-4"> {{ editMessage }} </span>
-            </div>
-
-            <div class="accordion" id="commentsListEdition">
-
-                <div class="card">
-                    <div class="card-header bg-dark shadow mb-3" id="headingOne" style="border-radius: 5px; border-top-right-radius: 100px; border-bottom-right-radius: 100px;">
-                        <h2 class="mb-0">
-                            <button class="btn text-white text-decoration-none w-100" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fas fa-comment-dots fa-lg text-white"></i>&nbsp;&nbsp;&nbsp;Modération</div>
-                                    {% if commentsPendingList %}
-                                        {% for comment in commentsPendingList %}
-                                            {% if loop.last %}
-                                                <div class="d-flex justify-content-center align-items-center text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;"> {{ loop.length }} </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class="text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">0</div>
-                                    {% endif %}
-                                </div>
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#commentsListEdition">
-                        {% for comment in commentsPendingList %}
-
-                            <div class="media rounded bg-light mb-1 mt-4">
-                                <div class="media-body text-justify">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-between card-meta">
-                                        <div>
-                                            <span class="text-muted font-italic font-weight-bold">Auteur :&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
-                                        </div>
-                                        <div>
-                                            <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
-                                        </div>
-                                    </div>
-                                    <p class="mt-3 mb-2">{{ comment.commentContent }}</p>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center {% if loop.last %} border-0 mb-3 {% else %} pb-4 border-bottom border-dark {% endif %}">
-
-                                <a class="ml-3 bg-dark d-flex justify-content-center align-items-center" style="width: 30px; height: 30px; border: solid 1px transparent; border-radius: 100px;" href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-light"></i></a>
-
-                                <div class="d-flex justify-content-end py-2 text-white bg-transparent">
-                                    <div class="d-flex">
-                                        <form action="" method="post" id="publishComment">
-                                            <input type="hidden" name="publishAction" value="publishAction" />
-                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
-                                            <button type="submit" class="btn nav-link text-uppercase px-3 font-weight-bolder text-warning bg-transparent border-left-0 border-top-0 border-bottom-0 border-right border-dark" name="publishComment" value="Publier">Publier</button>
-                                        </form>
-
-                                        <form action="" method="post" id="deleteComment">
-                                            <input type="hidden" name="deleteAction" value="deleteAction" />
-                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
-                                            <button type="submit" class="btn nav-link text-uppercase px-3 font-weight-bolder text-warning bg-transparent border-0" name="" value="">Effacer</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-
-                <div class="card border-bottom-0">
-                    <div class="card-header bg-dark shadow mb-3" id="headingTwo" style="border-radius: 5px; border-top-right-radius: 100px; border-bottom-right-radius: 100px;">
-                        <h2 class="mb-0 border-bottom-0">
-                            <button class="btn text-white text-decoration-none w-100" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fas fa-comment-slash fa-lg text-white ml-n1"></i>&nbsp;&nbsp;&nbsp;Retirés</div>
-                                    {% if disableCommentsList %}
-                                        {% for comment in disableCommentsList %}
-                                            {% if loop.last %}
-                                                <div class="d-flex justify-content-center align-items-center text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;"> {{ loop.length }} </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class="text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">0</div>
-                                    {% endif %}
-                                </div>
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#commentsListEdition">
-                        {% for comment in disableCommentsList %}
-
-                            <div class="media rounded bg-light mb-1 mt-4">
-                                <div class="media-body text-justify">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-between card-meta">
-                                        <div>
-                                            <span class="text-muted font-italic font-weight-bold">Auteur :&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
-                                        </div>
-                                        <div>
-                                            <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
-                                        </div>
-                                    </div>
-                                    <p class="mt-3 mb-2">{{ comment.commentContent }}</p>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center {% if loop.last %} border-0 mb-3 {% else %} pb-4 border-bottom border-dark {% endif %}">
-
-                                <a class="ml-3 bg-dark d-flex justify-content-center align-items-center" style="width: 30px; height: 30px; border: solid 1px transparent; border-radius: 100px;" href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-light"></i></a>
-
-                                <div class="d-flex justify-content-end py-2 text-white bg-transparent">
-                                    <div class="d-flex">
-                                        <form action="" method="post" id="publishComment">
-                                            <input type="hidden" name="publishAction" value="publishAction" />
-                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
-                                            <button type="submit" class="btn nav-link text-uppercase px-3 font-weight-bolder text-warning bg-transparent border-left-0 border-top-0 border-bottom-0 border-right border-dark" name="publishComment" value="Publier">Publier</button>
-                                        </form>
-
-                                        <form action="" method="post" id="deleteComment">
-                                            <input type="hidden" name="deleteAction" value="deleteAction" />
-                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
-                                            <button type="submit" class="btn nav-link text-uppercase px-3 font-weight-bolder text-warning bg-transparent border-0" name="" value="">Effacer</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-
-                <div class="card border-bottom-0">
-                    <div class="card-header bg-dark shadow mb-3" id="headingThree" style="border-radius: 5px; border-top-right-radius: 100px; border-bottom-right-radius: 100px;">
-                        <h2 class="mb-0 border-bottom-0">
-                            <button class="btn text-white text-decoration-none w-100" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fas fa-comments fa-lg text-white"></i>&nbsp;&nbsp;&nbsp;Publiés</div>
-                                    {% if publishedCommentsList %}
-                                        {% for comment in publishedCommentsList %}
-                                            {% if loop.last %}
-                                                <div class="d-flex justify-content-center align-items-center text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;"> {{ loop.length }} </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class="text-warning font-weight-bold lead" style="padding-left: .1em; width: 30px; height: 30px; border: white solid 2px; -webkit-border-radius: 100px;-moz-border-radius: 100px;border-radius: 100px;">0</div>
-                                    {% endif %}
-                                </div>
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#commentsListEdition">
-                        {% for comment in publishedCommentsList %}
-
-                            <div class="media rounded bg-light mb-1 mt-4">
-                                <div class="media-body text-justify">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-between card-meta">
-                                        <div>
-                                            <span class="text-muted font-italic font-weight-bold">Auteur :&nbsp;</span>&nbsp;{{ comment.commentAuthorName }}
-                                        </div>
-                                        <div>
-                                            <span class="text-muted font-italic font-weight-bold">Publié le :&nbsp;</span>&nbsp;{{ comment.commentLastUpdateTimestamp|date("d/m/Y") }}
-                                        </div>
-                                    </div>
-                                    <p class="mt-3 mb-2">{{ comment.commentContent }}</p>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center {% if loop.last %} border-0 mb-3 {% else %} pb-4 border-bottom border-dark {% endif %}">
-
-                                <a class="ml-3 bg-dark d-flex justify-content-center align-items-center" style="width: 30px; height: 30px; border: solid 1px transparent; border-radius: 100px;" href="mailto:{{ comment.commentAuthorEmail }}"><i class="fas fa-envelope text-light"></i></a>
-
-                                <div class="d-flex justify-content-end py-2 text-white bg-transparent">
-                                    <div class="d-flex">
-                                        <form action="" method="post" id="publishComment">
-                                            <input type="hidden" name="disableAction" value="disableAction" />
-                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
-                                            <button type="submit" class="btn nav-link text-uppercase px-3 font-weight-bolder text-warning bg-transparent border-left-0 border-top-0 border-bottom-0 border-right border-dark" name="publishComment" value="Publier">Retirer</button>
-                                        </form>
-
-                                        <form action="" method="post" id="deleteComment">
-                                            <input type="hidden" name="deleteAction" value="deleteAction" />
-                                            <input type="hidden" name="commentId" value=" {{ comment.commentId }} " />
-                                            <button type="submit" class="btn nav-link text-uppercase px-3 font-weight-bolder text-warning bg-transparent border-0" name="" value="">Effacer</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-            </div><!-- accordion -->
-
-        </div><!-- container -->{% endif %}
+            {{ include('admin/commentEdit.html.twig') }}
+        {% endif %}
     </main>
-
     <script language="JavaScript">
         $(document).ready(function() {
             $("#postForm").submit(function(event){
