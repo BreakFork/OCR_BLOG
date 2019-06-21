@@ -112,7 +112,7 @@ class User
     }
 
     /**
-     * Set the id of the user
+     * Sets the id of the user
      *
      * @param integer $id
      */
