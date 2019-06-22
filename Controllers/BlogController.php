@@ -15,6 +15,7 @@ namespace Controllers;
 
 use Models\Post;
 use Models\Comment;
+use Models\Visitor;
 
 /**
  * Controller for the blog pages of the site
@@ -44,6 +45,28 @@ class BlogController extends Controller
             "postList.html.twig",
             array(
                 'userPostList' => $postList
+            )
+        );
+    }
+
+    /**
+     * Controller method to display the sign in/sign up form for visitors
+     *
+     * @return void
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function visitorLoginPage(): void
+    {
+        $signInErrorMessage = null;
+        $signUpErrorMessage = null;
+
+        echo $this->render("login.html.twig",
+            array(
+                'signInErrorMessage' => $signInErrorMessage,
+                'signUpErrorMessage' => $signUpErrorMessage
             )
         );
     }

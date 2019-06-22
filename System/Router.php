@@ -33,6 +33,9 @@ try {
     } elseif (preg_match('/\/post\/([A-Za-z0-9-]+)/m', $path, $matches)) {
         $controller = new BlogController();
         $controller->post($matches[1]);
+    } elseif ($path === "/login") {
+        $login = new BlogController();
+        $login->visitorLoginPage();
     } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
