@@ -63,12 +63,38 @@ class BlogController extends Controller
         $signInErrorMessage = null;
         $signUpErrorMessage = null;
 
+        if (isset($_POST['visitorPseudo']) && isset($_POST['visitorPassword'])) {
+            $visitorPseudo       = $_POST['visitorPseudo'];
+            $visitorPasswordHash = $_POST['visitorPassword'];
+            $visitor = Visitor::getVisitor($visitorPseudo, $visitorPasswordHash);
+
+            if ($visitor !== null) {
+                $_SESSION['visitor'] = $_POST['visitorPseudo'];
+                header("Location: /");
+            } else {
+                $signInErrorMessage = 'Ces identifiants sont incorrects';
+            }
+        }
+
         echo $this->render("login.html.twig",
             array(
                 'signInErrorMessage' => $signInErrorMessage,
                 'signUpErrorMessage' => $signUpErrorMessage
             )
         );
+    }
+
+
+
+    /**
+     * Controller method for logout a visitor
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        session_unset();
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
 
     /**
@@ -103,6 +129,8 @@ class BlogController extends Controller
             }
 
             $submitMessage = null;
+
+
 
             if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
                 $submitMessage = "Veuillez remplir tous les champs.";

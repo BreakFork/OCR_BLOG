@@ -45,6 +45,9 @@ try {
     } elseif (preg_match('/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
         $editPost = new AdminController();
         $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
+    } elseif ($path === "/logout") {
+        $visitorLogout = new BlogController();
+        $visitorLogout->logout();
     } elseif ($path === "/admin/logout") {
         $logout = new AdminController();
         $logout->logoutPage();

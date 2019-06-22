@@ -65,6 +65,7 @@ class Controller
     protected function render(string $page, $args = array()):string
     {
         $args["user"] = isset($_SESSION["user"]) ? $_SESSION["user"] : null;
+        $args["visitor"] = isset($_SESSION["visitor"]) ? $_SESSION["visitor"] : null;
 
         return $this->twig->render($page, $args);
     }
