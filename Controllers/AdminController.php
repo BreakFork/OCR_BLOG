@@ -48,6 +48,9 @@ class AdminController extends Controller
             $user = User::getUser($username, $password);
 
             if ($user !== null) {
+                if (isset($_SESSION['visitor'])) {
+                    session_unset();
+                }
                 $_SESSION['user'] = $_POST['username'];
                 header("Location: /admin");
             } else {

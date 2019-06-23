@@ -71,6 +71,9 @@ class BlogController extends Controller
             $visitor = Visitor::getVisitor($visitorPseudo, $visitorPasswordHash);
 
             if ($visitor !== null) {
+                if (isset($_SESSION['user'])) {
+                    session_unset();
+                }
                 $_SESSION['visitor']      = $_POST['visitorPseudo'];
                 $email   = $visitor->getVisitorEmail();
                 $_SESSION['visitorEmail'] = $email;
@@ -105,6 +108,9 @@ class BlogController extends Controller
                    $this->redirectTo404ErrorPage();
                }
 
+               if (isset($_SESSION['user'])) {
+                   session_unset();
+               }
                $_SESSION['visitor']      = $pseudo;
                $_SESSION['visitorEmail'] = $email;
                header("Location: /");
