@@ -69,10 +69,10 @@ class BlogController extends Controller
             $visitorPseudo       = $_POST['visitorPseudo'];
             $visitorPasswordHash = $_POST['visitorPassword'];
             $visitor = Visitor::getVisitor($visitorPseudo, $visitorPasswordHash);
-            $email   = $visitor->getVisitorEmail();
 
             if ($visitor !== null) {
                 $_SESSION['visitor']      = $_POST['visitorPseudo'];
+                $email   = $visitor->getVisitorEmail();
                 $_SESSION['visitorEmail'] = $email;
                 header("Location: /");
             } else {
@@ -163,11 +163,11 @@ class BlogController extends Controller
 
             $submitMessage = null;
 
-            if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
-                $submitMessage = "Veuillez remplir tous les champs.";
-            } elseif (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
-                $commentAuthorName          = $_POST['name'];
-                $commentAuthorEmail         = $_POST['email'];
+            if (empty($_POST['content'])) {
+                $submitMessage = "La validation d'un commentaire peut prendre un certain temps...\nVotre adresse mail ne sera pas publiée.";
+            } elseif (isset($_POST['content'])) {
+                $commentAuthorName          = $_SESSION['visitor'];
+                $commentAuthorEmail         = $_SESSION['visitorEmail'];
                 $commentContent             = $_POST['content'];
                 $commentLastUpdateTimestamp = time();
 

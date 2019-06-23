@@ -48,11 +48,17 @@
                                     <label for="firstname">Prénom</label>
                                     <input type="text" class="form-control font-italic" name="firstname" id="firstname" placeholder="Prénom" required>
                                 </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="email">Adresse Email</label>
-                                    <input type="email" class="form-control font-italic" name="email" id="email" placeholder="Adresse Email" required>
-                                </div>
+                                {% if visitor %}
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Adresse Email</label>
+                                        <input type="email" class="form-control font-italic" name="email" id="email" placeholder="Adresse Email" value= {{ visitorEmail }}>
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Adresse Email</label>
+                                        <input type="email" class="form-control font-italic" name="email" id="email" placeholder="Adresse Email" required>
+                                    </div>
+                                {% endif %}
 
                                 <div class="form-group col-md-6">
                                     <label for="societe">Société</label>
