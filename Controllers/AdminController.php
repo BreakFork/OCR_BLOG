@@ -54,7 +54,7 @@ class AdminController extends Controller
                 $_SESSION['user'] = $_POST['username'];
                 header("Location: /admin");
             } else {
-                $errorMessage = "Vos identifiants sont incorrects. Veuillez réessayer.";
+                $errorMessage = "Vos identifiants sont incorrects.";
             }
         }
 
