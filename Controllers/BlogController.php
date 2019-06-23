@@ -74,9 +74,13 @@ class BlogController extends Controller
                 if (isset($_SESSION['user'])) {
                     session_unset();
                 }
-                $_SESSION['visitor']      = $_POST['visitorPseudo'];
-                $email   = $visitor->getVisitorEmail();
-                $_SESSION['visitorEmail'] = $email;
+                $email     = $visitor->getVisitorEmail();
+                $firstName = $visitor->getVisitorFirstName();
+                $lastName  = $visitor->getVisitorLastName();
+                $_SESSION['visitor']          = $_POST['visitorPseudo'];
+                $_SESSION['visitorEmail']     = $email;
+                $_SESSION['visitorFirstName'] = $firstName;
+                $_SESSION['VisitorLastName']  = $lastName;
                 header("Location: /");
             } else {
                 $signInErrorMessage = 'Ces identifiants sont incorrects';
@@ -84,10 +88,16 @@ class BlogController extends Controller
         }
         //_________________________________________________________________________SIGN UP
 
-        if (isset($_POST['newVisitorEmail']) && isset($_POST['newVisitorPseudo']) && isset($_POST['newVisitorPassword'])) {
-           $email    = $_POST['newVisitorEmail'];
-           $pseudo   = $_POST['newVisitorPseudo'];
-           $password = $_POST['newVisitorPassword'];
+        if (isset($_POST['newVisitorFirstName'])
+           && isset($_POST['newVisitorLastName'])
+           && isset($_POST['newVisitorEmail'])
+           && isset($_POST['newVisitorPseudo'])
+           && isset($_POST['newVisitorPassword'])) {
+           $firstName = $_POST['newVisitorFirstName'];
+           $lastName  = $_POST['newVisitorLastName'];
+           $email     = $_POST['newVisitorEmail'];
+           $pseudo    = $_POST['newVisitorPseudo'];
+           $password  = $_POST['newVisitorPassword'];
 
            $newVisitor = Visitor::ifIdentifiersAreValid($email, $pseudo);
 
@@ -96,6 +106,8 @@ class BlogController extends Controller
            } else {
                $newVisitor = new Visitor();
 
+               $newVisitor->setVisitorFirstName(trim($firstName));
+               $newVisitor->setVisitorLastName(trim($lastName));
                $newVisitor->setVisitorEmail(trim($email));
                $newVisitor->setVisitorPseudo(trim($pseudo));
 
@@ -113,6 +125,8 @@ class BlogController extends Controller
                }
                $_SESSION['visitor']      = $pseudo;
                $_SESSION['visitorEmail'] = $email;
+               $_SESSION['visitorFirstName'] = $firstName;
+               $_SESSION['VisitorLastName']  = $lastName;
                header("Location: /");
            }
         }

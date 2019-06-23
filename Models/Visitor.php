@@ -43,9 +43,25 @@ class Visitor
     protected $visitorId;
 
     /**
+     * The first name of the visitor
+     *
+     * @var string $visitorFirstName The first name of the user
+     * @Column(type="string")
+     */
+    protected $visitorFirstName;
+
+    /**
+     * The last name of the visitor
+     *
+     * @var string $visitorLastName The last name of the user
+     * @Column(type="string")
+     */
+    protected $visitorLastName;
+
+    /**
      * The pseudo of the visitor
      *
-     * @var string visitorPseudo the pseudo of the user
+     * @var string visitorPseudo The pseudo of the user
      * @Column(type="string")
      */
     private $visitorPseudo;
@@ -53,7 +69,7 @@ class Visitor
     /**
      * The hash of the visitor's password
      *
-     * @var string $visitorPasswordHash the hash of the password
+     * @var string $visitorPasswordHash The hash of the password
      * @Column(type="string")
      */
     private static $visitorPasswordHash;
@@ -61,7 +77,7 @@ class Visitor
     /**
      * The email adress of the visitor
      *
-     * @var string $visitorEmail the email of the visitor
+     * @var string $visitorEmail The email of the visitor
      * @Column(type="string")
      */
     protected $visitorEmail;
@@ -181,6 +197,46 @@ class Visitor
     public function setVisitorId($visitorId)
     {
         $this->visitorId = $visitorId;
+    }
+
+    /**
+     * Returns first name of the visitor
+     *
+     * @return string The first name of the visitor
+     */
+    public function getVisitorFirstName(): string
+    {
+        return $this->visitorFirstName;
+    }
+
+    /**
+     * Sets first name of the visitor
+     *
+     * @param string $visitorFirstName
+     */
+    public function setVisitorFirstName(string $visitorFirstName): void
+    {
+        $this->visitorFirstName = $visitorFirstName;
+    }
+
+    /**
+     * Returns last name of the visitor
+     *
+     * @return string The last name of the visitor
+     */
+    public function getVisitorLastName(): string
+    {
+        return $this->visitorLastName;
+    }
+
+    /**
+     * Sets last name of the visitor
+     *
+     * @param string $visitorFirstName
+     */
+    public function setVisitorLastName(string $visitorLastName): void
+    {
+        $this->visitorLastName = $visitorLastName;
     }
 
     /**

@@ -60,7 +60,7 @@ class PageController extends Controller
 
             $sendMessage = 'Votre message a bien été envoyé';
         } else {
-            $sendMessage = "Une question ? Un commentaire ? N'hésitez pas à laisser un message.";
+            $sendMessage = "Une question ? Un commentaire ?  N'hésitez pas à laisser un message.";
         }
 
         echo $this->render("index.html.twig", array('sendMessage' => $sendMessage));
