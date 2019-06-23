@@ -33,6 +33,9 @@ try {
     } elseif (preg_match('/\/post\/([A-Za-z0-9-]+)/m', $path, $matches)) {
         $controller = new BlogController();
         $controller->post($matches[1]);
+    } elseif ($path === "/login") {
+        $login = new BlogController();
+        $login->visitorLoginPage();
     } elseif ($path === "/admin/login") {
         $log = new AdminController();
         $log->loginPage();
@@ -42,6 +45,9 @@ try {
     } elseif (preg_match('/\/admin\/postEdit(\/([\d]*)){0,1}/m', $path, $matches)) {
         $editPost = new AdminController();
         $editPost->postEdit(count($matches) >= 3 ? $matches[2] : null);
+    } elseif ($path === "/logout") {
+        $visitorLogout = new BlogController();
+        $visitorLogout->logout();
     } elseif ($path === "/admin/logout") {
         $logout = new AdminController();
         $logout->logoutPage();

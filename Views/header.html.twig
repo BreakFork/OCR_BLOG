@@ -17,7 +17,7 @@
                         <a class="nav-link" href="/postList">Articles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Public/pdf/CV_OCR.pdf" target="_blank">Curriculum Vitae</a>
+                        <a class="nav-link" href="/Public/pdf/CV_OCR.pdf" target="_blank">Parcours</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/BreakFork"><i class="fab fa-github"></i></a>
@@ -25,6 +25,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="https://www.linkedin.com/in/hervé-boulangué-392915b1/"><i class="fab fa-linkedin"></i></a>
                     </li>
+                    {% if visitor %}
+                        <li class="nav-item">
+                            <span class="nav-link text-primary ml-md-2"><i class="fas fa-user fa-lg mr-2" style="margin-bottom: .03em;"></i><span class="text-dark"> {{ visitor }} </span></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary border-lg-dark border-lg-left" href="/logout"><i class="fas fa-sign-out-alt fa-lg mr-2"></i><span class="text-dark">Logout</span></a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/login"><i class="fas fa-sign-in-alt fa-lg mr-2" style="margin-bottom: .03em;"></i>LOGIN</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
             </div>

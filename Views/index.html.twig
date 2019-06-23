@@ -33,26 +33,45 @@
                             </p>
                         </div>
 
-                        <h4 class="mb-5 text-center">Contact</h4>
+                        <h4 class="mb-4 text-center">Contact</h4>
 
-                        <div class="text-dark font-weight-bold font-italic"> {{ sendMessage }} </div><br>
+                        <div class="text-dark font-weight-bold font-italic"> {{ sendMessage|nl2br }} </div><br>
 
                         <form class="d-flex flex-column" action="" method="post" id="contactForm">
                             <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="lastname">Nom</label>
-                                    <input type="text" class="form-control font-italic" name="lastname" id="lastname" placeholder="Nom" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="firstname">Prénom</label>
-                                    <input type="text" class="form-control font-italic" name="firstname" id="firstname" placeholder="Prénom" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="email">Adresse Email</label>
-                                    <input type="email" class="form-control font-italic" name="email" id="email" placeholder="Adresse Email" required>
-                                </div>
+                                {% if visitor %}
+                                    <div class="form-group col-md-6">
+                                        <label for="lastname">Nom</label>
+                                        <input type="text" class="form-control font-italic" name="lastname" id="lastname" placeholder= {{ visitorLastName }}>
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-md-6">
+                                        <label for="lastname">Nom</label>
+                                        <input type="text" class="form-control font-italic" name="lastname" id="lastname" placeholder="Nom" required>
+                                    </div>
+                                {% endif %}
+                                {% if visitor %}
+                                    <div class="form-group col-md-6">
+                                        <label for="firstname">Prénom</label>
+                                        <input type="text" class="form-control font-italic" name="firstname" id="firstname" placeholder= {{ visitorFirstName }}>
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-md-6">
+                                        <label for="firstname">Prénom</label>
+                                        <input type="text" class="form-control font-italic" name="firstname" id="firstname" placeholder="Prénom" required>
+                                    </div>
+                                {% endif %}
+                                {% if visitor %}
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Adresse Email</label>
+                                        <input type="email" class="form-control font-italic" name="email" id="email" placeholder="Adresse Email" value= {{ visitorEmail }}>
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Adresse Email</label>
+                                        <input type="email" class="form-control font-italic" name="email" id="email" placeholder="Adresse Email" required>
+                                    </div>
+                                {% endif %}
 
                                 <div class="form-group col-md-6">
                                     <label for="societe">Société</label>

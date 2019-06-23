@@ -15,6 +15,7 @@ namespace Controllers;
 
 use Models\Post;
 use Models\Comment;
+use Models\Visitor;
 
 /**
  * Controller for the blog pages of the site
@@ -46,6 +47,108 @@ class BlogController extends Controller
                 'userPostList' => $postList
             )
         );
+    }
+
+    /**
+     * Controller method to display the sign in/sign up form for visitors
+     *
+     * @return void
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function visitorLoginPage(): void
+    {
+        $signInErrorMessage = null;
+        $signUpErrorMessage = null;
+
+        //_________________________________________________________________________SIGN IN
+
+        if (isset($_POST['visitorPseudo']) && isset($_POST['visitorPassword'])) {
+            $visitorPseudo       = $_POST['visitorPseudo'];
+            $visitorPasswordHash = $_POST['visitorPassword'];
+            $visitor = Visitor::getVisitor($visitorPseudo, $visitorPasswordHash);
+
+            if ($visitor !== null) {
+                if (isset($_SESSION['user'])) {
+                    session_unset();
+                }
+                $email     = $visitor->getVisitorEmail();
+                $firstName = $visitor->getVisitorFirstName();
+                $lastName  = $visitor->getVisitorLastName();
+                $_SESSION['visitor']          = $_POST['visitorPseudo'];
+                $_SESSION['visitorEmail']     = $email;
+                $_SESSION['visitorFirstName'] = $firstName;
+                $_SESSION['VisitorLastName']  = $lastName;
+                header("Location: /");
+            } else {
+                $signInErrorMessage = 'Ces identifiants sont incorrects';
+            }
+        }
+        //_________________________________________________________________________SIGN UP
+
+        if (isset($_POST['newVisitorFirstName'])
+           && isset($_POST['newVisitorLastName'])
+           && isset($_POST['newVisitorEmail'])
+           && isset($_POST['newVisitorPseudo'])
+           && isset($_POST['newVisitorPassword'])) {
+            $firstName = $_POST['newVisitorFirstName'];
+            $lastName  = $_POST['newVisitorLastName'];
+            $email     = $_POST['newVisitorEmail'];
+            $pseudo    = $_POST['newVisitorPseudo'];
+            $password  = $_POST['newVisitorPassword'];
+
+            $newVisitor = Visitor::ifIdentifiersAreValid($email, $pseudo);
+
+            if ($newVisitor !==null) {
+                $signUpErrorMessage = "Un de ces identifiants est déjà utilisé...";
+            } else {
+                $newVisitor = new Visitor();
+
+                $newVisitor->setVisitorFirstName(trim($firstName));
+                $newVisitor->setVisitorLastName(trim($lastName));
+                $newVisitor->setVisitorEmail(trim($email));
+                $newVisitor->setVisitorPseudo(trim($pseudo));
+
+                $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+                $newVisitor->setVisitorPasswordHash(trim($passwordHash));
+
+                try {
+                    $newVisitor->persist();
+                } catch (\Exception $e) {
+                    $this->redirectTo404ErrorPage();
+                }
+
+                if (isset($_SESSION['user'])) {
+                    session_unset();
+                }
+                $_SESSION['visitor']      = $pseudo;
+                $_SESSION['visitorEmail'] = $email;
+                $_SESSION['visitorFirstName'] = $firstName;
+                $_SESSION['VisitorLastName']  = $lastName;
+                header("Location: /");
+            }
+        }
+
+        echo $this->render(
+            "login.html.twig",
+            array(
+                'signInErrorMessage' => $signInErrorMessage,
+                'signUpErrorMessage' => $signUpErrorMessage
+            )
+        );
+    }
+
+    /**
+     * Controller method for logout a visitor
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        session_unset();
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
 
     /**
@@ -81,11 +184,11 @@ class BlogController extends Controller
 
             $submitMessage = null;
 
-            if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
-                $submitMessage = "Veuillez remplir tous les champs.";
-            } elseif (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['content'])) {
-                $commentAuthorName          = $_POST['name'];
-                $commentAuthorEmail         = $_POST['email'];
+            if (empty($_POST['content'])) {
+                $submitMessage = "La validation d'un commentaire peut prendre un certain temps...\nVotre adresse mail ne sera pas publiée.";
+            } elseif (isset($_POST['content'])) {
+                $commentAuthorName          = $_SESSION['visitor'];
+                $commentAuthorEmail         = $_SESSION['visitorEmail'];
                 $commentContent             = $_POST['content'];
                 $commentLastUpdateTimestamp = time();
 
