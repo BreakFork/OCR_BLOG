@@ -93,45 +93,46 @@ class BlogController extends Controller
            && isset($_POST['newVisitorEmail'])
            && isset($_POST['newVisitorPseudo'])
            && isset($_POST['newVisitorPassword'])) {
-           $firstName = $_POST['newVisitorFirstName'];
-           $lastName  = $_POST['newVisitorLastName'];
-           $email     = $_POST['newVisitorEmail'];
-           $pseudo    = $_POST['newVisitorPseudo'];
-           $password  = $_POST['newVisitorPassword'];
+            $firstName = $_POST['newVisitorFirstName'];
+            $lastName  = $_POST['newVisitorLastName'];
+            $email     = $_POST['newVisitorEmail'];
+            $pseudo    = $_POST['newVisitorPseudo'];
+            $password  = $_POST['newVisitorPassword'];
 
-           $newVisitor = Visitor::ifIdentifiersAreValid($email, $pseudo);
+            $newVisitor = Visitor::ifIdentifiersAreValid($email, $pseudo);
 
-           if ($newVisitor !==null) {
-               $signUpErrorMessage = "Un de ces identifiants est déjà utilisé...";
-           } else {
-               $newVisitor = new Visitor();
+            if ($newVisitor !==null) {
+                $signUpErrorMessage = "Un de ces identifiants est déjà utilisé...";
+            } else {
+                $newVisitor = new Visitor();
 
-               $newVisitor->setVisitorFirstName(trim($firstName));
-               $newVisitor->setVisitorLastName(trim($lastName));
-               $newVisitor->setVisitorEmail(trim($email));
-               $newVisitor->setVisitorPseudo(trim($pseudo));
+                $newVisitor->setVisitorFirstName(trim($firstName));
+                $newVisitor->setVisitorLastName(trim($lastName));
+                $newVisitor->setVisitorEmail(trim($email));
+                $newVisitor->setVisitorPseudo(trim($pseudo));
 
-               $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-               $newVisitor->setVisitorPasswordHash(trim($passwordHash));
+                $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+                $newVisitor->setVisitorPasswordHash(trim($passwordHash));
 
-               try {
-                   $newVisitor->persist();
-               } catch (\Exception $e) {
-                   $this->redirectTo404ErrorPage();
-               }
+                try {
+                    $newVisitor->persist();
+                } catch (\Exception $e) {
+                    $this->redirectTo404ErrorPage();
+                }
 
-               if (isset($_SESSION['user'])) {
-                   session_unset();
-               }
-               $_SESSION['visitor']      = $pseudo;
-               $_SESSION['visitorEmail'] = $email;
-               $_SESSION['visitorFirstName'] = $firstName;
-               $_SESSION['VisitorLastName']  = $lastName;
-               header("Location: /");
-           }
+                if (isset($_SESSION['user'])) {
+                    session_unset();
+                }
+                $_SESSION['visitor']      = $pseudo;
+                $_SESSION['visitorEmail'] = $email;
+                $_SESSION['visitorFirstName'] = $firstName;
+                $_SESSION['VisitorLastName']  = $lastName;
+                header("Location: /");
+            }
         }
 
-        echo $this->render("login.html.twig",
+        echo $this->render(
+            "login.html.twig",
             array(
                 'signInErrorMessage' => $signInErrorMessage,
                 'signUpErrorMessage' => $signUpErrorMessage
