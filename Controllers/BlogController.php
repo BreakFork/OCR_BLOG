@@ -63,17 +63,52 @@ class BlogController extends Controller
         $signInErrorMessage = null;
         $signUpErrorMessage = null;
 
+        //_________________________________________________________________________SIGN IN
+
         if (isset($_POST['visitorPseudo']) && isset($_POST['visitorPassword'])) {
             $visitorPseudo       = $_POST['visitorPseudo'];
             $visitorPasswordHash = $_POST['visitorPassword'];
             $visitor = Visitor::getVisitor($visitorPseudo, $visitorPasswordHash);
+            $email   = $visitor->getVisitorEmail();
 
             if ($visitor !== null) {
-                $_SESSION['visitor'] = $_POST['visitorPseudo'];
+                $_SESSION['visitor']      = $_POST['visitorPseudo'];
+                $_SESSION['visitorEmail'] = $email;
                 header("Location: /");
             } else {
                 $signInErrorMessage = 'Ces identifiants sont incorrects';
             }
+        }
+        //_________________________________________________________________________SIGN UP
+
+        if (isset($_POST['newVisitorEmail']) && isset($_POST['newVisitorPseudo']) && isset($_POST['newVisitorPassword'])) {
+           $email    = $_POST['newVisitorEmail'];
+           $pseudo   = $_POST['newVisitorPseudo'];
+           $password = $_POST['newVisitorPassword'];
+
+           $newVisitor = Visitor::ifIdentifiersAreValid($email, $pseudo);
+
+           if ($newVisitor !==null) {
+               $signUpErrorMessage = "Un de ces identifiants est déjà utilisé...";
+           } else {
+               $newVisitor = new Visitor();
+
+               $newVisitor->setVisitorEmail(trim($email));
+               $newVisitor->setVisitorPseudo(trim($pseudo));
+
+               $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+               $newVisitor->setVisitorPasswordHash(trim($passwordHash));
+
+               try {
+                   $newVisitor->persist();
+               } catch (\Exception $e) {
+                   $this->redirectTo404ErrorPage();
+               }
+
+               $_SESSION['visitor']      = $pseudo;
+               $_SESSION['visitorEmail'] = $email;
+               header("Location: /");
+           }
         }
 
         echo $this->render("login.html.twig",
@@ -83,8 +118,6 @@ class BlogController extends Controller
             )
         );
     }
-
-
 
     /**
      * Controller method for logout a visitor
@@ -129,8 +162,6 @@ class BlogController extends Controller
             }
 
             $submitMessage = null;
-
-
 
             if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['content'])) {
                 $submitMessage = "Veuillez remplir tous les champs.";

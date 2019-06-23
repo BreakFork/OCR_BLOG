@@ -59,16 +59,16 @@
                                         <span class="font-italic font-weight-bold text-primary pl-2">{{ message }}</span>
                                     </div>
                                 </div>
-                            </div><br><br>
+                            </div>
 
                             <form class="d-flex flex-column mt-4" action="" method="post" id="sendComment">
                                 <input type="hidden" id="postId" name="postId" value="{{ id }}">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Votre nom" required>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Votre nom" value= {{ visitor }}>
                                     </div><br><br>
                                     <div class="col-md-6">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Votre email" required>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Votre email" value= {{ visitorEmail }}>
                                     </div>
                                 </div>
                                 <textarea class="form-control mt-3" rows="3" id="content" name="content" placeholder="Votre commentaire..." required></textarea>

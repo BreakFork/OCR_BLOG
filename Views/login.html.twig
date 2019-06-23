@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
@@ -55,25 +54,25 @@
                         </p>
 
                         {% if signUpErrorMessage %}
-                            <p class="text-danger font-weight-bold mb-4">{{ error }}</p>
+                            <p class="text-danger font-weight-bold mb-4">{{ signUpErrorMessage }}</p>
                         {% else %}
                             <p class="text-primary font-weight-bold mb-4">Veuillez renseigner tous les champs.</p>
                         {% endif %}
 
                         <form class="d-flex flex-column" action="" method="post">
                             <div class="form-group">
-                                <label for="visitorEmail">Email</label>
-                                <input type="email" class="form-control font-italic" name="visitorEmail" id="visitorEmail" placeholder="Votre adresse email" required>
+                                <label for="newVisitorEmail">Email</label>
+                                <input type="email" class="form-control font-italic" name="newVisitorEmail" id="newVisitorEmail" placeholder="Votre adresse email" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="visitorPseudo">Pseudo</label>
-                                <input type="text" class="form-control font-italic" name="visitorPseudo" id="visitorPseudo" placeholder="Votre pseudo" required>
+                                <label for="newVisitorPseudo">Pseudo</label>
+                                <input type="text" class="form-control font-italic" name="newVisitorPseudo" id="newVisitorPseudo" placeholder="Votre pseudo" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="visitorPassword">Mot de passe</label>
-                                <input type="password" class="form-control font-italic" name="visitorPassword" id="visitorPassword" placeholder="Mot de passe" required>
+                                <label for="newVisitorPassword">Mot de passe</label>
+                                <input type="password" class="form-control font-italic" name="newVisitorPassword" id="newVisitorPassword" placeholder="Mot de passe" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary rounded-pill shadow mt-1 mw-25 align-self-end" name="signup" value="Envoyer">s'incrire</button>
@@ -85,5 +84,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

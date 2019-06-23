@@ -66,6 +66,7 @@ class Controller
     {
         $args["user"] = isset($_SESSION["user"]) ? $_SESSION["user"] : null;
         $args["visitor"] = isset($_SESSION["visitor"]) ? $_SESSION["visitor"] : null;
+        $args["visitorEmail"] = isset($_SESSION["visitorEmail"]) ? $_SESSION["visitorEmail"] : null;
 
         return $this->twig->render($page, $args);
     }
